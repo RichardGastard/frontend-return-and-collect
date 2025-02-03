@@ -1,1 +1,1 @@
-# return-and-collect
+# Frontend of the Return&Collect application
