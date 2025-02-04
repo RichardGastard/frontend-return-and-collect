@@ -10,6 +10,7 @@ import {
   Platform,
   ImageBackground,
   Image,
+  ScrollView,
 } from "react-native";
 import _FontAwesome from "react-native-vector-icons/FontAwesome";
 const FontAwesome = _FontAwesome as unknown as React.ElementType;
@@ -48,10 +49,16 @@ function HomeScreen() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+       <SafeAreaView style= {styles.container}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{flex:1}}
         >
+          <ScrollView
+          style={{overflow: "visible"}}
+          keyboardDismissMode="interactive"
+          keyboardShouldPersistTaps="handled"
+          >
           <View style={styles.logoView}>
             <Image
               source={require("../assets/logo-without-bg.png")}
@@ -145,8 +152,9 @@ function HomeScreen() {
               <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
             </View>
           </View>
+          </ScrollView>
         </KeyboardAvoidingView>
-      </SafeAreaView>
+        </SafeAreaView>
     </SafeAreaProvider>
   );
 }
