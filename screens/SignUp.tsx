@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Button,
   Text,
@@ -15,9 +15,10 @@ import InputText from "@/components/InputText";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-function HomeScreen({ navigation }) {
+function SignUp({ navigation }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const confirmPassword = useRef<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleSubmit = () => {
@@ -52,10 +53,7 @@ function HomeScreen({ navigation }) {
         </View>
         <View>
           <View style={styles.header}>
-            <Text style={styles.title}>Connexion</Text>
-            <Text style={styles.description}>
-              Bienvenue, entrez vos informations
-            </Text>
+            <Text style={styles.title}>Inscription</Text>
           </View>
           <View style={styles.inputs}>
             <View>
@@ -80,42 +78,26 @@ function HomeScreen({ navigation }) {
                 style={styles.input}
               />
             </View>
-          </View>
-          <View style={styles.tips}>
-            <View style={styles.checkbox}>
-              <Checkbox
-                value={isChecked}
-                onValueChange={() => handleRememberMe()}
+            <View>
+              <Text style={{ fontSize: 16, color: "#525252" }}>
+                Confirmation mot de passe
+              </Text>
+              <TextInput
+                onChangeText={(value) => setPassword(value)}
+                value={password}
+                placeholder="Confirmation..."
+                style={styles.input}
               />
-              <Text style={{ opacity: isChecked ? 1 : 0.2, color: "#525252" }}>
-                Se souvenir de moi
-              </Text>
             </View>
-            <TouchableOpacity>
-              <Text style={{ color: "#ff5252", opacity: 0.8 }}>
-                Mot de passe oublié ?
-              </Text>
-            </TouchableOpacity>
           </View>
           <View style={styles.connection}>
             <TouchableOpacity
               style={styles.connectionButton}
-              onPress={() => handleSubmit()}
-            >
-              <Text style={{ color: "white" }}>Se connecter</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.register}>
-            <Text style={{ color: "#525252" }}>Pas de compte?</Text>
-            <TouchableOpacity
               onPress={() => {
-                navigation.navigate("SignUp");
+                navigation.navigate("Account");
               }}
             >
-              <Text style={{ color: "#febbba", fontWeight: 500 }}>
-                Créez-en un
-              </Text>
+              <Text style={{ color: "white" }}>Suivant</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.footer}>
@@ -225,4 +207,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default SignUp;
