@@ -15,7 +15,7 @@ import InputText from "@/components/InputText";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
@@ -108,7 +108,11 @@ function HomeScreen() {
 
           <View style={styles.register}>
             <Text style={{ color: "#525252" }}>Pas de compte?</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("SignUp");
+              }}
+            >
               <Text style={{ color: "#febbba", fontWeight: 500 }}>
                 Créez-en un
               </Text>
