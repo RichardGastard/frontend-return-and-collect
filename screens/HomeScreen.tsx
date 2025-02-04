@@ -6,9 +6,13 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
   ImageBackground,
   Image,
 } from "react-native";
+import _FontAwesome from "react-native-vector-icons/FontAwesome";
+const FontAwesome = _FontAwesome as unknown as React.ElementType;
 
 import InputText from "@/components/InputText";
 
@@ -18,6 +22,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 function HomeScreen() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [pwdVisible, setPwdVisible] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleSubmit = () => {
@@ -25,7 +30,7 @@ function HomeScreen() {
   };
 
   // KEYBOARD AVOIDING VIEW
-  // HIDE THE PASSWORD WITH DOT
+  // HIDE THE PASSWORD WITH DOT => CHECK
 
   // CREATE FUNCTION TO CONNECT USER
   // CREATE FUNCTION TO CREATE USER
@@ -44,80 +49,103 @@ function HomeScreen() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View style={styles.logoView}>
-          <Image
-            source={require("../assets/logo-without-bg.png")}
-            style={styles.logo}
-          />
-        </View>
-        <View>
-          <View style={styles.header}>
-            <Text style={styles.title}>Connexion</Text>
-            <Text style={styles.description}>
-              Bienvenue, entrez vos informations
-            </Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <View style={styles.logoView}>
+            <Image
+              source={require("../assets/logo-without-bg.png")}
+              style={styles.logo}
+            />
           </View>
-          <View style={styles.inputs}>
-            <View>
-              <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
-              <TextInput
-                onChangeText={(value) => setEmail(value)}
-                value={email}
-                placeholder="Email..."
-                style={styles.input}
-                keyboardType="email-address"
-              />
+          <View>
+            <View style={styles.header}>
+              <Text style={styles.title}>Connexion</Text>
+              <Text style={styles.description}>
+                Bienvenue, entrez vos informations
+              </Text>
+            </View>
+            <View style={styles.inputs}>
+              <View>
+                <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
+                <TextInput
+                  onChangeText={(value) => setEmail(value)}
+                  value={email}
+                  placeholder="Email..."
+                  style={styles.input}
+                  keyboardType="email-address"
+                />
+              </View>
+
+              <View>
+                <Text style={{ fontSize: 16, color: "#525252" }}>
+                  Mot de passe
+                </Text>
+                <View style={styles.passwordInput}>
+                <TextInput
+                  onChangeText={(value) => setPassword(value)}
+                  secureTextEntry={!pwdVisible}
+                  value={password}
+                  placeholder="Mot de passe..."
+                  style={{
+                    flex: 1,
+                    borderColor: "#525252",
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    height: 35,
+                    paddingHorizontal: 10,
+                  }}
+                />
+                <View style={{position: "absolute",right: 10,}}>
+                  {pwdVisible ? (
+                    <FontAwesome size={22} name="eye" onPress={()=>{setPwdVisible(!pwdVisible)}}></FontAwesome >
+                  ) : (
+                    <FontAwesome size={22} name="eye-slash" onPress={()=>{setPwdVisible(!pwdVisible)}}></FontAwesome>
+                  )}
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.tips}>
+              <View style={styles.checkbox}>
+                <Checkbox
+                  value={isChecked}
+                  onValueChange={() => handleRememberMe()}
+                />
+                <Text
+                  style={{ opacity: isChecked ? 1 : 0.2, color: "#525252" }}
+                >
+                  Se souvenir de moi
+                </Text>
+              </View>
+              <TouchableOpacity>
+                <Text style={{ color: "#ff5252", opacity: 0.8 }}>
+                  Mot de passe oublié ?
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.connection}>
+              <TouchableOpacity
+                style={styles.connectionButton}
+                onPress={() => handleSubmit()}
+              >
+                <Text style={{ color: "white" }}>Se connecter</Text>
+              </TouchableOpacity>
             </View>
 
-            <View>
-              <Text style={{ fontSize: 16, color: "#525252" }}>
-                Mot de passe
-              </Text>
-              <TextInput
-                onChangeText={(value) => setPassword(value)}
-                value={password}
-                placeholder="Mot de passe..."
-                style={styles.input}
-              />
+            <View style={styles.register}>
+              <Text style={{ color: "#525252" }}>Pas de compte?</Text>
+              <TouchableOpacity>
+                <Text style={{ color: "#febbba", fontWeight: 500 }}>
+                  Créez-en un
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.footer}>
+              <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
             </View>
           </View>
-          <View style={styles.tips}>
-            <View style={styles.checkbox}>
-              <Checkbox
-                value={isChecked}
-                onValueChange={() => handleRememberMe()}
-              />
-              <Text style={{ opacity: isChecked ? 1 : 0.2, color: "#525252" }}>
-                Se souvenir de moi
-              </Text>
-            </View>
-            <TouchableOpacity>
-              <Text style={{ color: "#ff5252", opacity: 0.8 }}>
-                Mot de passe oublié ?
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.connection}>
-            <TouchableOpacity
-              style={styles.connectionButton}
-              onPress={() => handleSubmit()}
-            >
-              <Text style={{ color: "white" }}>Se connecter</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.register}>
-            <Text style={{ color: "#525252" }}>Pas de compte?</Text>
-            <TouchableOpacity>
-              <Text style={{ color: "#febbba", fontWeight: 500 }}>
-                Créez-en un
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.footer}>
-            <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
-          </View>
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -218,6 +246,10 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: "center",
     marginTop: 70,
+  },
+  passwordInput: {
+    flexDirection: "row",
+    alignItems: "center"
   },
 });
 
