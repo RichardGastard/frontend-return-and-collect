@@ -10,12 +10,13 @@ import {
 
 type InputTextProps = {
   placeholder: string;
+  name: string;
 };
 
 function InputText(props: InputTextProps) {
   return (
     <View style={styles.container}>
-      <TextInput placeholder={props.placeholder}></TextInput>;
+      <TextInput placeholder={props.placeholder} id={props.name}></TextInput>;
     </View>
   );
 }

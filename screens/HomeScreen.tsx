@@ -16,15 +16,15 @@ import Checkbox from "expo-checkbox"; // because Checkbox has been removed from 
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 function HomeScreen() {
-  const [email, setEmail] = useState<String>("");
-  const [password, setPassword] = useState<String>("");
-  const [isChecked, setIsChecked] = useState<Boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleSubmit = () => {
     console.log(email);
   };
 
-  const handleSelected = () => {
+  const handleRememberMe = () => {
     if (!isChecked) {
       setIsChecked(true);
     } else {
@@ -50,43 +50,64 @@ function HomeScreen() {
           </View>
           <View style={styles.inputs}>
             <View>
-              <Text style={{ fontSize: 16 }}>Email</Text>
+              <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
               <TextInput
                 onChangeText={(value) => setEmail(value)}
                 value={email}
-                placeholder="Mettre ton email..."
+                placeholder="Email..."
                 style={styles.input}
+                keyboardType="email-address"
               />
             </View>
 
             <View>
-              <Text style={{ fontSize: 16 }}>Mot de passe</Text>
+              <Text style={{ fontSize: 16, color: "#525252" }}>
+                Mot de passe
+              </Text>
               <TextInput
                 onChangeText={(value) => setPassword(value)}
                 value={password}
-                placeholder="Mettre ton mot de passe..."
+                placeholder="Mot de passe..."
                 style={styles.input}
               />
             </View>
           </View>
           <View style={styles.tips}>
-            <View>
-              <Checkbox value={isChecked} onValueChange={setIsChecked} />
-              <Text>Se souvenir de moi</Text>
+            <View style={styles.checkbox}>
+              <Checkbox
+                value={isChecked}
+                onValueChange={() => handleRememberMe()}
+              />
+              <Text style={{ opacity: isChecked ? 1 : 0.2, color: "#525252" }}>
+                Se souvenir de moi
+              </Text>
             </View>
             <TouchableOpacity>
-              <Text>Mot de passe oublié ?</Text>
+              <Text style={{ color: "#ff5252", opacity: 0.8 }}>
+                Mot de passe oublié ?
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.connection}>
+            <TouchableOpacity
+              style={styles.connectionButton}
+              onPress={() => handleSubmit()}
+            >
+              <Text style={{ color: "white" }}>Se connecter</Text>
             </TouchableOpacity>
           </View>
 
-          <Button title="Se connecter" onPress={() => handleSubmit()} />
-          <Button title="Connexion Google" />
-          <View>
+          <View style={styles.register}>
+            <Text style={{ color: "#525252" }}>Pas de compte?</Text>
             <TouchableOpacity>
-              <Text>Création de compte ?</Text>
+              <Text style={{ color: "#febbba", fontWeight: 500 }}>
+                Créez-en un
+              </Text>
             </TouchableOpacity>
           </View>
-          <InputText placeholder="jfjdkjfdk" />
+          <View style={styles.footer}>
+            <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
+          </View>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -97,6 +118,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fffbf0",
+    padding: 20,
   },
   image: {
     flex: 1,
@@ -104,15 +126,23 @@ const styles = StyleSheet.create({
     opacity: 30,
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16.0,
+
+    elevation: 24,
   },
   logoView: {
     alignItems: "center",
   },
   header: {
-    borderColor: "red",
-    borderWidth: 1,
+    marginLeft: 10,
   },
   title: {
     fontSize: 36,
@@ -149,6 +179,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     margin: 10,
+    marginTop: 25,
+  },
+  checkbox: {
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "center",
+  },
+  connection: {
+    width: "97%",
+    marginRight: "auto",
+    marginLeft: "auto",
+    marginTop: 30,
+  },
+  connectionButton: {
+    backgroundColor: "#febbba",
+    height: 45,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  register: {
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+  },
+  footer: {
+    alignItems: "center",
+    marginTop: 100,
   },
 });
 
