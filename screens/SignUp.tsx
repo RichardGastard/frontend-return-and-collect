@@ -6,106 +6,149 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
   Image,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Keyboard,
 } from "react-native";
 
-import InputText from "@/components/InputText";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
+import { useToggleConfirmPasswordVisibility } from "hook/useToggleConfirmPasswordVisibility";
 
 function SignUp({ navigation }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const confirmPassword = useRef<string>("");
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
+
+  const { confirmPasswordVisibility, icon, handleConfirmPasswordVisibility } =
+    useToggleConfirmPasswordVisibility();
 
   const handleSubmit = () => {
     console.log(email);
   };
 
-  // KEYBOARD AVOIDING VIEW
-  // HIDE THE PASSWORD WITH DOT
-
-  // CREATE FUNCTION TO CONNECT USER
-  // CREATE FUNCTION TO CREATE USER
-
-  // IMPORT FONTS (PUBLIC SANS BOLD & POPPINS)``
-  // IMPORT CONNECTION WITH GOOGLE
-
-  const handleRememberMe = () => {
-    if (!isChecked) {
-      setIsChecked(true);
-    } else {
-      setIsChecked(false);
-    }
-  };
-
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.logoView}>
-          <Image
-            source={require("../assets/logo-without-bg.png")}
-            style={styles.logo}
-          />
-        </View>
-        <View>
-          <View style={styles.header}>
-            <Text style={styles.title}>Inscription</Text>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          style={{ overflow: "visible" }}
+          keyboardDismissMode="interactive"
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.logoView}>
+            <Image
+              source={require("../assets/logo-without-bg.png")}
+              style={styles.logo}
+            />
           </View>
-          <View style={styles.inputs}>
-            <View>
-              <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
-              <TextInput
-                onChangeText={(value) => setEmail(value)}
-                value={email}
-                placeholder="Email..."
-                style={styles.input}
-                keyboardType="email-address"
-              />
+          <View>
+            <View style={styles.header}>
+              <Text style={styles.title}>Inscription</Text>
             </View>
+            <View style={styles.inputContainer}>
+              <View>
+                <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
+                <TextInput
+                  onChangeText={(value) => setEmail(value)}
+                  value={email}
+                  placeholder="Email..."
+                  style={styles.input}
+                  keyboardType="email-address"
+                  autoComplete="email"
+                />
+              </View>
 
-            <View>
-              <Text style={{ fontSize: 16, color: "#525252" }}>
-                Mot de passe
-              </Text>
-              <TextInput
-                onChangeText={(value) => setPassword(value)}
-                value={password}
-                placeholder="Mot de passe..."
-                style={styles.input}
-              />
+              <View>
+                <Text style={{ fontSize: 16, color: "#525252" }}>
+                  Mot de passe
+                </Text>
+                <View style={styles.passwordInput}>
+                  <TextInput
+                    onChangeText={(value) => setPassword(value)}
+                    value={password}
+                    placeholder="Mot de passe..."
+                    style={{
+                      flex: 1,
+                      borderColor: "#525252",
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      height: 35,
+                      paddingHorizontal: 10,
+                    }}
+                    secureTextEntry={passwordVisibility}
+                  />
+                  <Pressable
+                    onPress={handlePasswordVisibility}
+                    style={styles.icon}
+                  >
+                    <MaterialCommunityIcons
+                      name={rightIcon}
+                      size={22}
+                      color="#aaa"
+                    />
+                  </Pressable>
+                </View>
+              </View>
+              <View>
+                <Text style={{ fontSize: 16, color: "#525252" }}>
+                  Confirmation mot de passe
+                </Text>
+                <View style={styles.passwordInput}>
+                  <TextInput
+                    onChangeText={(value) => setConfirmPassword(value)}
+                    value={confirmPassword}
+                    placeholder="Confirmation..."
+                    style={{
+                      flex: 1,
+                      borderColor: "#525252",
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      height: 35,
+                      paddingHorizontal: 10,
+                    }}
+                    secureTextEntry={confirmPasswordVisibility}
+                  />
+                  <Pressable
+                    onPress={handleConfirmPasswordVisibility}
+                    style={styles.icon}
+                  >
+                    <MaterialCommunityIcons
+                      name={icon}
+                      size={22}
+                      color="#aaa"
+                    />
+                  </Pressable>
+                </View>
+              </View>
             </View>
-            <View>
-              <Text style={{ fontSize: 16, color: "#525252" }}>
-                Confirmation mot de passe
-              </Text>
-              <TextInput
-                onChangeText={(value) => setPassword(value)}
-                value={password}
-                placeholder="Confirmation..."
-                style={styles.input}
-              />
+            <View style={styles.connection}>
+              <TouchableOpacity
+                style={styles.connectionButton}
+                onPress={() => {
+                  navigation.navigate("Account");
+                }}
+              >
+                <Text style={{ color: "white" }}>Suivant</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.footer}>
+              <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
             </View>
           </View>
-          <View style={styles.connection}>
-            <TouchableOpacity
-              style={styles.connectionButton}
-              onPress={() => {
-                navigation.navigate("Account");
-              }}
-            >
-              <Text style={{ color: "white" }}>Suivant</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.footer}>
-            <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
-          </View>
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -119,6 +162,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fffbf0",
     opacity: 30,
+  },
+  passwordInput: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    position: "absolute",
+    right: 10,
   },
   logo: {
     width: 300,
@@ -146,7 +197,7 @@ const styles = StyleSheet.create({
   description: {
     color: "#525252",
   },
-  inputs: {
+  inputContainer: {
     marginTop: 35,
     width: "97%",
     justifyContent: "space-between",
@@ -170,17 +221,6 @@ const styles = StyleSheet.create({
     height: 35,
     paddingHorizontal: 10,
   },
-  tips: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    margin: 10,
-    marginTop: 25,
-  },
-  checkbox: {
-    flexDirection: "row",
-    gap: 5,
-    alignItems: "center",
-  },
   connection: {
     width: "97%",
     marginRight: "auto",
@@ -193,13 +233,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-  },
-  register: {
-    flexDirection: "row",
-    gap: 5,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
   },
   footer: {
     alignItems: "center",
