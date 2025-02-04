@@ -24,6 +24,15 @@ function HomeScreen() {
     console.log(email);
   };
 
+  // KEYBOARD AVOIDING VIEW
+  // HIDE THE PASSWORD WITH DOT
+
+  // CREATE FUNCTION TO CONNECT USER
+  // CREATE FUNCTION TO CREATE USER
+
+  // IMPORT FONTS (PUBLIC SANS BOLD & POPPINS)``
+  // IMPORT CONNECTION WITH GOOGLE
+
   const handleRememberMe = () => {
     if (!isChecked) {
       setIsChecked(true);
@@ -208,7 +217,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: "center",
-    marginTop: 100,
+    marginTop: 70,
   },
 });
 
