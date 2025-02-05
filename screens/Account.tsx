@@ -23,7 +23,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
 import { useToggleConfirmPasswordVisibility } from "hook/useToggleConfirmPasswordVisibility";
 
-function SignUp({ navigation }) {
+////////////////////////////////
+//!\ DUPLICATED FROM SIGNUP /!\/
+////////////////////////////////
+
+function Account({ navigation }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -40,7 +44,6 @@ function SignUp({ navigation }) {
     console.log(email);
   };
 
-  // Fonction pour enregistrer le nouvel utilisateur
   function handleRegisterUser() {
     fetch("http://192.168.1.189:3000/users/signup", {
       method: "POST",
@@ -53,7 +56,6 @@ function SignUp({ navigation }) {
     })
       .then((r) => r.json())
       .then((data) => {
-        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
           navigation.navigate("Account");
         }
@@ -80,7 +82,7 @@ function SignUp({ navigation }) {
           </View>
           <View>
             <View style={styles.header}>
-              <Text style={styles.title}>Inscription</Text>
+              <Text style={styles.title}>Account</Text>
             </View>
             <View style={styles.inputContainer}>
               <View>
@@ -266,4 +268,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUp;
+export default Account;
