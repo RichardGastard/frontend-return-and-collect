@@ -12,7 +12,10 @@ import {
   Platform,
   ScrollView,
   Keyboard,
+  KeyboardEvent,
 } from "react-native";
+
+import useKeyboardHeight from "react-native-use-keyboard-height";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -31,6 +34,8 @@ function SignUp({ navigation }) {
   const { confirmPasswordVisibility, icon, handleConfirmPasswordVisibility } =
     useToggleConfirmPasswordVisibility();
 
+  const keyboardHeight = useKeyboardHeight();
+
   const handleSubmit = () => {
     console.log(email);
   };
@@ -40,6 +45,7 @@ function SignUp({ navigation }) {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
+        keyboardVerticalOffset={keyboardHeight}
       >
         <ScrollView
           style={{ overflow: "visible" }}
@@ -172,6 +178,7 @@ const styles = StyleSheet.create({
     right: 10,
   },
   logo: {
+    aspectRatio: 1,
     width: 300,
     height: 300,
     shadowColor: "#000",
@@ -235,8 +242,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   footer: {
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 70,
+    marginTop: "30%",
   },
 });
 
