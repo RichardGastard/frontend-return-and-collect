@@ -8,19 +8,39 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
 
-import InputText from "@/components/InputText";
 
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 function HomeScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
-  const handleSubmit = () => {
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
+
+  const handleLoginSubmit = () => {
+    fetch("http://192.168.1.170:3000/users/signin", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ email: email, password: password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      });
     console.log(email);
   };
 
@@ -44,84 +64,114 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View style={styles.logoView}>
-          <Image
-            source={require("../assets/logo-without-bg.png")}
-            style={styles.logo}
-          />
-        </View>
-        <View>
-          <View style={styles.header}>
-            <Text style={styles.title}>Connexion</Text>
-            <Text style={styles.description}>
-              Bienvenue, entrez vos informations
-            </Text>
-          </View>
-          <View style={styles.inputs}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}
+        >
+          <ScrollView
+            style={{ overflow: "visible" }}
+            keyboardDismissMode="interactive"
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.logoView}>
+              <Image
+                source={require("../assets/logo-without-bg.png")}
+                style={styles.logo}
+              />
+            </View>
             <View>
-              <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
-              <TextInput
-                onChangeText={(value) => setEmail(value)}
-                value={email}
-                placeholder="Email..."
-                style={styles.input}
-                keyboardType="email-address"
-              />
-            </View>
+              <View style={styles.header}>
+                <Text style={styles.title}>Connexion</Text>
+                <Text style={styles.description}>
+                  Bienvenue, entrez vos informations
+                </Text>
+              </View>
+              <View style={styles.inputs}>
+                <View>
+                  <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
+                  <TextInput
+                    onChangeText={(value) => setEmail(value)}
+                    value={email}
+                    placeholder="Email..."
+                    style={styles.input}
+                    keyboardType="email-address"
+                  />
+                </View>
 
-            <View>
-              <Text style={{ fontSize: 16, color: "#525252" }}>
-                Mot de passe
-              </Text>
-              <TextInput
-                onChangeText={(value) => setPassword(value)}
-                value={password}
-                placeholder="Mot de passe..."
-                style={styles.input}
-              />
-            </View>
-          </View>
-          <View style={styles.tips}>
-            <View style={styles.checkbox}>
-              <Checkbox
-                value={isChecked}
-                onValueChange={() => handleRememberMe()}
-              />
-              <Text style={{ opacity: isChecked ? 1 : 0.2, color: "#525252" }}>
-                Se souvenir de moi
-              </Text>
-            </View>
-            <TouchableOpacity>
-              <Text style={{ color: "#ff5252", opacity: 0.8 }}>
-                Mot de passe oublié ?
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.connection}>
-            <TouchableOpacity
-              style={styles.connectionButton}
-              onPress={() => handleSubmit()}
-            >
-              <Text style={{ color: "white" }}>Se connecter</Text>
-            </TouchableOpacity>
-          </View>
+                <View style={styles.passwordInput}>
+                  <TextInput
+                    onChangeText={(value) => setPassword(value)}
+                    value={password}
+                    placeholder="Mot de passe..."
+                    style={{
+                      flex: 1,
+                      borderColor: "#525252",
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      height: 35,
+                      paddingHorizontal: 10,
+                    }}
+                    secureTextEntry={passwordVisibility}
+                  />
+                  <Pressable
+                    onPress={handlePasswordVisibility}
+                    style={styles.icon}
+                  >
+                    <MaterialCommunityIcons
+                      name={rightIcon}
+                      size={22}
+                      color="#aaa"
+                    />
+                  </Pressable>
+                </View>
+              </View>
+              <View style={styles.tips}>
+                <View style={styles.checkbox}>
+                  <Checkbox
+                    value={isChecked}
+                    onValueChange={() => handleRememberMe()}
+                  />
+                  <Text
+                    style={{ opacity: isChecked ? 1 : 0.2, color: "#525252" }}
+                  >
+                    Se souvenir de moi
+                  </Text>
+                </View>
+                <TouchableOpacity>
+                  <Text style={{ color: "#ff5252", opacity: 0.8 }}>
+                    Mot de passe oublié ?
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.connection}>
+                <TouchableOpacity
+                  style={styles.connectionButton}
+                  onPress={() => handleLoginSubmit()}
+                >
+                  <Text style={{ color: "white" }}>Se connecter</Text>
+                </TouchableOpacity>
+              </View>
 
-          <View style={styles.register}>
-            <Text style={{ color: "#525252" }}>Pas de compte?</Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("SignUp");
-              }}
-            >
-              <Text style={{ color: "#febbba", fontWeight: 500 }}>
-                Créez-en un
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.footer}>
-            <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
-          </View>
-        </View>
+              <View style={styles.register}>
+                <Text style={{ color: "#525252" }}>Pas de compte?</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("SignUp");
+                  }}
+                >
+                  <Text style={{ color: "#febbba", fontWeight: 500 }}>
+                    Créez-en un
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.footer}>
+                <Text style={{ color: "#525252", opacity: 0.4 }}>
+                  Made in 🇫🇷
+                </Text>
+              </View>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -222,6 +272,14 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: "center",
     marginTop: 70,
+  },
+  passwordInput: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    position: "absolute",
+    right: 10,
   },
 });
 
