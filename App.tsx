@@ -8,6 +8,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUp";
+import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="UserSelectSize" component={UserSelectSizeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
