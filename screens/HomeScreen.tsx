@@ -17,7 +17,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
 import CustomButton from "@/components/CustomButton";
-
+import { logIn } from "reducers/users";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -27,6 +27,7 @@ function HomeScreen({ navigation }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+
 
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
@@ -39,6 +40,7 @@ function HomeScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        dispatch(logIn(email))
         console.log(data.result);
       });
     console.log(email);
