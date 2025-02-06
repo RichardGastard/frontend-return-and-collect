@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import {
   Button,
@@ -20,6 +21,7 @@ import CustomButton from "@/components/CustomButton";
 import { logIn } from "reducers/users";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -98,7 +100,6 @@ function HomeScreen({ navigation }) {
                     keyboardType="email-address"
                   />
                 </View>
-
                 <View>
                   <View>
                     <Text style={{ fontSize: 16, color: "#525252" }}>
@@ -178,6 +179,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fffbf0",
     padding: 20,
+  },
+  arrowLeft: {
+
   },
   image: {
     flex: 1,

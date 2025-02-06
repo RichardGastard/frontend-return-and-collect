@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const useTogglePasswordVisibility = () => {
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
-    useState<boolean>(true);
-  const [rightIcon, setRightIcon] = useState<string>("eye");
+
+  const [rightIcon, setRightIcon] = useState<keyof typeof MaterialCommunityIcons.glyphMap
+  >("eye");
 
   const handlePasswordVisibility = () => {
     if (rightIcon === "eye") {
@@ -22,3 +23,5 @@ export const useTogglePasswordVisibility = () => {
     handlePasswordVisibility,
   };
 };
+
+//  Glyphmap vient lister les valeurs dispos pour 'name ='   keyof typeof MaterialCommunityIcons.glyphMap
