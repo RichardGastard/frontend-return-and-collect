@@ -17,7 +17,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
 import CustomButton from "@/components/CustomButton";
-
+import { logIn } from "reducers/users";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -39,9 +39,10 @@ function HomeScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.result);
+        if (data.result) {
+          dispatch(logIn(email));
+        }
       });
-    console.log(email);
   };
 
   // KEYBOARD AVOIDING VIEW
