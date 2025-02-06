@@ -41,9 +41,7 @@ function HomeScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         dispatch(logIn(email))
-        console.log(data.result);
       });
-    console.log(email);
   };
 
   // KEYBOARD AVOIDING VIEW
