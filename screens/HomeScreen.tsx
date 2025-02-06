@@ -28,7 +28,6 @@ function HomeScreen({ navigation }) {
   const [password, setPassword] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
-
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
@@ -40,7 +39,9 @@ function HomeScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatch(logIn(email))
+        if (data.result) {
+          dispatch(logIn(email));
+        }
       });
   };
 
