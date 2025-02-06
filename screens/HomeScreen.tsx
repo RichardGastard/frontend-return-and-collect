@@ -16,10 +16,11 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
-
+import CustomButton from "@/components/CustomButton";
 
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { WidthType } from "docx";
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -98,31 +99,29 @@ function HomeScreen({ navigation }) {
                   />
                 </View>
 
-                <View style={styles.passwordInput}>
-                  <TextInput
-                    onChangeText={(value) => setPassword(value)}
-                    value={password}
-                    placeholder="Mot de passe..."
-                    style={{
-                      flex: 1,
-                      borderColor: "#525252",
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      height: 35,
-                      paddingHorizontal: 10,
-                    }}
-                    secureTextEntry={passwordVisibility}
-                  />
-                  <Pressable
-                    onPress={handlePasswordVisibility}
-                    style={styles.icon}
-                  >
-                    <MaterialCommunityIcons
-                      name={rightIcon}
-                      size={22}
-                      color="#aaa"
+                <View>
+                  <View>
+                    <Text style={{ fontSize: 16, color: "#525252" }}>
+                      Mot de passe
+                    </Text>
+                    <TextInput
+                      onChangeText={(value) => setPassword(value)}
+                      value={password}
+                      placeholder="Mot de passe..."
+                      style={styles.input}
+                      secureTextEntry={passwordVisibility}
                     />
-                  </Pressable>
+                    <Pressable
+                      onPress={handlePasswordVisibility}
+                      style={styles.icon}
+                    >
+                      <MaterialCommunityIcons
+                        name={rightIcon}
+                        size={22}
+                        color="#aaa"
+                      />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
               <View style={styles.tips}>
@@ -144,12 +143,9 @@ function HomeScreen({ navigation }) {
                 </TouchableOpacity>
               </View>
               <View style={styles.connection}>
-                <TouchableOpacity
-                  style={styles.connectionButton}
-                  onPress={() => handleLoginSubmit()}
-                >
-                  <Text style={{ color: "white" }}>Se connecter</Text>
-                </TouchableOpacity>
+                <CustomButton onPressFunction={() => handleLoginSubmit()}>
+                  Se connecter
+                </CustomButton>
               </View>
 
               <View style={styles.register}>
@@ -274,12 +270,14 @@ const styles = StyleSheet.create({
     marginTop: 70,
   },
   passwordInput: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
   },
   icon: {
     position: "absolute",
     right: 10,
+    top: 25,
   },
 });
 
