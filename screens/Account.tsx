@@ -1,179 +1,132 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   StyleSheet,
   TouchableOpacity,
   Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Keyboard,
-  KeyboardEvent,
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
 
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
-import { useToggleConfirmPasswordVisibility } from "hook/useToggleConfirmPasswordVisibility";
-
-////////////////////////////////
-//!\ DUPLICATED FROM SIGNUP /!\/
-////////////////////////////////
-
 function Account({ navigation }) {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [userIsSelected, setUserIsSelected] = useState<boolean>(false);
+  const [pickerIsSelected, setPickerIsSelected] = useState<boolean>(false);
+  const [isDisable, setIsDisable] = useState<boolean>(false); // pour avoir l'apparition du bouton suivant
 
-  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
-    useTogglePasswordVisibility();
+  // permet de ne pas perdre le bouton en cas de changement de l'utilisateur
+  useEffect(() => {
+    if (pickerIsSelected && userIsSelected) {
+      setPickerIsSelected(!pickerIsSelected);
+    }
+  }, [userIsSelected]);
 
-  const { confirmPasswordVisibility, icon, handleConfirmPasswordVisibility } =
-    useToggleConfirmPasswordVisibility();
+  useEffect(() => {
+    if (pickerIsSelected && userIsSelected) {
+      setUserIsSelected(!userIsSelected);
+    }
+  }, [pickerIsSelected]);
 
-  const keyboardHeight = useKeyboardHeight();
-
-  const handleSubmit = () => {
-    console.log(email);
-  };
-
-  function handleRegisterUser() {
-    fetch("http://192.168.1.189:3000/users/signup", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.result) {
-          navigation.navigate("Account");
-        }
-      });
-  }
-
+  // La ScrollView est encore présente mais ne sert à rien
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={keyboardHeight}
+      <ScrollView
+        style={{ overflow: "visible" }}
+        keyboardDismissMode="interactive"
+        keyboardShouldPersistTaps="handled"
       >
-        <ScrollView
-          style={{ overflow: "visible" }}
-          keyboardDismissMode="interactive"
-          keyboardShouldPersistTaps="handled"
-        >
-          <View style={styles.logoView}>
-            <Image
-              source={require("../assets/logo-without-bg.png")}
-              style={styles.logo}
-            />
-          </View>
-          <View>
-            <View style={styles.header}>
-              <Text style={styles.title}>Account</Text>
-            </View>
-            <View style={styles.inputContainer}>
-              <View>
-                <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
-                <TextInput
-                  onChangeText={(value) => setEmail(value)}
-                  value={email}
-                  placeholder="Email..."
-                  style={styles.input}
-                  keyboardType="email-address"
-                  autoComplete="email"
-                />
-              </View>
+        <View style={styles.logoView}>
+          <Image
+            source={require("../assets/logo-without-bg.png")}
+            style={styles.logo}
+          />
+        </View>
+        <View style={styles.header}>
+          <Text style={styles.title}>Compte</Text>
+          <Text style={{ color: "#525252" }}>Je suis ...</Text>
+        </View>
+        <View style={styles.userChoice}>
+          {/* Fonction qui permet de switcher l'aspect que l'utilisateur */}
+          <TouchableOpacity
+            onPress={() => {
+              setUserIsSelected(!userIsSelected);
+              if (pickerIsSelected) {
+                setIsDisable(isDisable);
+              } else {
+                setIsDisable(!isDisable);
+              }
+            }}
+            style={{
+              backgroundColor: userIsSelected ? "#febbba" : "#525252",
+              height: "30%",
+              borderRadius: 5,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <Text style={{ color: "#fffbf0" }}>Utilisateur</Text>
+            <Text
+              style={{ opacity: userIsSelected ? 0.7 : 0, color: "#525252" }}
+            >
+              Je vais envoyer des colis
+            </Text>
+          </TouchableOpacity>
 
-              <View>
-                <Text style={{ fontSize: 16, color: "#525252" }}>
-                  Mot de passe
-                </Text>
-                <View style={styles.passwordInput}>
-                  <TextInput
-                    onChangeText={(value) => setPassword(value)}
-                    value={password}
-                    placeholder="Mot de passe..."
-                    style={{
-                      flex: 1,
-                      borderColor: "#525252",
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      height: 35,
-                      paddingHorizontal: 10,
-                    }}
-                    secureTextEntry={passwordVisibility}
-                  />
-                  <Pressable
-                    onPress={handlePasswordVisibility}
-                    style={styles.icon}
-                  >
-                    <MaterialCommunityIcons
-                      name={rightIcon}
-                      size={22}
-                      color="#aaa"
-                    />
-                  </Pressable>
-                </View>
-              </View>
-              <View>
-                <Text style={{ fontSize: 16, color: "#525252" }}>
-                  Confirmation mot de passe
-                </Text>
-                <View style={styles.passwordInput}>
-                  <TextInput
-                    onChangeText={(value) => setConfirmPassword(value)}
-                    value={confirmPassword}
-                    placeholder="Confirmation..."
-                    style={{
-                      flex: 1,
-                      borderColor: "#525252",
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      height: 35,
-                      paddingHorizontal: 10,
-                    }}
-                    secureTextEntry={confirmPasswordVisibility}
-                  />
-                  <Pressable
-                    onPress={handleConfirmPasswordVisibility}
-                    style={styles.icon}
-                  >
-                    <MaterialCommunityIcons
-                      name={icon}
-                      size={22}
-                      color="#aaa"
-                    />
-                  </Pressable>
-                </View>
-              </View>
-            </View>
-            <View style={styles.connection}>
-              <TouchableOpacity
-                style={styles.connectionButton}
-                onPress={() => handleRegisterUser()}
-              >
-                <Text style={{ color: "white" }}>S'enregistrer</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.footer}>
-              <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
-            </View>
+          <TouchableOpacity
+            onPress={() => {
+              setPickerIsSelected(!pickerIsSelected);
+              if (userIsSelected) {
+                setIsDisable(isDisable);
+              } else {
+                setIsDisable(!isDisable);
+              }
+            }}
+            style={{
+              backgroundColor: pickerIsSelected ? "#febbba" : "#525252",
+              height: "30%",
+              borderRadius: 5,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <Text style={{ color: "#fffbf0" }}>Collecteur</Text>
+            <Text
+              style={{
+                opacity: pickerIsSelected ? 0.7 : 0,
+                color: "#525252",
+              }}
+            >
+              Je vais réceptionner des colis
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {(isDisable && pickerIsSelected) || userIsSelected ? (
+          <View style={styles.next}>
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={() => {
+                console.log("LA SUITE EST A FAIRE !!");
+              }}
+            >
+              <Text style={{ color: "white" }}>Suivant</Text>
+            </TouchableOpacity>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        ) : (
+          <View style={styles.next}>
+            <Text style={{ color: "white" }}>Suivant</Text>
+          </View>
+        )}
+      </ScrollView>
+      <View style={styles.footer}>
+        <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
+      </View>
     </SafeAreaView>
   );
 }
@@ -189,13 +142,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fffbf0",
     opacity: 30,
   },
-  passwordInput: {
-    flexDirection: "row",
+  userChoice: {
+    justifyContent: "space-around",
     alignItems: "center",
-  },
-  icon: {
-    position: "absolute",
-    right: 10,
+    marginTop: 45,
+    height: "20%",
+    width: "100%",
   },
   logo: {
     aspectRatio: 1,
@@ -248,13 +200,13 @@ const styles = StyleSheet.create({
     height: 35,
     paddingHorizontal: 10,
   },
-  connection: {
+  next: {
     width: "97%",
     marginRight: "auto",
     marginLeft: "auto",
-    marginTop: 30,
+    marginTop: 60,
   },
-  connectionButton: {
+  nextButton: {
     backgroundColor: "#febbba",
     height: 45,
     borderRadius: 5,
@@ -262,9 +214,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   footer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "30%",
+    bottom: 0,
+    marginInline: "auto",
   },
 });
 
