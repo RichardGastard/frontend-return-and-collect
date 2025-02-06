@@ -20,7 +20,6 @@ import CustomButton from "@/components/CustomButton";
 
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { WidthType } from "docx";
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
