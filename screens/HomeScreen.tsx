@@ -16,6 +16,8 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
+
+import Input from "@/components/Input";
 import CustomButton from "@/components/CustomButton";
 
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
@@ -86,6 +88,12 @@ function HomeScreen({ navigation }) {
                   Bienvenue, entrez vos informations
                 </Text>
               </View>
+
+              <Input
+                label="Confirmation mot de passe"
+                keyboardType="email-address"
+              />
+
               <View style={styles.inputs}>
                 <View>
                   <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
