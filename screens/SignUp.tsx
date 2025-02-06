@@ -161,7 +161,10 @@ function SignUp({ navigation }) {
             <View style={styles.connection}>
               <TouchableOpacity
                 style={styles.connectionButton}
-                onPress={() => handleRegisterUser()}
+                onPress={() =>
+                  //handleRegisterUser()
+                  navigation.navigate("Account")
+                }
               >
                 <Text style={{ color: "white" }}>S'enregistrer</Text>
               </TouchableOpacity>
