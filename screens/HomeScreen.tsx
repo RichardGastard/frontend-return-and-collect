@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   connection: {
-    width: "97%",
+    width: "100%",
     marginRight: "auto",
     marginLeft: "auto",
     marginTop: 30,
