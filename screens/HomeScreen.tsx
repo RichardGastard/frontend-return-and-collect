@@ -89,11 +89,9 @@ function HomeScreen({ navigation }) {
                 </Text>
               </View>
 
-              <Input
-                label="Confirmation mot de passe"
-                keyboardType="email-address"
-              />
-
+              <Input label="Email" keyboardType="email" />
+              <Input label="Mot de passe" />
+              {/* OLD VERSION
               <View style={styles.inputs}>
                 <View>
                   <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
@@ -131,11 +129,13 @@ function HomeScreen({ navigation }) {
                   </View>
                 </View>
               </View>
+      */}
               <View style={styles.tips}>
                 <View style={styles.checkbox}>
                   <Checkbox
                     value={isChecked}
                     onValueChange={() => handleRememberMe()}
+                    color="#ff5252"
                   />
                   <Text
                     style={{ opacity: isChecked ? 1 : 0.2, color: "#525252" }}
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    marginLeft: 10,
+    marginLeft: 0,
   },
   title: {
     fontSize: 36,

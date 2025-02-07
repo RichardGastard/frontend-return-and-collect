@@ -1,43 +1,57 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
+import { TextInput } from "react-native-paper";
+
+// TODO //
+// faire un champ auto completion pour les adresses
 
 type InputProps = {
-  placeholder: string;
-  keyboardType: any;
+  keyboardType?: string;
   label: string;
 };
 
-export default function Input({ label, keyboardType }: InputProps) {
-  // permet de cacher le password si label contient 'de passe'
+export default function Input({ label, keyboardType = "none" }: InputProps) {
+  // permet de cacher le password si label contient 'mot de passe' ou 'password'
   const [passwordSecured, setPasswordSecured] = useState<boolean>(true);
 
   return (
     <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <TextInput
           style={styles.input}
+          mode="outlined"
+          label={label}
           placeholder={`Mettre son ${label.toLowerCase()}...`} // reprend le label pour rajouter dans le placeholder
-          keyboardType={keyboardType}
+          outlineColor="#525252" // ligne extérieure
+          selectionColor="febbba" // curseur
+          cursorColor="#febbba"
+          activeOutlineColor="#febbba"
+          textColor="#525252"
           secureTextEntry={
-            label.includes("de passe") ? passwordSecured : !passwordSecured
-          } // securise la string lorsque le label inclu 'de passe'
+            label.toLowerCase().includes("mot de passe") ||
+            label.toLowerCase().includes("password")
+              ? passwordSecured
+              : !passwordSecured
+          } // securise la string lorsque le label inclu 'mot de passe' ou 'password
         />
-        {label.includes("de passe") && (
-          <View style={{ position: "absolute", right: 10 }}>
+        {(label.toLowerCase().includes("mot de passe") ||
+          label.toLowerCase().includes("password")) && (
+          <View
+            style={{
+              position: "absolute",
+              right: 15,
+              alignItems: "center",
+              top: 19,
+            }}
+          >
             {/* permet d'avoir l'icon oeil dans le input */}
             <TouchableOpacity
               onPress={() => {
@@ -69,12 +83,9 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 14,
-    width: "100%",
     backgroundColor: "#fffbf0",
+    color: "#525252",
+    width: "100%",
+    justifyContent: "center",
   },
 });
