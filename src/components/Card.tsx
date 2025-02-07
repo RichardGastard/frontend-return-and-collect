@@ -15,8 +15,21 @@ type CardProps = {
   name: string;
   rating: number;
   numberOfDeliveries: string;
-  vehicle: string;
+  vehicle: "scooter" | "voiture" | "Fourgon";
 };
+
+const getVehicleIcon = (vehicle: "bicycle" | "motorcycle" | "car") => {
+  switch (vehicle) {
+    case "bicycle":
+      return "bicycle";
+    case "motorcycle":
+      return "motorcycle";
+    case "car":
+      return "car";
+    default:
+      return "bicycle";
+  }
+}
 
 
 function Card(props: CardProps) {
@@ -56,19 +69,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderRadius: 100,
-    height: 100,
+    borderRadius: 60,
+    height: 115,
     width: 230,
     padding: 15,
     },
   image: {
-    flex: 1,
     alignItems: "center",
     width: 90,
-    borderRadius: 70,
+    height: 90,
+    borderRadius: "50%",
     borderWidth: 2,
     borderColor: "white",
-    marginLeft: 12,
   },
   infos: {
     flexDirection: "column",
