@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import React, { ReactNode } from "react";
 import {
   Dimensions,
   GestureResponderEvent,
@@ -8,8 +8,8 @@ import {
 } from "react-native";
 
 type ButtonProps = {
-  children: string | JSX.Element | JSX.Element[];
-  onPressFunction: (e: GestureResponderEvent) => void;
+  children: ReactNode;
+  onPressFunction: () => void;
   backgroundColor?: string;
   textColor?: string;
   width?: number;
