@@ -82,7 +82,7 @@ function HomeScreen({ navigation }) {
             </View>
             <View>
               <Card 
-              image={require("../assets/logo.png")} name="Bob" rating={5} numberOfDeliveries="xDeliveries" vehicle="Car">
+              image={require("../assets/chien.png")} name="Bob" rating={3} numberOfDeliveries="xDeliveries" vehicle="Car">
               </Card>
             </View>
             <View>
