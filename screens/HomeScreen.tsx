@@ -91,6 +91,7 @@ function HomeScreen({ navigation }) {
 
               <Input label="Email" keyboardType="email" />
               <Input label="Mot de passe" />
+
               {/* OLD VERSION
               <View style={styles.inputs}>
                 <View>
