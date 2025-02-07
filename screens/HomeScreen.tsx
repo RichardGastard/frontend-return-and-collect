@@ -81,11 +81,6 @@ function HomeScreen({ navigation }) {
               />
             </View>
             <View>
-              <Card 
-              image={require("../assets/chien.png")} name="Bob" rating={3} numberOfDeliveries="xDeliveries" vehicle="Car">
-              </Card>
-            </View>
-            <View>
               <View style={styles.header}>
                 <Text style={styles.title}>Connexion</Text>
                 <Text style={styles.description}>

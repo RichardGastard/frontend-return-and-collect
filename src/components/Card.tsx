@@ -1,12 +1,9 @@
 import React from "react";
 import {
   Image,
-  Button,
   Text,
-  TextInput,
   View,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import { FontAwesome, FontAwesome5 } from "react-native-vector-icons"
 
@@ -15,21 +12,10 @@ type CardProps = {
   name: string;
   rating: number;
   numberOfDeliveries: string;
-  vehicle: "scooter" | "voiture" | "Fourgon";
+  vehicle: "velo" | "scooter" | "voiture" | "fourgon" ;
 };
 
-const getVehicleIcon = (vehicle: "bicycle" | "motorcycle" | "car") => {
-  switch (vehicle) {
-    case "bicycle":
-      return "bicycle";
-    case "motorcycle":
-      return "motorcycle";
-    case "car":
-      return "car";
-    default:
-      return "bicycle";
-  }
-}
+
 
 
 function Card(props: CardProps) {
@@ -42,7 +28,9 @@ function Card(props: CardProps) {
         <Text style={styles.name}>{props.name}</Text>
         <Text style={styles.rating}>{renderStars(props.rating)}</Text>
         <Text style={styles.deliveries}>{props.numberOfDeliveries}</Text>
-        <Text style={styles.vehicle}>{props.vehicle}</Text>
+        <View style={styles.vehicle}>
+          <FontAwesome5 name={getVehicleIcon(props.vehicle)} size={20} color="gray" />
+        </View>
       </View>
     </View>
   );
@@ -63,6 +51,21 @@ const renderStars = (rating: number) => {
   }
   return stars;
 };
+
+const getVehicleIcon = (vehicle: "velo" | "scooter" | "voiture" | "fourgon" ) => {
+  switch (vehicle) {
+    case "velo":
+      return "bicycle";
+    case "scooter":
+      return "motorcycle";
+    case "voiture":
+      return "car";
+    case "fourgon":
+      return "truck";
+    default:
+      return "bicycle";
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -88,6 +91,7 @@ const styles = StyleSheet.create({
     height: 100,
     paddingTop: 15,
     marginLeft: 10,
+    color: "#525252"
   },
   name: {
     
