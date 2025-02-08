@@ -105,7 +105,6 @@ function HomeScreen({ navigation }) {
                     keyboardType="email-address"
                   />
                 </View>
-
                 <View>
                   <View>
                     <Text style={{ fontSize: 16, color: "#525252" }}>
