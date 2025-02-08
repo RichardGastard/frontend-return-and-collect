@@ -17,7 +17,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
 import CustomButton from "@/components/CustomButton";
-import Card from "src/components/Card"
 
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
