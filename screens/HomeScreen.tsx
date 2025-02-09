@@ -17,6 +17,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
 
+// COMPONENTS
 import Input from "@/components/Input";
 import CustomButton from "@/components/CustomButton";
 import { logIn } from "reducers/users";
@@ -152,7 +153,14 @@ function HomeScreen({ navigation }) {
                 </TouchableOpacity>
               </View>
               <View style={styles.connection}>
-                <CustomButton onPressFunction={() => handleLoginSubmit()}>
+                <CustomButton
+                  onPressFunction={
+                    () => {
+                      navigation.navigate("TabNavigator");
+                    }
+                    //handleLoginSubmit()
+                  }
+                >
                   Se connecter
                 </CustomButton>
               </View>
