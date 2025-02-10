@@ -133,6 +133,7 @@ function HomeScreen({ navigation }) {
                 </View>
               </View>
       */}
+
               <View style={styles.tips}>
                 <View style={styles.checkbox}>
                   <Checkbox
