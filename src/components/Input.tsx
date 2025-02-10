@@ -71,7 +71,7 @@ export default function Input({
             </TouchableOpacity>
           </View>
         )}
-      </View>
+          </View>
     </View>
   );
 }
