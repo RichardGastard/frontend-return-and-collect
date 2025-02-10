@@ -30,6 +30,7 @@ export default function CustomButton({
         styles.connectionButton,
         {
           backgroundColor,
+          borderColor: backgroundColor,
           height,
           width,
         },

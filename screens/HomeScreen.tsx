@@ -106,7 +106,6 @@ function HomeScreen({ navigation }) {
                     keyboardType="email-address"
                   />
                 </View>
-
                 <View>
                   <View>
                     <Text style={{ fontSize: 16, color: "#525252" }}>
@@ -264,7 +263,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   connection: {
-    width: "97%",
+    width: "100%",
     marginRight: "auto",
     marginLeft: "auto",
     marginTop: 30,

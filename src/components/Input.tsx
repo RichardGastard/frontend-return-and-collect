@@ -44,7 +44,7 @@ export default function Input({
             label.toLowerCase().includes("password")
               ? passwordSecured
               : !passwordSecured
-          } // securise la string lorsque le label inclu 'mot de passe' ou 'password'
+          } // securise la string lorsque le label inclu 'mot de passe' ou 'password
           {...props}
         />
         {(label.toLowerCase().includes("mot de passe") ||
@@ -71,7 +71,7 @@ export default function Input({
             </TouchableOpacity>
           </View>
         )}
-      </View>
+          </View>
     </View>
   );
 }
