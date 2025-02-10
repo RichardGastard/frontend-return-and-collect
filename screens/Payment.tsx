@@ -14,16 +14,56 @@ import {
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
 import ArrowBack from "@/components/ArrowBack";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import Input from "@/components/Input";
+import HomeScreen from "./HomeScreen";
 
 function Payment({ navigation }) {
-  const [cardNumber, setcardNumber] = useState<number>();
-  const [expirationDate, setExpirationDate] = useState<number>();
-  const [securityNumber, setSecurityNumber] = useState<number>();
+  const [cardHolder, setCardHolder]= useState<string>("");
+  const [cardNumber, setcardNumber] = useState<string>("");
+  const [expirationDate, setExpirationDate] = useState<string>("");
+  const [securityNumber, setSecurityNumber] = useState<string>("");
+
+  const [cardHolderValidity, setCardHolderValidity]= useState<boolean>(true);
+  const [cardNumberValidity, setcardNumberValidity] = useState<boolean>(true);
+  const [expirationDateValidity, setExpirationDateValidity] = useState<boolean>(true);
+  const [securityNumberValidity, setSecurityNumberValidity] = useState<boolean>(true);
 
   const handleSubmit = () => {
-    console.log();
+    const cardHolderRegex = /^[a-zA-Z\s]+$/
+    const cardNumberRegex  = /^\d{16}$/;
+    const expirationDateRegex = /^(0[1-9]|1[0-2])\/([0-9]{4})$/;
+    const securityNumberRegex = /^\d{3}$/;
+
+    setCardHolderValidity(true);
+    setcardNumberValidity(true);
+    setExpirationDateValidity(true);
+    setSecurityNumberValidity(true);
+
+    if (!cardHolder.match(cardHolderRegex) || cardHolder.length <2){
+      setCardHolderValidity(false)
+      console.log("Nom du titulaire incorrect")
+      return;
+    } if (!cardNumber.match(cardNumberRegex) || cardNumber.length <2){
+      setcardNumberValidity(false)
+      console.log("Numéro de carte invalide")
+      return;
+    } if (!expirationDate.match(expirationDateRegex) || expirationDate.length <2){
+      setExpirationDateValidity(false)
+      console.log("Date d'expiration invalide")
+      return;
+    } if (!securityNumber.match(securityNumberRegex) || securityNumber.length <2){
+      setSecurityNumberValidity(false)
+      console.log("Code secret invalide")
+      return;
+    } else {
+      navigation.navigate("Home") // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
+    }
   };
+
+  // !!!!! CE CODE NE PERMET PAS D'AFFICHER PLUSIEURS ERREURS SIMULTANEMENT !!!!!!!
+
+
 
   return (
     <SafeAreaProvider>
@@ -33,11 +73,11 @@ function Payment({ navigation }) {
           style={{ flex: 1 }}
         >
           <View style={styles.topButtons}>
-            <ArrowBack></ArrowBack>
+            <ArrowBack />
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                navigation.navigate(""); //
               }}
             >
               <Text style={{ fontSize: 16, color: "#525252" }}>
@@ -50,39 +90,35 @@ function Payment({ navigation }) {
             <TouchableOpacity style={styles.container}></TouchableOpacity>
           </View>
           <View style={styles.inputs}>
+          <Text style={{ fontSize: 16, color: "#525252" }}>
+                Nom du titulaire de la carte
+              </Text>
+          <Input  label = "Nom du titulaire" onChangeText={(value) => setCardHolder((value))}
+                value={cardHolder} />
+                {!cardHolderValidity&& <Text style = {styles.error}> Nom du titulaire invalide</Text>}
             <View>
               <Text style={{ fontSize: 16, color: "#525252" }}>
                 Numéro de carte
               </Text>
-              <TextInput
-                keyboardType="numeric"
-                onChangeText={(value) => setcardNumber(parseInt(value))}
-                value={cardNumber}
-                placeholder="XXXX XXXX XXXX XXXX"
-                style={styles.input}
-              />
+              <Input keyboardType="numeric" label = "numéro de carte" onChangeText={(value) => setcardNumber((value))}
+              value={cardNumber} />
+              {!cardNumberValidity&& <Text style = {styles.error}> Numéro de carte invalide</Text>}
             </View>
             <View style={styles.smallInputAlign}>
               <View>
                 <Text style={{ fontSize: 16, color: "#525252" }}>
                   date d'expiration
                 </Text>
-                <TextInput
-                  onChangeText={(value) => setExpirationDate(parseInt(value))}
-                  value={expirationDate}
-                  placeholder="XX/XX"
-                  style={styles.smallInput}
-                />
+                <Input keyboardType="numeric" label = "date d'expiration" onChangeText={(value) => setExpirationDate((value))}
+                value={expirationDate} />
+                {!expirationDateValidity&& <Text style = {styles.error}> Date d'expiration invalide</Text>}
               </View>
               <View>
-                <Text style={{ fontSize: 16, color: "#525252" }}>CVV</Text>
-                <TextInput
-                  onChangeText={(value) => setSecurityNumber(parseInt(value))}
-                  value={securityNumber}
-                  placeholder="XXX"
-                  style={styles.smallInput}
-                />
+                <Text style={{ fontSize: 16, color: "#525252" }}>Code secret</Text>
+                <Input  keyboardType="numeric" label = "CVV" onChangeText={(value) => setSecurityNumber((value))}
+                value={securityNumber}/>
               </View>
+              {!securityNumberValidity&& <Text style = {styles.error}> Code secret invalide</Text>}
             </View>
             <View style={styles.ValidateButton}>
               <CustomButton onPressFunction={() => handleSubmit()}>
@@ -116,6 +152,9 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: "#525252",
   },
+  error: {
+    color: "red"
+  },
   inputs: {
     marginTop: 35,
     width: "97%",
@@ -134,6 +173,9 @@ const styles = StyleSheet.create({
     elevation: 24,
     paddingBottom: 50,
   },
+  CVV: {
+width: 20,
+  },
   input: {
     borderColor: "#525252",
     borderWidth: 1,
@@ -143,7 +185,7 @@ const styles = StyleSheet.create({
   },
   smallInputAlign: {
     borderColor: "#525252",
-    flexDirection: "row",
+   
     justifyContent: "space-between",
   },
   smallInput: {
