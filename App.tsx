@@ -17,6 +17,8 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
+import Payment from "screens/Payment";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -93,6 +95,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <NavigationContainer>
+
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
@@ -103,6 +106,9 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
+            <Stack.Screen name ="Payment" component={Payment}/>
+           
+            
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
