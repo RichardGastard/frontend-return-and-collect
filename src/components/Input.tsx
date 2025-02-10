@@ -12,7 +12,11 @@ type InputProps = {
   label: string;
 };
 
-export default function Input({ label, keyboardType = "none" }: InputProps) {
+export default function Input({
+  label,
+  keyboardType = "none",
+  ...props
+}: InputProps) {
   // permet de cacher le password si label contient 'mot de passe' ou 'password'
   const [passwordSecured, setPasswordSecured] = useState<boolean>(true);
 
@@ -41,6 +45,7 @@ export default function Input({ label, keyboardType = "none" }: InputProps) {
               ? passwordSecured
               : !passwordSecured
           } // securise la string lorsque le label inclu 'mot de passe' ou 'password
+          {...props}
         />
         {(label.toLowerCase().includes("mot de passe") ||
           label.toLowerCase().includes("password")) && (
