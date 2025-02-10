@@ -13,7 +13,11 @@ type InputProps = {
   
 };
 
-export default function Input({ label, keyboardType = "none", ...props }: InputProps) {
+export default function Input({
+  label,
+  keyboardType = "none",
+  ...props
+}: InputProps) {
   // permet de cacher le password si label contient 'mot de passe' ou 'password'
   const [passwordSecured, setPasswordSecured] = useState<boolean>(true);
 
@@ -68,7 +72,7 @@ export default function Input({ label, keyboardType = "none", ...props }: InputP
             </TouchableOpacity>
           </View>
         )}
-      </View>
+          </View>
     </View>
   );
 }
