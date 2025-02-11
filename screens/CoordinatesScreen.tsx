@@ -15,30 +15,12 @@ import {
   KeyboardEvent,
 } from "react-native";
 import Input from "@/components/Input";
+import AnimatedTabBar from "@/components/AnimatedTabBar";
+import DropdownMenu from "@/components/DropdownMenu";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
 
-import HomeScreen from "screens/HomeScreen";
-import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
-
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-import { useTogglePasswordVisibility } from "hook/useTogglePasswordVisibility";
-import { useToggleConfirmPasswordVisibility } from "hook/useToggleConfirmPasswordVisibility";
-// NEW IMPORTS //
-import { BlurView } from "expo-blur"; // ajouté pour la tab bar
-import Animated, {
-  interpolate,
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated"; //  mettre de l'effet dans les changements
-import { enableScreens } from "react-native-screens";
 
 function Coordinates({ navigation }) {
   const [firstname, setFirstname] = useState<string>("");
@@ -47,58 +29,17 @@ function Coordinates({ navigation }) {
   const [zipcode, setZipcode] = useState<string>("");
   const [numberstreet, setNumberstreet] = useState<string>("");
   const [city, setCity] = useState<string>("");
+  const [userType, setUserType] = useState<string>("")
 
   const keyboardHeight = useKeyboardHeight();
 
-
-  const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-
-
-const TabNavigator = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName = "";
-
-          if (route.name === "Home") {
-            iconName = "home";
-          } else if (route.name === "Package") {
-            iconName = "package";
-          }
-
-          return (
-            <MaterialCommunityIcons name={iconName} size={size} color={color} />
-          );
-        },
-        animation: "fade",
-        tabBarActiveTintColor: "#ff5252",
-        tabBarInactiveTintColor: "gray",
-        tabBarStyle: { position: "absolute" },
-        tabBarBackground: () => (
-          <BlurView
-            tint="light"
-            intensity={100}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
-        headerShown: false,
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Package" component={UserSelectSizeScreen} />
-    </Tab.Navigator>
-  );
-};
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
-        keyboardVerticalOffset={keyboardHeight}
+       // keyboardVerticalOffset={keyboardHeight}
       >
         <ScrollView
           style={{ overflow: "visible" }}
@@ -109,33 +50,52 @@ const TabNavigator = () => {
             <View style={styles.header}>
               <Text style={styles.title}>Coordonnées</Text>
             </View>
-            <View style={styles.inputContainer}>             
-              <Input label="Prenom" keyboardType="none" />
-              <Input label="Nom" keyboardType="none" />
-              <Input label="Mobile" keyboardType="none" />
+            <View style={styles.dropDown}>
+            <DropdownMenu
+            onChange={(value) => setUserType(value)}
+            options = {["User" , "Picker"]}
+            placeholder = "Sélectionnez une option"
+            />
+            </View>
+            <View style={styles.inputContainer}>
+              <Input
+                label="Prenom"
+                keyboardType="none"
+                onChangeText={(value) => setFirstname(value)}
+                value={firstname}
+              />
+              <Input
+                label="Nom"
+                keyboardType="none"
+                onChangeText={(value) => setName(value)}
+                value={name}
+              />
+              <Input label="Mobile" keyboardType="none" onChangeText={(value) => setPhone(value)}
+                value={phone} />
             </View>
 
             <View style={styles.adress}>
               <Text style={styles.adtext}>Adresse</Text>
             </View>
 
-            <View style={styles.inputContainer}>
-              <Input label="Num, Rue" keyboardType="none" />
-              <Input label="Code Postale" keyboardType="none" />
-              <Input label="Ville" keyboardType="none" />
+            <View style={styles.adInput}>
+              <Input label="Numero, Rue" keyboardType="none" onChangeText={(value) => setNumberstreet(value)}
+                value={numberstreet} />
+              <Input label="Code Postale" keyboardType="none" onChangeText={(value) => setZipcode(value)}
+                value={zipcode}/>
+              <Input label="Ville" keyboardType="none" onChangeText={(value) => setCity(value)}
+                value={city}/>
             </View>
-              </View>
+          </View>
 
-            <View style={styles.submitbtn}>
-              <TouchableOpacity
-                style={styles.submitButton}
-                onPress={() =>
-                  navigation.navigate("Account")
-                }
-              >
-                <Text style={{ color: "white" }}>S'enregistrer</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.submitbtn}>
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={() => navigation.navigate("Account")}
+            >
+              <Text style={{ color: "white" }}>S'enregistrer</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -175,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
     fontSize: 36,
@@ -185,7 +145,7 @@ const styles = StyleSheet.create({
     color: "#525252",
   },
   inputContainer: {
-    marginTop: 35,
+    marginTop: 20,
     width: "97%",
     justifyContent: "space-between",
     marginRight: "auto",
@@ -196,16 +156,14 @@ const styles = StyleSheet.create({
       width: 0,
       height: 12,
     },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
 
     elevation: 24,
   },
   adress: {
-    alignItems: "center"
+    alignItems: "center",
   },
   adtext: {
-    paddingTop: 20,
+    paddingTop: 30,
     fontSize: 24,
     color: "#525252",
   },
@@ -228,13 +186,31 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30,
+    marginTop: 55,
   },
   footer: {
     justifyContent: "center",
     alignItems: "center",
     marginTop: "30%",
   },
+  adInput: {
+    marginTop: 10,
+    width: "97%",
+    justifyContent: "space-between",
+    marginRight: "auto",
+    marginLeft: "auto",
+    gap: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+
+    elevation: 24,
+  },
+  dropDown: {
+    marginTop: 15
+  }
 });
 
 export default Coordinates;
