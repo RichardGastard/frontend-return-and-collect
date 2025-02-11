@@ -17,7 +17,7 @@ function UserSelectSizeScreen({ navigation }) {
 
   /* -------------- */
   /* Handle swiping */
-  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight);
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
   function onSwipeLeft() {}
 
@@ -33,22 +33,26 @@ function UserSelectSizeScreen({ navigation }) {
     {
       titre: "Petit",
       description: "Boîte à chaussure",
-      imageUrl: "../assets/logo-simple.svg",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Moyen",
       description: "Micro-onde",
-      imageUrl: "../assets/logo-simple.svg",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Large",
       description: "Armoire",
-      imageUrl: "../assets/logo-simple.svg",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Très large",
       description: "Camion",
-      imageUrl: "../assets/logo-simple.svg",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
   ];
 

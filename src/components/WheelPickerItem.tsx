@@ -121,7 +121,7 @@ function WheelPickerItem({
       {option && (
         <Image
           style={{ width: 100, height: 100, margin: 10 }}
-          source={require("../../assets/logo-without-bg-without-text.png")}
+          source={option?.imageUrl}
         ></Image>
       )}
       <Text style={[textStyle, { fontWeight: "200" }]}>
