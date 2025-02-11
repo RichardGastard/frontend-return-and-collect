@@ -65,12 +65,8 @@ function UserSelectSizeScreen({ navigation }) {
           <WheelPicker
             selectedIndex={selectedIndex}
             options={optionsData}
-            // Option 1
             itemHeight={200}
             visibleRest={1}
-            // Option 2
-            //  itemHeight={130}
-            //  visibleRest={2}
             itemTextStyle={{ fontFamily: "poppins" }}
             scaleFunction={(x: number) => 1.5 ** -x}
             rotationFunction={(x: number) => 1 - Math.pow(1 / 2, x)}
@@ -121,7 +117,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "red",
     height: "90%",
-    // overflow: "scroll"
   },
   header: {
     marginLeft: 10,
@@ -138,7 +133,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: "center",
-    // marginTop: 20,
   },
 });
 
