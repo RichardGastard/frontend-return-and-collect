@@ -23,6 +23,7 @@ import CustomButton from "@/components/CustomButton";
 import { logIn } from "reducers/users";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import Logo from "@/components/Logo";
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ function HomeScreen({ navigation }) {
           >
             <View style={styles.logoView}>
               <Image
-                source={require("../assets/logo-without-bg.png")}
+                source={require("../assets/logo-full.png")}
                 style={styles.logo}
               />
             </View>
@@ -203,8 +204,8 @@ const styles = StyleSheet.create({
     opacity: 30,
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: 350,
+    height: 350,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -281,11 +282,11 @@ const styles = StyleSheet.create({
     gap: 5,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30,
+    marginTop: 10,
   },
   footer: {
     alignItems: "center",
-    marginTop: 70,
+    marginTop: 20,
   },
   passwordInput: {
     flex: 1,
