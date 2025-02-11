@@ -3,8 +3,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { StatusBar } from "expo-status-bar";
-import { Easing, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUp";
@@ -23,15 +22,7 @@ import users from "./reducers/users";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-// NEW IMPORTS //
 import { BlurView } from "expo-blur"; // ajouté pour la tab bar
-import Animated, {
-  interpolate,
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated"; //  mettre de l'effet dans les changements
 import { enableScreens } from "react-native-screens";
 
 enableScreens();
@@ -72,10 +63,11 @@ const TabNavigator = () => {
             <MaterialCommunityIcons name={iconName} size={size} color={color} />
           );
         },
-        animation: "fade",
+        animation: "shift",
         tabBarActiveTintColor: "#ff5252",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: { position: "absolute" },
+        // tabBarBadge: route.name === "Package" ? 5 : null,
         tabBarBackground: () => (
           <BlurView
             tint="light"
@@ -96,6 +88,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
+
         <NavigationContainer>
 
           <Stack.Navigator
@@ -110,9 +103,6 @@ export default function App() {
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name ="Payment" component={Payment}/>
             <Stack.Screen name ="Validation" component={ValidationScreen}/> 
-            
-           
-            
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
@@ -126,10 +116,9 @@ export default function App() {
               options={{
                 animation: "slide_from_right",
                 animationTypeForReplace: "push",
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+              }}/>
+            </Stack.Navigator>
+          </NavigationContainer>
       </PersistGate>
     </Provider>
   );

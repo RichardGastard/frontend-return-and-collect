@@ -10,9 +10,20 @@ import {
 
 import WheelPicker from "@/components/WheelPicker";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useSwipe } from "hook/useSwipe";
 
-function UserSelectSizeScreen() {
+function UserSelectSizeScreen({ navigation }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  /* -------------- */
+  /* Handle swiping */
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
+
+  function onSwipeLeft() {}
+
+  function onSwipeRight() {
+    navigation.navigate("Home");
+  }
 
   function handleSubmit() {
     // TODO: Faire un navigation.navigate vers la page d'après
@@ -22,29 +33,33 @@ function UserSelectSizeScreen() {
     {
       titre: "Petit",
       description: "Boîte à chaussure",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Moyen",
       description: "Micro-onde",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Large",
       description: "Armoire",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Très large",
       description: "Camion",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      // imageUrl: "../assets/logo-simple.svg",
+      imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
   ];
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View>
+        <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <View style={styles.header}>
             <Text style={styles.title}>Selection</Text>
             <Text style={styles.description}>
@@ -54,12 +69,8 @@ function UserSelectSizeScreen() {
           <WheelPicker
             selectedIndex={selectedIndex}
             options={optionsData}
-            // Option 1
             itemHeight={200}
             visibleRest={1}
-            // Option 2
-            //  itemHeight={130}
-            //  visibleRest={2}
             itemTextStyle={{ fontFamily: "poppins" }}
             scaleFunction={(x: number) => 1.5 ** -x}
             rotationFunction={(x: number) => 1 - Math.pow(1 / 2, x)}
@@ -110,7 +121,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "red",
     height: "90%",
-    // overflow: "scroll"
   },
   header: {
     marginLeft: 10,
@@ -127,7 +137,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: "center",
-    // marginTop: 20,
   },
 });
 
