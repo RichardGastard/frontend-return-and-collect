@@ -10,9 +10,20 @@ import {
 
 import WheelPicker from "@/components/WheelPicker";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useSwipe } from "hook/useSwipe";
 
-function UserSelectSizeScreen() {
+function UserSelectSizeScreen({ navigation }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  /* -------------- */
+  /* Handle swiping */
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight);
+
+  function onSwipeLeft() {}
+
+  function onSwipeRight() {
+    navigation.navigate("Home");
+  }
 
   function handleSubmit() {
     // TODO: Faire un navigation.navigate vers la page d'après
@@ -22,29 +33,29 @@ function UserSelectSizeScreen() {
     {
       titre: "Petit",
       description: "Boîte à chaussure",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      imageUrl: "../assets/logo-simple.svg",
     },
     {
       titre: "Moyen",
       description: "Micro-onde",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      imageUrl: "../assets/logo-simple.svg",
     },
     {
       titre: "Large",
       description: "Armoire",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      imageUrl: "../assets/logo-simple.svg",
     },
     {
       titre: "Très large",
       description: "Camion",
-      imageUrl: "../assets/logo-without-bg-without-text.png",
+      imageUrl: "../assets/logo-simple.svg",
     },
   ];
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View>
+        <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <View style={styles.header}>
             <Text style={styles.title}>Selection</Text>
             <Text style={styles.description}>
