@@ -10,6 +10,8 @@ import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUp";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import Account from "./screens/Account";
+import Payment from "screens/Payment";
+import ValidationScreen from "screens/ValidationScreen";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -17,7 +19,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
-import Payment from "screens/Payment";
+
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -107,6 +109,8 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name ="Payment" component={Payment}/>
+            <Stack.Screen name ="Validation" component={ValidationScreen}/> 
+            
            
             
             <Stack.Screen

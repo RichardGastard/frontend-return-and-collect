@@ -57,7 +57,7 @@ function Payment({ navigation }) {
       console.log("Code secret invalide")
       return;
     } else {
-      navigation.navigate("Home") // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
+      navigation.navigate("Validation") // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
     }
   };
 
