@@ -22,7 +22,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur"; // ajouté pour la tab bar
 import { enableScreens } from "react-native-screens";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 enableScreens();
 
@@ -87,7 +86,6 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <GestureHandlerRootView>
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{
@@ -99,7 +97,7 @@ export default function App() {
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="SignUp" component={SignUp} />
               <Stack.Screen name="Account" component={Account} />
-              <Stack.Screen name ="Payment" component={Payment}/>
+              <Stack.Screen name="Payment" component={Payment} />
               <Stack.Screen
                 name="UserSelectSize"
                 component={UserSelectSizeScreen}
@@ -117,7 +115,6 @@ export default function App() {
               />
             </Stack.Navigator>
           </NavigationContainer>
-        </GestureHandlerRootView>
       </PersistGate>
     </Provider>
   );
