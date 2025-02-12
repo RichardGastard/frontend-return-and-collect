@@ -9,6 +9,7 @@ import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUp";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import Account from "./screens/Account";
+import CoordinatesScreen from "./screens/CoordinatesScreen"
 import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
 
@@ -101,6 +102,7 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
+            <Stack.Screen name="Coordinates" component={CoordinatesScreen}/>
             <Stack.Screen name ="Payment" component={Payment}/>
             <Stack.Screen name ="Validation" component={ValidationScreen}/> 
             <Stack.Screen
