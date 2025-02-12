@@ -22,7 +22,7 @@ import useKeyboardHeight from "react-native-use-keyboard-height";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-function Coordinates({ navigation }) {
+function CoordinatesScreen({ navigation }) {
   const [firstname, setFirstname] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -213,4 +213,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Coordinates;
+export default CoordinatesScreen;
