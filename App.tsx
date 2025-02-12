@@ -25,7 +25,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur"; // ajouté pour la tab bar
 import { enableScreens } from "react-native-screens";
-import Coordinates from "screens/CoordinatesScreen";
 
 enableScreens();
 
