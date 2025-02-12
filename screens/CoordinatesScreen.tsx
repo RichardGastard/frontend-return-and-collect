@@ -21,6 +21,9 @@ import DropdownMenu from "@/components/DropdownMenu";
 import useKeyboardHeight from "react-native-use-keyboard-height";
 
 import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import ArrowBack from "@/components/ArrowBack";
 
 function CoordinatesScreen({ navigation }) {
   const [firstname, setFirstname] = useState<string>("");
@@ -48,6 +51,7 @@ function CoordinatesScreen({ navigation }) {
         >
           <View>
             <View style={styles.header}>
+                <ArrowBack></ArrowBack>
               <Text style={styles.title}>Coordonnées</Text>
             </View>
             <View style={styles.dropDown}>
@@ -108,7 +112,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fffbf0",
     padding: 20,
   },
-
   Input: {
     flexDirection: "row",
     alignItems: "center",
@@ -136,10 +139,12 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
+    flexDirection: "row"
   },
   title: {
     fontSize: 36,
     color: "#525252",
+    marginLeft: 50,
   },
   description: {
     color: "#525252",
