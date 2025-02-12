@@ -10,6 +10,7 @@ import { TextInput } from "react-native-paper";
 type InputProps = {
   keyboardType?: string;
   label: string;
+  
 };
 
 export default function Input({

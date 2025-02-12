@@ -3,14 +3,15 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { StatusBar } from "expo-status-bar";
-import { Easing, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUp";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import Account from "./screens/Account";
 import CoordinatesScreen from "./screens/CoordinatesScreen"
+import Payment from "screens/Payment";
+import ValidationScreen from "screens/ValidationScreen";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -18,17 +19,11 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
+
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-// NEW IMPORTS //
 import { BlurView } from "expo-blur"; // ajouté pour la tab bar
-import Animated, {
-  interpolate,
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated"; //  mettre de l'effet dans les changements
 import { enableScreens } from "react-native-screens";
 import Coordinates from "screens/CoordinatesScreen";
 
@@ -70,10 +65,11 @@ const TabNavigator = () => {
             <MaterialCommunityIcons name={iconName} size={size} color={color} />
           );
         },
-        animation: "fade",
+        animation: "shift",
         tabBarActiveTintColor: "#ff5252",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: { position: "absolute" },
+        // tabBarBadge: route.name === "Package" ? 5 : null,
         tabBarBackground: () => (
           <BlurView
             tint="light"
@@ -94,7 +90,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
+
         <NavigationContainer>
+
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
@@ -106,6 +104,8 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name="Coordinates" component={CoordinatesScreen}/>
+            <Stack.Screen name ="Payment" component={Payment}/>
+            <Stack.Screen name ="Validation" component={ValidationScreen}/> 
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
@@ -119,10 +119,9 @@ export default function App() {
               options={{
                 animation: "slide_from_right",
                 animationTypeForReplace: "push",
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+              }}/>
+            </Stack.Navigator>
+          </NavigationContainer>
       </PersistGate>
     </Provider>
   );
