@@ -29,6 +29,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"; //  mettre de l'effet dans les changements
 import { enableScreens } from "react-native-screens";
+import Coordinates from "screens/CoordinatesScreen";
 
 enableScreens();
 
@@ -103,6 +104,7 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
+            <Stack.Screen name="Coordinates" component={Coordinates}/>
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
