@@ -19,33 +19,33 @@ import Input from "@/components/Input";
 import HomeScreen from "./HomeScreen";
 
 function PickerPayement({ navigation }) {
-  const [iban, setIban]= useState<string>("");
+  const [iban, setIban] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [bic, setBic] = useState<string>("");
 
-  const [ibanNumber, setIbanNumber]= useState<boolean>(true);
-  const [bicNumber, setBicNumber ] = useState<boolean>(true);
+  const [ibanNumber, setIbanNumber] = useState<boolean>(true);
+  const [bicNumber, setBicNumber] = useState<boolean>(true);
 
   const handleSubmit = () => {
-    const ibanRegex  = /b[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?!(?:[ ]?[0-9]){3})(?:[ ]?[0-9]{1,2})?b/ ;
-    const bicRegex = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?/
-    
-    if (!iban.match(ibanRegex) || iban.length <2){
-      setIbanNumber(false)
-      console.log("Iban incorrect")
+    const ibanRegex =
+      /b[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?!(?:[ ]?[0-9]){3})(?:[ ]?[0-9]{1,2})?b/;
+    const bicRegex = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?/;
+
+    if (!iban.match(ibanRegex) || iban.length < 2) {
+      setIbanNumber(false);
+      console.log("Iban incorrect");
       return;
-    } if (!bic.match(bicRegex) || bic.length <2){
-      setBicNumber(false)
-      console.log("Bic invalide")
+    }
+    if (!bic.match(bicRegex) || bic.length < 2) {
+      setBicNumber(false);
+      console.log("Bic invalide");
       return;
     } else {
-      navigation.navigate("Validation") // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
+      navigation.navigate("Validation"); // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
     }
   };
 
   // !!!!! CE CODE NE PERMET PAS D'AFFICHER PLUSIEURS ERREURS SIMULTANEMENT !!!!!!!
-
-
 
   return (
     <SafeAreaProvider>
@@ -68,27 +68,34 @@ function PickerPayement({ navigation }) {
             </TouchableOpacity>
           </View>
           <View style={styles.header}>
-            <Text style={styles.title}>Informations de paiemment</Text>
+            <Text style={styles.title}>Informations de paiement</Text>
             <TouchableOpacity style={styles.container}></TouchableOpacity>
           </View>
           <View style={styles.inputs}>
-          <Text style={{ fontSize: 16, color: "#525252" }}>
-                Nom du titulaire du compte
-              </Text>
-          <Input  label = "Nom du titulaire" onChangeText={(value) => setName((value))}
-                value={name} />
-              <Text style={{ fontSize: 16, color: "#525252" }}>
-                IBAN
-              </Text>
-              <Input keyboardType="numeric" label = "IBAN" onChangeText={(value) => setIban((value))}
-              value={iban} />
-              <Text style={{ fontSize: 16, color: "#525252" }}>
-                BIC
-              </Text>
-              <Input keyboardType="numeric" label = "BIC" onChangeText={(value) => setBic((value))}
-              value={bic} />
-            </View>
-            <View style={styles.smallInputAlign}>
+            <Text style={{ fontSize: 16, color: "#525252" }}>
+              Nom du titulaire du compte
+            </Text>
+            <Input
+              label="Nom du titulaire"
+              onChangeText={(value) => setName(value)}
+              value={name}
+            />
+            <Text style={{ fontSize: 16, color: "#525252" }}>IBAN</Text>
+            <Input
+              keyboardType="numeric"
+              label="IBAN"
+              onChangeText={(value) => setIban(value)}
+              value={iban}
+            />
+            <Text style={{ fontSize: 16, color: "#525252" }}>BIC</Text>
+            <Input
+              keyboardType="numeric"
+              label="BIC"
+              onChangeText={(value) => setBic(value)}
+              value={bic}
+            />
+          </View>
+          <View style={styles.smallInputAlign}>
             <View style={styles.ValidateButton}>
               <CustomButton onPressFunction={() => handleSubmit()}>
                 Valider les informations
@@ -122,7 +129,7 @@ const styles = StyleSheet.create({
     color: "#525252",
   },
   error: {
-    color: "red"
+    color: "red",
   },
   inputs: {
     marginTop: 35,
@@ -141,7 +148,7 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
   CVV: {
-width: 20,
+    width: 20,
   },
   input: {
     borderColor: "#525252",
@@ -152,7 +159,7 @@ width: 20,
   },
   smallInputAlign: {
     borderColor: "#525252",
-   
+
     justifyContent: "space-between",
   },
   smallInput: {
