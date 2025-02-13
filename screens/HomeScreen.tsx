@@ -24,6 +24,7 @@ import { logIn } from "reducers/users";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Logo from "@/components/Logo";
+import Loader from "@/components/Loader";
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();

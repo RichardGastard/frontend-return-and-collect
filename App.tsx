@@ -9,9 +9,10 @@ import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUp";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import Account from "./screens/Account";
-import CoordinatesScreen from "./screens/CoordinatesScreen"
+import CoordinatesScreen from "./screens/CoordinatesScreen";
 import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
+import PickerLoader from "screens/PickerLoader";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -19,7 +20,6 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
-
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -89,9 +89,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-
         <NavigationContainer>
-
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
@@ -99,12 +97,13 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
+            <Stack.Screen name="PickerLoader" component={PickerLoader} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
-            <Stack.Screen name="Coordinates" component={CoordinatesScreen}/>
-            <Stack.Screen name ="Payment" component={Payment}/>
-            <Stack.Screen name ="Validation" component={ValidationScreen}/> 
+            <Stack.Screen name="Coordinates" component={CoordinatesScreen} />
+            <Stack.Screen name="Payment" component={Payment} />
+            <Stack.Screen name="Validation" component={ValidationScreen} />
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
@@ -118,9 +117,10 @@ export default function App() {
               options={{
                 animation: "slide_from_right",
                 animationTypeForReplace: "push",
-              }}/>
-            </Stack.Navigator>
-          </NavigationContainer>
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </PersistGate>
     </Provider>
   );
