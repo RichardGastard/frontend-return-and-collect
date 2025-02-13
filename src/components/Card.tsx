@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   Text,
   View,
   StyleSheet,
 } from "react-native";
+import Stars from "../components/RatingStars"
 import { FontAwesome, FontAwesome5 } from "react-native-vector-icons"
 
 type CardProps = {
   image: any;
   name: string;
-  rating: number;
   numberOfDeliveries: string;
   vehicle: "velo" | "scooter" | "voiture" | "fourgon" ;
 };
@@ -19,6 +19,12 @@ type CardProps = {
 
 
 function Card(props: CardProps) {
+  const [rating, setRating] = useState<number>()
+
+  const handleRating = (newRating: number) => {
+    setRating(newRating);
+  }
+
   return (
     <View style={styles.container}>
       <View>
@@ -26,7 +32,9 @@ function Card(props: CardProps) {
       </View>
       <View style={styles.infos}>
         <Text style={styles.name}>{props.name}</Text>
-        <Text style={styles.rating}>{renderStars(props.rating)}</Text>
+        <Stars numberofStars={5} 
+                averageRating={rating} 
+                onPressFunction={handleRating} />
         <Text style={styles.deliveries}>{props.numberOfDeliveries}</Text>
         <View style={styles.vehicle}>
           <FontAwesome5 name={getVehicleIcon(props.vehicle)} size={20} color="gray" />
@@ -36,21 +44,21 @@ function Card(props: CardProps) {
   );
 }
 
-const renderStars = (rating: number) => {
-  let stars = [];
-  for (let i = 1; i <= 5; i++) {
-    stars.push(
-      <FontAwesome
-        key={i}
-        name={i <= rating ? "star" : "star-o"}
-        size={16}
-        color={i <= rating ? "gold" : "gray"}
-        style={{ marginRight: 2 }}
-      />
-    );
-  }
-  return stars;
-};
+// const renderStars = (rating: number) => {
+//   let stars = [];
+//   for (let i = 1; i <= 5; i++) {
+//     stars.push(
+//       <FontAwesome
+//         key={i}
+//         name={i <= rating ? "star" : "star-o"}
+//         size={16}
+//         color={i <= rating ? "gold" : "gray"}
+//         style={{ marginRight: 2 }}
+//       />
+//     );
+//   }
+//   return stars;
+// };
 
 const getVehicleIcon = (vehicle: "velo" | "scooter" | "voiture" | "fourgon" ) => {
   switch (vehicle) {
@@ -74,7 +82,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 60,
     height: 115,
-    width: 230,
+    width: 240,
     padding: 15,
     },
   image: {
