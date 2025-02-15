@@ -97,7 +97,6 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
-            <Stack.Screen name="PickerLoader" component={PickerLoader} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
@@ -111,6 +110,7 @@ export default function App() {
                 animation: "slide_from_right",
               }}
             />
+            <Stack.Screen name="PickerLoader" component={PickerLoader} />
             <Stack.Screen
               name="TabNavigator"
               component={TabNavigator}

@@ -1,25 +1,28 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
-import ArrowBack from "@/components/ArrowBack";
-
-import Input from "@/components/Input";
-import HomeScreen from "./HomeScreen";
 import Loader from "@/components/Loader";
 
 function PickerLoader({ navigation }) {
+  const [myText, setMyText] = useState<string>("");
+
+  useEffect(() => {
+    if (myText.length <= 3) {
+      setTimeout(() => {
+        setMyText(myText + ".");
+      }, 1000);
+    } else {
+      setMyText("");
+    }
+  }, [myText]);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -28,7 +31,9 @@ function PickerLoader({ navigation }) {
           style={{ flex: 1 }}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>Recherche de votre collecteur</Text>
+            <Text style={styles.title}>
+              Recherche de votre collecteur {myText}
+            </Text>
             <Loader />
           </View>
           <View style={styles.cancelButton}>
