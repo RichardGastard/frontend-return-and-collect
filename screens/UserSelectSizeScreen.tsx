@@ -26,7 +26,7 @@ function UserSelectSizeScreen({ navigation }) {
   }
 
   function handleSubmit() {
-    // TODO: Faire un navigation.navigate vers la page d'après
+    navigation.navigate("UserCurrentPosition");
   }
 
   const optionsData = [

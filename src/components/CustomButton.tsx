@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import {
   Dimensions,
+  DimensionValue,
   GestureResponderEvent,
   StyleSheet,
   Text,
@@ -12,8 +13,8 @@ type ButtonProps = {
   onPressFunction: () => void;
   backgroundColor?: string;
   textColor?: string;
-  width?: number;
-  height?: number;
+  width?: DimensionValue;
+  height?: DimensionValue;
 };
 
 export default function CustomButton({

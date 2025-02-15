@@ -13,6 +13,9 @@ import CoordinatesScreen from "./screens/CoordinatesScreen";
 import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
 import PickerLoader from "screens/PickerLoader";
+import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
+import WhatCanYouCarry from "screens/WhatCanYouCarry";
+import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen"
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -20,16 +23,18 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
+import pickers from "./reducers/pickers"
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur"; // ajouté pour la tab bar
 import { enableScreens } from "react-native-screens";
 
+
 enableScreens();
 
 const reducers = combineReducers({
-  users,
+  users, pickers
 });
 
 const persistConfig = { key: "applicationName", storage: AsyncStorage };
@@ -100,25 +105,21 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
-            <Stack.Screen name="Coordinates" component={CoordinatesScreen} />
-            <Stack.Screen name="Payment" component={Payment} />
-            <Stack.Screen name="Validation" component={ValidationScreen} />
+            <Stack.Screen name="Coordinates" component={CoordinatesScreen}/>
+            <Stack.Screen name ="Payment" component={Payment}/>
+            <Stack.Screen name ="Validation" component={ValidationScreen}/>
+            <Stack.Screen name ="Carry" component={WhatCanYouCarry}/>
+            <Stack.Screen name ="PickerPayment" component={PickerPaymentMethodScreen} />
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
-              options={{
-                animation: "slide_from_right",
-              }}
             />
             <Stack.Screen name="PickerLoader" component={PickerLoader} />
             <Stack.Screen
-              name="TabNavigator"
-              component={TabNavigator}
-              options={{
-                animation: "slide_from_right",
-                animationTypeForReplace: "push",
-              }}
+              name="UserCurrentPosition"
+              component={UserCurrentPositionScreen}
             />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

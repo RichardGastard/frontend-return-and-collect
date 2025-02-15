@@ -15,7 +15,7 @@ import {
     const navigation = useNavigation();
 
     return (
-      <TouchableOpacity onPress= {()=>navigation.goBack()} style={styles.container}>
+      <TouchableOpacity onPress= {()=>navigation.goBack()}>
        <MaterialCommunityIcons
        name = "arrow-left-drop-circle-outline"
        size = {40}
@@ -26,9 +26,7 @@ import {
   }
   
   const styles = StyleSheet.create({
-    container: {
-
-    },
+    
   });
 
 export default ArrowBack;
