@@ -9,7 +9,7 @@ import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUp";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import Account from "./screens/Account";
-import CoordinatesScreen from "./screens/CoordinatesScreen"
+import CoordinatesScreen from "./screens/CoordinatesScreen";
 import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
@@ -22,7 +22,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
 import pickers from "./reducers/pickers"
-
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -93,9 +92,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-
         <NavigationContainer>
-
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
@@ -111,7 +108,6 @@ export default function App() {
             <Stack.Screen name ="Validation" component={ValidationScreen}/>
             <Stack.Screen name ="Carry" component={WhatCanYouCarry}/>
             <Stack.Screen name ="PickerPayment" component={PickerPaymentMethodScreen} />
-            
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
@@ -125,9 +121,10 @@ export default function App() {
               options={{
                 animation: "slide_from_right",
                 animationTypeForReplace: "push",
-              }}/>
-            </Stack.Navigator>
-          </NavigationContainer>
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </PersistGate>
     </Provider>
   );
