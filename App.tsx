@@ -12,6 +12,7 @@ import Account from "./screens/Account";
 import CoordinatesScreen from "./screens/CoordinatesScreen";
 import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
+import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -105,18 +106,12 @@ export default function App() {
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
-              options={{
-                animation: "slide_from_right",
-              }}
             />
             <Stack.Screen
-              name="TabNavigator"
-              component={TabNavigator}
-              options={{
-                animation: "slide_from_right",
-                animationTypeForReplace: "push",
-              }}
+              name="UserCurrentPosition"
+              component={UserCurrentPositionScreen}
             />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

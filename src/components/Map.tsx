@@ -49,29 +49,33 @@ export default function Map({
   // Lorsque la position est acquise, la MapView se focalise sur la position
   useEffect(() => {
     if (location) {
-        let deltaMax = 0.001;
-        if (pickerPosition) {
-          deltaMax = Math.max(
-            Math.abs(pickerPosition.latitude - location.latitude) * 2.5,
-            deltaMax
-          );
-          deltaMax = Math.max(
-            Math.abs(pickerPosition.longitude - location.longitude) * 2.5,
-            deltaMax
-          );
-        }
-        mapViewRef.current?.animateToRegion(
-          {
-            ...location,
-            latitudeDelta: deltaMax,
-            longitudeDelta: deltaMax,
-          },
-          1000
+      let deltaMax = 0.001;
+      let barycentre = { ...location };
+      if (pickerPosition) {
+        barycentre.latitude = (location.latitude + pickerPosition.latitude) / 2;
+        barycentre.longitude =
+          (location.longitude + pickerPosition.longitude) / 2;
+        deltaMax = Math.max(
+          Math.abs(pickerPosition.latitude - location.latitude) * 1.3,
+          deltaMax
         );
-        // On force l'update après un certain temps
-        setTimeout(() => {
-          mapViewDirectionsRef.current?.forceUpdate()
-        }, 200)
+        deltaMax = Math.max(
+          Math.abs(pickerPosition.longitude - location.longitude) * 1.3,
+          deltaMax
+        );
+      }
+      mapViewRef.current?.animateToRegion(
+        {
+          ...barycentre,
+          latitudeDelta: deltaMax,
+          longitudeDelta: deltaMax,
+        },
+        1000
+      );
+      // On force l'update après un certain temps
+      setTimeout(() => {
+        mapViewDirectionsRef.current?.forceUpdate();
+      }, 200);
     }
   }, [location]);
 
@@ -91,11 +95,7 @@ export default function Map({
       // rotateEnabled={false}
     >
       <Marker coordinate={location}>
-        <MaterialCommunityIcons
-          name="human-greeting"
-          size={48}
-          color="black"
-        />
+        <MaterialCommunityIcons name="human-greeting" size={48} color="black" />
       </Marker>
       {pickerPosition && (
         <>
@@ -109,7 +109,7 @@ export default function Map({
           </Marker>
           {location && (
             <MapViewDirections
-            ref={mapViewDirectionsRef}
+              ref={mapViewDirectionsRef}
               origin={location}
               destination={pickerPosition}
               apikey={GOOGLE_MAPS_APIKEY}
