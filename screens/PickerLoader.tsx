@@ -29,11 +29,6 @@ function PickerLoader({ navigation }) {
         >
           <View style={styles.header}>
             <Text style={styles.title}>Recherche de votre collecteur</Text>
-          </View>
-          <View style={styles.loader}>
-            <Image source={require("../assets/logo-loader.gif")} />
-          </View>
-          <View>
             <Loader />
           </View>
           <View style={styles.cancelButton}>
@@ -43,6 +38,9 @@ function PickerLoader({ navigation }) {
               backgroundColor="#ff5252"
               width={200}
             />
+          </View>
+          <View style={styles.footer}>
+            <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -63,6 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     marginTop: "15%",
+    gap: 100,
   },
   title: {
     fontSize: 36,
@@ -70,14 +69,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  loader: {
-    marginRight: 20,
-    height: "50%",
-    width: "100%",
-  },
   cancelButton: {
     alignSelf: "center",
-    marginTop: "15%",
+    marginTop: "30%",
     shadowColor: "#000",
     opacity: 0.8,
     shadowOffset: {
@@ -88,6 +82,11 @@ const styles = StyleSheet.create({
     shadowRadius: 16.0,
 
     elevation: 24,
+  },
+  footer: {
+    alignSelf: "center",
+    position: "absolute",
+    bottom: 10,
   },
 });
 
