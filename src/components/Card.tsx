@@ -5,13 +5,14 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import Stars from "../components/RatingStars"
 import { FontAwesome, FontAwesome5 } from "react-native-vector-icons"
+import HalfStar from "./HalfStar";
 
 type CardProps = {
   image: any;
   name: string;
   numberOfDeliveries: string;
+  ratedStars: number;
   vehicle: "velo" | "scooter" | "voiture" | "fourgon" ;
 };
 
@@ -19,12 +20,6 @@ type CardProps = {
 
 
 function Card(props: CardProps) {
-  const [rating, setRating] = useState<number>()
-
-  const handleRating = (newRating: number) => {
-    setRating(newRating);
-  }
-
   return (
     <View style={styles.container}>
       <View>
@@ -32,10 +27,10 @@ function Card(props: CardProps) {
       </View>
       <View style={styles.infos}>
         <Text style={styles.name}>{props.name}</Text>
-        <Stars numberofStars={5} 
-                averageRating={rating} 
-                onPressFunction={handleRating} />
         <Text style={styles.deliveries}>{props.numberOfDeliveries}</Text>
+        <View style={styles.stars}>
+        {renderStars(props.ratedStars)}
+        </View>
         <View style={styles.vehicle}>
           <FontAwesome5 name={getVehicleIcon(props.vehicle)} size={20} color="gray" />
         </View>
@@ -44,21 +39,38 @@ function Card(props: CardProps) {
   );
 }
 
-// const renderStars = (rating: number) => {
-//   let stars = [];
-//   for (let i = 1; i <= 5; i++) {
-//     stars.push(
-//       <FontAwesome
-//         key={i}
-//         name={i <= rating ? "star" : "star-o"}
-//         size={16}
-//         color={i <= rating ? "gold" : "gray"}
-//         style={{ marginRight: 2 }}
-//       />
-//     );
-//   }
-//   return stars;
-// };
+const renderStars = (rated: number) => {
+  const stars = [];
+  const fullStars = Math.floor(rated);
+  const hasHalfStar = rated - fullStars >= 0.5;
+
+  for (let i = 1; i <= 5; i++) {
+    if (i <= fullStars) {
+      stars.push(
+        <FontAwesome
+          key={i}
+          name="star"
+          size={16}
+          color="gold"
+          style={{ marginRight: 2 }}
+        />
+      );
+    } else if (i === fullStars + 1 && hasHalfStar) {
+      stars.push(<HalfStar key={i} />);
+    } else {
+      stars.push(
+        <FontAwesome
+          key={i}
+          name="star-o"
+          size={16}
+          color="gray"
+          style={{ marginRight: 2 }}
+        />
+      );
+    }
+  }
+  return stars;
+};
 
 const getVehicleIcon = (vehicle: "velo" | "scooter" | "voiture" | "fourgon" ) => {
   switch (vehicle) {
@@ -104,8 +116,8 @@ const styles = StyleSheet.create({
   name: {
     
   },
-  rating: {
-
+  stars: {
+    flexDirection: "row"
   },
   deliveries: {
 
