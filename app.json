@@ -1,5 +1,13 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/Public Sans Bold.ttf"]
+        }
+      ]
+    ],
     "name": "return-and-collect",
     "slug": "return-and-collect",
     "version": "1.0.0",
