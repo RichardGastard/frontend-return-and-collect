@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
@@ -81,6 +81,7 @@ export default function Map({
 
   // TODO : Mettre des images/icons pour les markers
   return (
+    <View style={[styles.map, { height, width }]}>
     <MapView
       ref={mapViewRef}
       style={[styles.map, { height, width }]}
@@ -120,6 +121,7 @@ export default function Map({
         </>
       )}
     </MapView>
+    </View>
   );
 }
 
@@ -128,5 +130,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 2,
     borderColor: "#ddd",
+    overflow: "hidden"
   },
 });
