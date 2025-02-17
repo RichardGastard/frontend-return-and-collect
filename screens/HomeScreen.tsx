@@ -25,6 +25,9 @@ import Checkbox from "expo-checkbox"; // because Checkbox has been removed from 
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Logo from "@/components/Logo";
 
+// NEW IMPORT
+import Layout from "@/components/Layout";
+
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
@@ -94,46 +97,6 @@ function HomeScreen({ navigation }) {
 
               <Input label="Email" keyboardType="email" />
               <Input label="Mot de passe" />
-
-              {/* OLD VERSION
-              <View style={styles.inputs}>
-                <View>
-                  <Text style={{ fontSize: 16, color: "#525252" }}>Email</Text>
-                  <TextInput
-                    onChangeText={(value) => setEmail(value)}
-                    value={email}
-                    placeholder="Email..."
-                    style={styles.input}
-                    keyboardType="email-address"
-                  />
-                </View>
-                <View>
-                  <View>
-                    <Text style={{ fontSize: 16, color: "#525252" }}>
-                      Mot de passe
-                    </Text>
-                    <TextInput
-                      onChangeText={(value) => setPassword(value)}
-                      value={password}
-                      placeholder="Mot de passe..."
-                      style={styles.input}
-                      secureTextEntry={passwordVisibility}
-                    />
-                    <Pressable
-                      onPress={handlePasswordVisibility}
-                      style={styles.icon}
-                    >
-                      <MaterialCommunityIcons
-                        name={rightIcon}
-                        size={22}
-                        color="#aaa"
-                      />
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-      */}
-
               <View style={styles.tips}>
                 <View style={styles.checkbox}>
                   <Checkbox

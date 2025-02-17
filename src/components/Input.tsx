@@ -10,7 +10,6 @@ import { TextInput } from "react-native-paper";
 type InputProps = {
   keyboardType?: string;
   label: string;
-  
 };
 
 export default function Input({
@@ -72,7 +71,7 @@ export default function Input({
             </TouchableOpacity>
           </View>
         )}
-          </View>
+      </View>
     </View>
   );
 }
