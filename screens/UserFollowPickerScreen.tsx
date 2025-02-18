@@ -19,14 +19,15 @@ import Map from "@/components/Map";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ArrowBack from "@/components/ArrowBack";
 import Card from "@/components/Card";
+import CustomButton from "@/components/CustomButton";
 
 function UserFollowPickerScreen() {
-    return (
-<SafeAreaView style={styles.container}>
+  return (
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
-       // keyboardVerticalOffset={keyboardHeight}
+        // keyboardVerticalOffset={keyboardHeight}
       >
         <ScrollView
           style={{ overflow: "visible" }}
@@ -35,18 +36,26 @@ function UserFollowPickerScreen() {
         >
           <View>
             <View style={styles.header}>
-                <ArrowBack></ArrowBack>
+              <ArrowBack></ArrowBack>
               <Text style={styles.title}>Suivi du Picker</Text>
             </View>
           </View>
-            <View style={styles.card}>
-          <Card image={require("assets/chien.png")} name={"BOB"} ratedStars={2.55} numberOfDeliveries={"xDeliveries"}  vehicle={"scooter"}/>
+          <View style={styles.card}>
+            <Card
+              image={require("assets/chien.png")}
+              name={"BOB"}
+              ratedStars={2.55}
+              numberOfDeliveries={"xDeliveries"}
+              vehicle={"scooter"}
+            />
           </View>
           <View style={styles.map}>
-            <Map pickerPosition={{latitude:43.266382, longitude:5.397543}}></Map>
+            <Map
+              pickerPosition={{ latitude: 43.266382, longitude: 5.397543 }}
+            ></Map>
           </View>
           <View style={styles.code}>
-            <Text>Code Secret</Text>
+            <CustomButton onPressFunction={() => console.log('ça continue')}>Secret Code</CustomButton>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
-    flexDirection: "row"
+    flexDirection: "row",
   },
   title: {
     fontSize: 36,
@@ -76,18 +85,9 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 30,
   },
-  code: {
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    marginTop: 70,
-    borderWidth: 1,
-    width: 200,
-    height: 50,
-    borderRadius: 10,
-    backgroundColor: "#A65AAD"
+    code: {
+  marginTop: 60, 
   }
 });
-
 
 export default UserFollowPickerScreen;

@@ -102,7 +102,7 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
-            <Stack.Screen name="Home" component={UserFollowPickerScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name="Coordinates" component={CoordinatesScreen}/>
@@ -110,6 +110,7 @@ export default function App() {
             <Stack.Screen name ="Validation" component={ValidationScreen}/>
             <Stack.Screen name ="Carry" component={WhatCanYouCarry}/>
             <Stack.Screen name ="PickerPayment" component={PickerPaymentMethodScreen} />
+            <Stack.Screen name ="UserFollowPicker" component={UserFollowPickerScreen} />
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
