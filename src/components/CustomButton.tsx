@@ -38,7 +38,11 @@ export default function CustomButton({
       ]}
       onPress={onPressFunction}
     >
-      <Text style={{ color: textColor ?? "white" }}>{children}</Text>
+      <Text
+        style={{ color: textColor ?? "white", fontFamily: "Poppins-Regular" }}
+      >
+        {children}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -48,5 +52,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 30,
   },
 });

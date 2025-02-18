@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import ArrowBack from "./ArrowBack";
+import ArrowSkip from "./ArrowSkip";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -15,6 +16,7 @@ type LayoutProps = {
   description?: string;
   footer?: boolean; // mettre footer si on souhaite qu'il apparaisse
   arrowBack?: boolean;
+  arrowSkip?: string; // mettre le nom de la page vers laquelle on souhaite aller
   logo?: boolean;
   children?: ReactNode; // permet de mettre d'imbriquer les composants
 };
@@ -24,6 +26,7 @@ function Layout({
   description,
   footer,
   arrowBack,
+  arrowSkip,
   logo,
   children,
 }: LayoutProps) {
@@ -31,8 +34,14 @@ function Layout({
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         {arrowBack && (
-          <View style={styles.arrow}>
+          <View style={styles.arrowBack}>
             <ArrowBack />
+          </View>
+        )}
+
+        {arrowSkip && (
+          <View style={styles.arrowSkip}>
+            <ArrowSkip skipTo={arrowSkip as string} />
           </View>
         )}
 
@@ -40,7 +49,7 @@ function Layout({
           <View style={styles.logo}>
             <Image
               source={require("../../assets/logo-simple.png")}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 120, height: 120 }}
             ></Image>
           </View>
         )}
@@ -49,7 +58,6 @@ function Layout({
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
         </View>
-
         {/* Permet d'ajouter des composants dans le Layout*/}
         <View style={styles.content}>{children}</View>
 
@@ -68,10 +76,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fffbf0",
   },
-  arrow: {
+  arrowBack: {
     position: "absolute",
     marginTop: "20%",
     marginLeft: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16.0,
+
+    elevation: 24,
+  },
+  arrowSkip: {
+    right: 1,
+    position: "absolute",
+    marginTop: "20%",
+    marginRight: "5%",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -90,7 +113,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
-    marginTop: "21%",
+    marginTop: "16%",
     width: "95%",
     alignSelf: "center",
     gap: 7,
@@ -104,7 +127,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 12,
     },
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.3,
     shadowRadius: 16.0,
 
     elevation: 24,
@@ -114,8 +137,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     opacity: 0.7,
     fontFamily: "Poppins-Regular",
+    textAlign: "center",
   },
   content: {
+    flex: 1,
+    justifyContent: "center",
+    height: "30%",
     padding: 20,
   },
   footer: {
