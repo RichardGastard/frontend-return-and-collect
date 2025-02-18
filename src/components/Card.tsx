@@ -11,8 +11,8 @@ import HalfStar from "./HalfStar";
 type CardProps = {
   image: any;
   name: string;
-  numberOfDeliveries: string;
   ratedStars: number;
+  numberOfDeliveries: string;
   vehicle: "velo" | "scooter" | "voiture" | "fourgon" ;
 };
 
@@ -27,10 +27,10 @@ function Card(props: CardProps) {
       </View>
       <View style={styles.infos}>
         <Text style={styles.name}>{props.name}</Text>
-        <Text style={styles.deliveries}>{props.numberOfDeliveries}</Text>
         <View style={styles.stars}>
         {renderStars(props.ratedStars)}
         </View>
+        <Text style={styles.deliveries}>{props.numberOfDeliveries}</Text>
         <View style={styles.vehicle}>
           <FontAwesome5 name={getVehicleIcon(props.vehicle)} size={20} color="gray" />
         </View>
@@ -92,35 +92,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderRadius: 60,
-    height: 115,
-    width: 240,
+    borderRadius: 80,
+    height: 150,
+    width: 350,
     padding: 15,
     },
   image: {
-    alignItems: "center",
-    width: 90,
-    height: 90,
+    width: 140,
+    height: 140,
     borderRadius: "50%",
     borderWidth: 2,
     borderColor: "white",
   },
   infos: {
     flexDirection: "column",
-    width: 115,
-    height: 100,
-    paddingTop: 15,
-    marginLeft: 10,
-    color: "#525252"
+    width: 200,
+    height: 150,
+    color: "#525252",
+    alignItems: "center",
+    justifyContent: "center",
   },
   name: {
-    
+    fontSize: 20,
   },
   stars: {
     flexDirection: "row"
   },
   deliveries: {
-
+    fontSize: 20,
   },
   vehicle: {
 
