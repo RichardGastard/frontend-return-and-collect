@@ -14,7 +14,7 @@ import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
 import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
-import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen"
+import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
 
 import { Provider } from "react-redux";
@@ -113,8 +113,14 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
-            <Stack.Screen name="PickerPayment" component={PickerPaymentMethodScreen} />
-            <Stack.Screen name="UserFollowPicker" component={UserFollowPickerScreen} />
+            <Stack.Screen
+              name="PickerPayment"
+              component={PickerPaymentMethodScreen}
+            />
+            <Stack.Screen
+              name="UserFollowPicker"
+              component={UserFollowPickerScreen}
+            />
             <Stack.Screen name="Coordinates" component={CoordinatesScreen} />
             <Stack.Screen name="Payment" component={Payment} />
             <Stack.Screen name="Validation" component={ValidationScreen} />
@@ -122,10 +128,6 @@ export default function App() {
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
-            />
-            <Stack.Screen
-              name="PickerPayment"
-              component={PickerPaymentMethodScreen}
             />
             <Stack.Screen
               name="UserCurrentPosition"
