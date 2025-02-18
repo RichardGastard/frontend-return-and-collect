@@ -10,7 +10,6 @@ import { TextInput } from "react-native-paper";
 type InputProps = {
   keyboardType?: string;
   label: string;
-  
 };
 
 export default function Input({
@@ -36,7 +35,7 @@ export default function Input({
           label={label}
           placeholder={`Mettre son ${label.toLowerCase()}...`} // reprend le label pour rajouter dans le placeholder
           outlineColor="#525252" // ligne extérieure
-          selectionColor="febbba" // curseur
+          selectionColor="#febbba" // curseur
           cursorColor="#febbba"
           activeOutlineColor="#febbba"
           textColor="#525252"
@@ -72,21 +71,20 @@ export default function Input({
             </TouchableOpacity>
           </View>
         )}
-          </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 8,
+    marginVertical: 3,
   },
   label: {
     fontSize: 14,
     color: "#525252",
     marginBottom: 4,
     position: "relative",
-    borderWidth: 0,
   },
   input: {
     backgroundColor: "#fffbf0",
