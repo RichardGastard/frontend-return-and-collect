@@ -2,30 +2,21 @@
 import Layout from "@/components/Layout";
 import Input from "@/components/Input";
 import DropdownMenu from "@/components/DropdownMenu";
+import CustomButton from "@/components/CustomButton";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Keyboard,
-  KeyboardEvent,
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
 
-import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import CustomButton from "@/components/CustomButton";
+// TODO: Adjust the keyboard avoiding view
 
 function CoordinatesScreen({ navigation }) {
   const [firstname, setFirstname] = useState<string>("");
@@ -42,18 +33,19 @@ function CoordinatesScreen({ navigation }) {
     <Layout
       title="Coordonnées"
       description="Choisissez un profil et remplir les informations"
+      footer
       arrowBack
       arrowSkip="Payment"
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
-        // keyboardVerticalOffset={keyboardHeight}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 320 : 0}
       >
         <ScrollView
-          style={{ overflow: "visible" }}
-          // keyboardDismissMode="interactive"
-          // keyboardShouldPersistTaps="handled"
+          style={{ flexGrow: 1, paddingBottom: 20, overflow: "visible" }}
+          keyboardDismissMode="interactive"
+          keyboardShouldPersistTaps="handled"
         >
           <DropdownMenu
             onChange={(value) => setUserType(value)}
@@ -111,10 +103,9 @@ function CoordinatesScreen({ navigation }) {
           <Input label="Adresse complète" />
           <Input label="Code postal" />
           <Input label="Ville" />
-
           <CustomButton
             onPressFunction={() => {
-              navigation.navigate("");
+              navigation.navigate("Payment");
             }}
           >
             Suivant

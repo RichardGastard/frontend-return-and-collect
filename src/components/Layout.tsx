@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   title: {
+    textAlign: "center",
     fontSize: 36,
     color: "#525252",
     fontFamily: "Public-Sans-Bold",

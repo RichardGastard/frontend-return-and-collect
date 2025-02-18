@@ -83,90 +83,89 @@ function HomeScreen({ navigation }) {
       footer
       title="Bienvenue"
       description="Connectez-vous ou créez un compte"
+      logo={keyboardVisible}
     >
-      <KeyboardAvoidingView
+      {/* <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 80}
         style={{ flex: 1 }}
       >
         {/* fermer le clavier quand clique en dehors */}
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
+          > */}
+      {!keyboardVisible && (
+        <Image
+          source={require("../assets/Return-and-collect-loader.gif")}
+          style={{
+            width: 200,
+            height: 200,
+            alignSelf: "center",
+            paddingBottom: 0,
+          }}
+        />
+      )}
+
+      <Input label="Email" keyboardType="email" />
+      <Input label="Mot de passe" />
+      <View style={styles.tips}>
+        <View style={styles.checkbox}>
+          <Checkbox
+            value={isChecked}
+            onValueChange={() => handleRememberMe()}
+            color="#ff5252"
+          />
+          <Text
+            style={{
+              opacity: isChecked ? 1 : 0.2,
+              color: "#525252",
+              fontFamily: "Poppins-Regular",
+            }}
           >
-            {!keyboardVisible && (
-              <Image
-                source={require("../assets/Return-and-collect-loader.gif")}
-                style={{
-                  width: 200,
-                  height: 200,
-                  alignSelf: "center",
-                  paddingBottom: 0,
-                }}
-              />
-            )}
+            Se souvenir de moi
+          </Text>
+        </View>
+        <TouchableOpacity>
+          <Text
+            style={{
+              color: "#ff5252",
+              opacity: 0.8,
+              fontFamily: "Poppins-Regular",
+            }}
+          >
+            Mot de passe oublié ?
+          </Text>
+        </TouchableOpacity>
+      </View>
 
-            <Input label="Email" keyboardType="email" />
-            <Input label="Mot de passe" />
-            <View style={styles.tips}>
-              <View style={styles.checkbox}>
-                <Checkbox
-                  value={isChecked}
-                  onValueChange={() => handleRememberMe()}
-                  color="#ff5252"
-                />
-                <Text
-                  style={{
-                    opacity: isChecked ? 1 : 0.2,
-                    color: "#525252",
-                    fontFamily: "Poppins-Regular",
-                  }}
-                >
-                  Se souvenir de moi
-                </Text>
-              </View>
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    color: "#ff5252",
-                    opacity: 0.8,
-                    fontFamily: "Poppins-Regular",
-                  }}
-                >
-                  Mot de passe oublié ?
-                </Text>
-              </TouchableOpacity>
-            </View>
+      <CustomButton
+        onPressFunction={
+          () => {
+            navigation.navigate("TabNavigator");
+          }
+          //handleLoginSubmit()
+        }
+      >
+        Se connecter
+      </CustomButton>
 
-            <CustomButton
-              onPressFunction={
-                () => {
-                  navigation.navigate("TabNavigator");
-                }
-                //handleLoginSubmit()
-              }
-            >
-              Se connecter
-            </CustomButton>
-
-            <View style={styles.register}>
-              <Text style={{ color: "#525252", fontFamily: "Poppins-Regular" }}>
-                Pas de compte?
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("SignUp");
-                }}
-              >
-                <Text style={{ color: "#febbba", fontWeight: 500 }}>
-                  Créez-en un
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+      <View style={styles.register}>
+        <Text style={{ color: "#525252", fontFamily: "Poppins-Regular" }}>
+          Pas de compte?
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("SignUp");
+          }}
+        >
+          <Text style={{ color: "#febbba", fontWeight: 500 }}>Créez-en un</Text>
+        </TouchableOpacity>
+      </View>
+      {/* </ScrollView>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+      </KeyboardAvoidingView> */}
     </Layout>
   );
 }
