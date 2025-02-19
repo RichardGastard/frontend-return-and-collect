@@ -51,7 +51,7 @@ function UserSelectSizeScreen({ navigation }) {
 
   return (
     <Layout
-      title="Selection"
+      title="Sélection"
       description="Quelle est la taille de votre paquet ?"
     >
       <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
@@ -74,11 +74,6 @@ function UserSelectSizeScreen({ navigation }) {
         >
           <Text style={{ color: "white" }}>Sélectionner</Text>
         </TouchableOpacity>
-        <View style={styles.footer}>
-          <Text style={{ color: "#525252", opacity: 0.4, marginBlock: 20 }}>
-            Made in 🇫🇷
-          </Text>
-        </View>
       </View>
     </Layout>
   );
