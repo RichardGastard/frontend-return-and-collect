@@ -69,7 +69,7 @@ function UserSelectSizeScreen({ navigation }) {
           }}
         ></WheelPicker>
         <TouchableOpacity
-          style={styles.submitButton}
+          style={[styles.submitButton, {position: "relative", top: -25}]}
           onPress={() => handleSubmit()}
         >
           <Text style={{ color: "white" }}>Sélectionner</Text>
