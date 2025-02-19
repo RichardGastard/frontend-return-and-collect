@@ -1,5 +1,13 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/Public Sans Bold.ttf"]
+        }
+      ]
+    ],
     "name": "return-and-collect",
     "slug": "return-and-collect",
     "version": "1.0.0",
@@ -8,9 +16,9 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/chien.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00000"
     },
     "ios": {
       "supportsTablet": true,

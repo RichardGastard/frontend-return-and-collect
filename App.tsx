@@ -15,7 +15,8 @@ import ValidationScreen from "screens/ValidationScreen";
 import PickerLoader from "screens/PickerLoader";
 import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
-import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen"
+import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
+import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -23,18 +24,21 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "./reducers/users";
-import pickers from "./reducers/pickers"
+import pickers from "./reducers/pickers";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur"; // ajouté pour la tab bar
 import { enableScreens } from "react-native-screens";
 
+// NEW IMPORT
+import { useFonts } from "expo-font";
 
 enableScreens();
 
 const reducers = combineReducers({
-  users, pickers
+  users,
+  pickers,
 });
 
 const persistConfig = { key: "applicationName", storage: AsyncStorage };
@@ -91,6 +95,11 @@ const TabNavigator = () => {
 };
 
 export default function App() {
+  const [fontLoaded] = useFonts({
+    "Public-Sans-Bold": require("./assets/fonts/Public-Sans-Bold.ttf"), // for title
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"), // for text
+  });
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
@@ -105,11 +114,18 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Account" component={Account} />
-            <Stack.Screen name="Coordinates" component={CoordinatesScreen}/>
-            <Stack.Screen name ="Payment" component={Payment}/>
-            <Stack.Screen name ="Validation" component={ValidationScreen}/>
-            <Stack.Screen name ="Carry" component={WhatCanYouCarry}/>
-            <Stack.Screen name ="PickerPayment" component={PickerPaymentMethodScreen} />
+            <Stack.Screen
+              name="PickerPayment"
+              component={PickerPaymentMethodScreen}
+            />
+            <Stack.Screen
+              name="UserFollowPicker"
+              component={UserFollowPickerScreen}
+            />
+            <Stack.Screen name="Coordinates" component={CoordinatesScreen} />
+            <Stack.Screen name="Payment" component={Payment} />
+            <Stack.Screen name="Validation" component={ValidationScreen} />
+            <Stack.Screen name="Carry" component={WhatCanYouCarry} />
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
