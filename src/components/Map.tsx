@@ -1,24 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, DimensionValue, StyleSheet } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-type Coordinates = {
+export type Coordinates = {
   latitude: number;
   longitude: number;
 };
 
 type MapProps = {
+  dedeliveryPosition?: Coordinates;
   pickerPosition?: Coordinates;
-  height?: number;
-  width?: number;
+  height?: DimensionValue;
+  width?: DimensionValue;
 };
 
-const GOOGLE_MAPS_APIKEY = "AIzaSyBAOlvP2wDhH_L_nljgCslBYcFptmRTtfM";
+const GOOGLE_MAPS_APIKEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_APIKEY;
 
 export default function Map({
+  dedeliveryPosition,
   pickerPosition,
   height = (Dimensions.get("window").height * 40) / 100,
   width = (Dimensions.get("window").width * 90) / 100,
@@ -48,36 +50,40 @@ export default function Map({
 
   // Lorsque la position est acquise, la MapView se focalise sur la position
   useEffect(() => {
-    if (location) {
-      let deltaMax = 0.001;
-      let barycentre = { ...location };
-      if (pickerPosition) {
-        barycentre.latitude = (location.latitude + pickerPosition.latitude) / 2;
+    if (dedeliveryPosition) {
+      let deltaMax = 0.005;
+      let barycentre = { ...dedeliveryPosition };
+      if (pickerPosition && dedeliveryPosition) {
+        barycentre.latitude =
+          (dedeliveryPosition.latitude + dedeliveryPosition.latitude) / 2;
         barycentre.longitude =
-          (location.longitude + pickerPosition.longitude) / 2;
+          (dedeliveryPosition.longitude + dedeliveryPosition.longitude) / 2;
         deltaMax = Math.max(
-          Math.abs(pickerPosition.latitude - location.latitude) * 1.3,
+          Math.abs(dedeliveryPosition.latitude - dedeliveryPosition.latitude) *
+            1.3,
           deltaMax
         );
         deltaMax = Math.max(
-          Math.abs(pickerPosition.longitude - location.longitude) * 1.3,
+          Math.abs(pickerPosition.longitude - dedeliveryPosition.longitude) *
+            1.3,
           deltaMax
         );
       }
-      mapViewRef.current?.animateToRegion(
-        {
-          ...barycentre,
-          latitudeDelta: deltaMax,
-          longitudeDelta: deltaMax,
-        },
-        1000
-      );
+      
       // On force l'update après un certain temps
       setTimeout(() => {
+        mapViewRef.current?.animateToRegion(
+          {
+            ...barycentre,
+            latitudeDelta: deltaMax,
+            longitudeDelta: deltaMax,
+          },
+          1000
+        );
         mapViewDirectionsRef.current?.forceUpdate();
       }, 200);
     }
-  }, [location]);
+  }, [dedeliveryPosition]);
 
   // TODO : Mettre des images/icons pour les markers
   return (
@@ -92,9 +98,10 @@ export default function Map({
         longitudeDelta: 1.0,
       }}
       showsBuildings={false}
+      showsUserLocation={true}
       // rotateEnabled={false}
     >
-      <Marker coordinate={location}>
+      <Marker coordinate={dedeliveryPosition}>
         <MaterialCommunityIcons name="human-greeting" size={48} color="black" />
       </Marker>
       {pickerPosition && (
@@ -110,7 +117,7 @@ export default function Map({
           {location && (
             <MapViewDirections
               ref={mapViewDirectionsRef}
-              origin={location}
+              origin={dedeliveryPosition}
               destination={pickerPosition}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={3}
