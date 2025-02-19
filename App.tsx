@@ -12,6 +12,7 @@ import Account from "./screens/Account";
 import CoordinatesScreen from "./screens/CoordinatesScreen";
 import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
+import PickerLoader from "screens/PickerLoader";
 import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
@@ -129,6 +130,7 @@ export default function App() {
               name="UserSelectSize"
               component={UserSelectSizeScreen}
             />
+            <Stack.Screen name="PickerLoader" component={PickerLoader} />
             <Stack.Screen
               name="UserCurrentPosition"
               component={UserCurrentPositionScreen}

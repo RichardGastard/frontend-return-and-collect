@@ -41,6 +41,7 @@
     "react-native-use-keyboard-height": "^0.1.2",
     "react-native-vector-icons": "^10.2.0",
     "react-redux": "^9.2.0",
+    "react-spinners": "^0.15.0",
     "react-ts-rating-star": "^1.0.4",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.15",
