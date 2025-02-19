@@ -181,7 +181,9 @@ const styles = StyleSheet.create({
   selectedIndicator: {
     position: "absolute",
     width: "100%",
-    backgroundColor: "hsl(200, 8%, 94%)",
+    backgroundColor: "#52525210",
+    // backgroundColor: "#febbba25",
+    // backgroundColor: "hsl(200, 8%, 94%)",
     borderRadius: 5,
     top: "50%",
   },
