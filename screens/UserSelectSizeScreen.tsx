@@ -11,6 +11,7 @@ import {
 import WheelPicker from "@/components/WheelPicker";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useSwipe } from "hook/useSwipe";
+import Layout from "@/components/Layout";
 
 function UserSelectSizeScreen({ navigation }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -57,42 +58,34 @@ function UserSelectSizeScreen({ navigation }) {
   ];
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Selection</Text>
-            <Text style={styles.description}>
-              Quelle est la taille de votre paquet ?
-            </Text>
-          </View>
-          <WheelPicker
-            selectedIndex={selectedIndex}
-            options={optionsData}
-            itemHeight={200}
-            visibleRest={1}
-            itemTextStyle={{ fontFamily: "poppins" }}
-            scaleFunction={(x: number) => 1.5 ** -x}
-            rotationFunction={(x: number) => 1 - Math.pow(1 / 2, x)}
-            opacityFunction={(x: number) => Math.pow(1 / 3, x)}
-            onChange={(index) => {
-              setSelectedIndex(index);
-            }}
-          ></WheelPicker>
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={() => handleSubmit()}
-          >
-            <Text style={{ color: "white" }}>Sélectionner</Text>
-          </TouchableOpacity>
-          <View style={styles.footer}>
-            <Text style={{ color: "#525252", opacity: 0.4, marginBlock: 20 }}>
-              Made in 🇫🇷
-            </Text>
-          </View>
+    <Layout title="Selection" description="Quelle est la taille de votre paquet ?">
+      <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <WheelPicker
+          selectedIndex={selectedIndex}
+          options={optionsData}
+          itemHeight={180}
+          visibleRest={1}
+          itemTextStyle={{ fontFamily: "Poppins-Regular" }}
+          scaleFunction={(x: number) => 1.5 ** -x}
+          rotationFunction={(x: number) => 1 - Math.pow(1 / 2, x)}
+          opacityFunction={(x: number) => Math.pow(1 / 3, x)}
+          onChange={(index) => {
+            setSelectedIndex(index);
+          }}
+        ></WheelPicker>
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() => handleSubmit()}
+        >
+          <Text style={{ color: "white" }}>Sélectionner</Text>
+        </TouchableOpacity>
+        <View style={styles.footer}>
+          <Text style={{ color: "#525252", opacity: 0.4, marginBlock: 20 }}>
+            Made in 🇫🇷
+          </Text>
         </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      </View>
+    </Layout>
   );
 }
 
