@@ -1,15 +1,7 @@
 import { useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 import WheelPicker from "@/components/WheelPicker";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useSwipe } from "hook/useSwipe";
 import Layout from "@/components/Layout";
 
@@ -58,7 +50,10 @@ function UserSelectSizeScreen({ navigation }) {
   ];
 
   return (
-    <Layout title="Selection" description="Quelle est la taille de votre paquet ?">
+    <Layout
+      title="Selection"
+      description="Quelle est la taille de votre paquet ?"
+    >
       <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <WheelPicker
           selectedIndex={selectedIndex}

@@ -1,6 +1,5 @@
-import { View, StyleSheet, Modal } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import Input from "@/components/Input";
 import CustomButton from "@/components/CustomButton";
 import Map, { Coordinates } from "@/components/Map";
 import Layout from "@/components/Layout";

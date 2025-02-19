@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, DimensionValue, StyleSheet } from "react-native";
-import MapView, { Callout, Marker } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -69,7 +69,7 @@ export default function Map({
           deltaMax
         );
       }
-      
+
       // On force l'update après un certain temps
       setTimeout(() => {
         mapViewRef.current?.animateToRegion(
