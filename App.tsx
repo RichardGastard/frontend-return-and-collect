@@ -16,6 +16,7 @@ import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
+import UserRatePickerScreen from "screens/UserRatePickerScreen";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -132,6 +133,10 @@ export default function App() {
             <Stack.Screen
               name="UserCurrentPosition"
               component={UserCurrentPositionScreen}
+            />
+            <Stack.Screen
+              name="UserRatePicker"
+              component={UserRatePickerScreen}
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
