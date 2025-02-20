@@ -11,18 +11,22 @@ import {
   Platform,
   ScrollView,
   Keyboard,
+  Text,
 } from "react-native";
-import ArrowBack from "@/components/ArrowBack";
 
 function SignUp({ navigation }) {
+  // Email statess
   const [email, setEmail] = useState<string>("");
+  const [isEmailAlreadyUsed, setIsEmailAlreadyUsed] = useState<boolean>(false);
+
+  // Password states
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(true);
+  const [isPasswordCompliant, setIsPasswordCompliant] = useState<boolean>(true);
 
-  const handleSubmit = () => {
-    console.log(email);
-  };
+  // Keyboard state
+  const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
 
   useEffect(() => {
     // Listener pour savoir si le clavier est visible
@@ -46,9 +50,33 @@ function SignUp({ navigation }) {
     };
   }, []);
 
+  function handleSubmit() {
+    // TODO : Put real version when not in dev
+    // Minimum 8 chars, minimum 1 special char, minimum 1 digit, minimum 1 uppercase
+    // const strongPasswordRegex =
+      // /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    // Minimum 8 chars
+    // const strongPasswordRegex = /.{8,}$/;
+    // Accept all
+    const strongPasswordRegex = /[\s\S]+/;
+    if (!password.match(strongPasswordRegex)) {
+      setIsPasswordCompliant(false);
+    } else {
+      setIsPasswordCompliant(true);
+    }
+
+    if (confirmPassword !== password) {
+      setIsPasswordMatch(false);
+      return;
+    } else {
+      setIsPasswordCompliant(true);
+    }
+    handleRegisterUser();
+  }
+
   // Fonction pour enregistrer le nouvel utilisateur
   function handleRegisterUser() {
-    fetch("http://192.168.1.189:3000/users/signup", {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users/signup", {
       method: "POST",
       body: JSON.stringify({
         email: email,
@@ -61,7 +89,9 @@ function SignUp({ navigation }) {
       .then((data) => {
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
-          navigation.navigate("Account");
+          navigation.navigate("Coordinates");
+        } else {
+          setIsEmailAlreadyUsed(true);
         }
       });
   }
@@ -94,14 +124,44 @@ function SignUp({ navigation }) {
               }}
             />
           )}
-          <Input label="Email"></Input>
-          <Input label="Mot de passe"></Input>
-          <Input label="Confirmation de mot de passe"></Input>
-          <CustomButton
-            onPressFunction={() => {
-              navigation.navigate("Coordinates");
-            }}
-          >
+
+          {/* Email input */}
+          <Input
+            label="Email"
+            onChangeText={(value) => setEmail(value)}
+            value={email}
+          />
+          {isEmailAlreadyUsed && (
+            <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
+              L'email est déjà utilisé
+            </Text>
+          )}
+
+          {/* Password input */}
+          <Input
+            label="Mot de passe"
+            onChangeText={(value) => setPassword(value)}
+            value={password}
+          />
+          {!isPasswordCompliant && (
+            <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
+              Le mot de passe doit faire au moins 8 caractères
+            </Text>
+          )}
+
+          {/* Confirm password input */}
+          <Input
+            label="Confirmation de mot de passe"
+            onChangeText={(value) => setConfirmPassword(value)}
+            value={confirmPassword}
+          />
+          {!isPasswordMatch && (
+            <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
+              Les mots de passe ne correspondent pas
+            </Text>
+          )}
+
+          <CustomButton onPressFunction={handleSubmit}>
             S'enregistrer
           </CustomButton>
         </ScrollView>
