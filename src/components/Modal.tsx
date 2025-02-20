@@ -41,12 +41,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    borderWidth:1,
     height: 30,
     marginTop: 10,
   },
   content: {
-    borderWidth:1,
     height: 30,
     marginTop: 10,
   },

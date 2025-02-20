@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   backgroundbell: {
-    borderWidth: 1,
     marginTop: 20,
     height: 450,
     backgroundColor: "rgb(208, 207, 207)",
@@ -116,7 +115,6 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   validationcode: {
-    borderWidth: 1,
     marginTop: 20,
     height: 20,
   }
