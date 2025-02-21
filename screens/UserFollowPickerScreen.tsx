@@ -37,7 +37,7 @@ function UserFollowPickerScreen() {
           <View>
             <View style={styles.header}>
               <ArrowBack></ArrowBack>
-              <Text style={styles.title}>Suivi du Picker</Text>
+              <Text style={styles.title}>Suivi du Collecteur</Text>
             </View>
           </View>
           <View style={styles.card}>
@@ -51,7 +51,7 @@ function UserFollowPickerScreen() {
           </View>
           <View style={styles.map}>
             <Map
-              pickerPosition={{ latitude: 43.266382, longitude: 5.397543 }}
+              pickerPosition={{ latitude: 43.26855, longitude: 5.385144 }}
             ></Map>
           </View>
           <View style={styles.code}>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     color: "#525252",
-    marginLeft: 50,
+    marginLeft: 30,
   },
   card: {
     marginTop: 30,
