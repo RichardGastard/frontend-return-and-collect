@@ -1,26 +1,16 @@
 // COMPONENTS
 import Layout from "@/components/Layout";
+import CustomButton from "@/components/CustomButton";
+import Input from "@/components/Input";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
-  Button,
-  Text,
-  TextInput,
   View,
   StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "@/components/CustomButton";
-import ArrowBack from "@/components/ArrowBack";
-
-import Input from "@/components/Input";
-import HomeScreen from "./HomeScreen";
 
 function Payment({ navigation }) {
   const [cardHolder, setCardHolder] = useState<string>("");
@@ -83,27 +73,33 @@ function Payment({ navigation }) {
       title="Moyen de paiement"
       description="Ajoutez votre moyen de paiement"
       arrowBack
-      arrowSkip="TabNavigator"
+      arrowSkip="SignUpCongrats"
       footer
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 320 : 0}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 200 : 0}
       >
         <ScrollView
-          style={{ flexGrow: 1, paddingBottom: 20, overflow: "visible" }}
+          contentContainerStyle={{ flexGrow: 1 }}
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-          <View style={{ marginTop: "30%" }}>
+          <View
+            style={{
+              alignSelf: "center",
+              height: "80%",
+              justifyContent: "center",
+            }}
+          >
             <Input label="Titulaire de la carte" />
             <Input label="Numéro de la carte" keyboardType="numeric" />
             <Input label="Date d'expiration" keyboardType="numeric" />
             <Input label="CVV" keyboardType="numeric" />
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate("TabNavigator");
+                navigation.navigate("SignUpCongrats");
               }}
             >
               Ajouter la carte
@@ -112,69 +108,6 @@ function Payment({ navigation }) {
         </ScrollView>
       </KeyboardAvoidingView>
     </Layout>
-    // <SafeAreaProvider>
-    //   <SafeAreaView style={styles.container}>
-    //     <KeyboardAvoidingView
-    //       behavior={Platform.OS === "ios" ? "padding" : "height"}
-    //       style={{ flex: 1 }}
-    //     >
-    //       <View style={styles.topButtons}>
-    //         <ArrowBack />
-
-    //         <TouchableOpacity
-    //           onPress={() => {
-    //             navigation.navigate(""); //
-    //           }}
-    //         >
-    //           <Text style={{ fontSize: 16, color: "#525252" }}>
-    //             Passer cette étape
-    //           </Text>
-    //         </TouchableOpacity>
-    //       </View>
-    //       <View style={styles.header}>
-    //         <Text style={styles.title}>Informations de paiemment</Text>
-    //         <TouchableOpacity style={styles.container}></TouchableOpacity>
-    //       </View>
-    //       <View style={styles.inputs}>
-    //       <Text style={{ fontSize: 16, color: "#525252" }}>
-    //             Nom du titulaire de la carte
-    //           </Text>
-    //       <Input  label = "Nom du titulaire" onChangeText={(value) => setCardHolder((value))}
-    //             value={cardHolder} />
-    //             {!cardHolderValidity&& <Text style = {styles.error}> Nom du titulaire invalide</Text>}
-    //         <View>
-    //           <Text style={{ fontSize: 16, color: "#525252" }}>
-    //             Numéro de carte
-    //           </Text>
-    //           <Input keyboardType="numeric" label = "numéro de carte" onChangeText={(value) => setcardNumber((value))}
-    //           value={cardNumber} />
-    //           {!cardNumberValidity&& <Text style = {styles.error}> Numéro de carte invalide</Text>}
-    //         </View>
-    //         <View style={styles.smallInputAlign}>
-    //           <View>
-    //             <Text style={{ fontSize: 16, color: "#525252" }}>
-    //               date d'expiration
-    //             </Text>
-    //             <Input keyboardType="numeric" label = "date d'expiration" onChangeText={(value) => setExpirationDate((value))}
-    //             value={expirationDate} />
-    //             {!expirationDateValidity&& <Text style = {styles.error}> Date d'expiration invalide</Text>}
-    //           </View>
-    //           <View>
-    //             <Text style={{ fontSize: 16, color: "#525252" }}>Code secret</Text>
-    //             <Input  keyboardType="numeric" label = "CVV" onChangeText={(value) => setSecurityNumber((value))}
-    //             value={securityNumber}/>
-    //           </View>
-    //           {!securityNumberValidity&& <Text style = {styles.error}> Code secret invalide</Text>}
-    //         </View>
-    //         <View style={styles.ValidateButton}>
-    //           <CustomButton onPressFunction={() => handleSubmit()}>
-    //             Valider les informations
-    //           </CustomButton>
-    //         </View>
-    //       </View>
-    //     </KeyboardAvoidingView>
-    //   </SafeAreaView>
-    // </SafeAreaProvider>
   );
 }
 

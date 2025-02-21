@@ -61,7 +61,9 @@ export default function DropdownMenu({
     <View>
       <TouchableWithoutFeedback onPress={toggleVisible}>
         <View ref={dropdownRef} style={styles.dropdownStyle}>
-          <Text>{selectedItem}</Text>
+          <Text style={{ fontFamily: "Poppins-Regular", fontSize: 14 }}>
+            {selectedItem}
+          </Text>
           <MaterialCommunityIcons
             name={visible ? "chevron-up" : "chevron-down"}
             size={22}

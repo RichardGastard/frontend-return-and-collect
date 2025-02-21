@@ -7,12 +7,12 @@ import { useState, useEffect } from "react";
 import {
   StyleSheet,
   Image,
+  View,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Keyboard,
 } from "react-native";
-import ArrowBack from "@/components/ArrowBack";
 
 function SignUp({ navigation }) {
   const [email, setEmail] = useState<string>("");
@@ -80,10 +80,9 @@ function SignUp({ navigation }) {
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
-          style={{ overflow: "visible" }}
           keyboardShouldPersistTaps="handled"
         >
-          {!keyboardVisible && (
+          {/* {!keyboardVisible && (
             <Image
               source={require("../assets/Return-and-collect-loader.gif")}
               style={{
@@ -93,17 +92,25 @@ function SignUp({ navigation }) {
                 paddingBottom: 0,
               }}
             />
-          )}
-          <Input label="Email"></Input>
-          <Input label="Mot de passe"></Input>
-          <Input label="Confirmation de mot de passe"></Input>
-          <CustomButton
-            onPressFunction={() => {
-              navigation.navigate("Coordinates");
+          )} */}
+          <View
+            style={{
+              alignSelf: "center",
+              height: "80%",
+              justifyContent: "center",
             }}
           >
-            S'enregistrer
-          </CustomButton>
+            <Input label="Email"></Input>
+            <Input label="Mot de passe"></Input>
+            <Input label="Confirmation de mot de passe"></Input>
+            <CustomButton
+              onPressFunction={() => {
+                navigation.navigate("Coordinates");
+              }}
+            >
+              S'enregistrer
+            </CustomButton>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </Layout>
