@@ -88,6 +88,7 @@ function HomeScreen({ navigation }) {
       footer
       title="Bienvenue"
       description="Connectez-vous ou créez un compte"
+      logo={keyboardVisible}
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}

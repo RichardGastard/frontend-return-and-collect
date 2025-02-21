@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import WheelPicker from "@/components/WheelPicker";
 import { useSwipe } from "hook/useSwipe";
 import Layout from "@/components/Layout";
+import CustomButton from "@/components/CustomButton";
 
 function UserSelectSizeScreen({ navigation }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -12,10 +13,12 @@ function UserSelectSizeScreen({ navigation }) {
   /* Handle swiping */
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
-  function onSwipeLeft() {}
+  function onSwipeLeft() {
+    navigation.navigate("Profil");
+  }
 
   function onSwipeRight() {
-    navigation.navigate("Home");
+    navigation.navigate("Commandes");
   }
 
   function handleSubmit() {
@@ -54,7 +57,11 @@ function UserSelectSizeScreen({ navigation }) {
       title="Sélection"
       description="Quelle est la taille de votre paquet ?"
     >
-      <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+      <View
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        style={{ marginTop: "15%" }}
+      >
         <WheelPicker
           selectedIndex={selectedIndex}
           options={optionsData}
@@ -68,12 +75,11 @@ function UserSelectSizeScreen({ navigation }) {
             setSelectedIndex(index);
           }}
         ></WheelPicker>
-        <TouchableOpacity
-          style={[styles.submitButton, {position: "relative", top: -25}]}
-          onPress={() => handleSubmit()}
-        >
-          <Text style={{ color: "white" }}>Sélectionner</Text>
-        </TouchableOpacity>
+        <View style={{ marginBottom: "50%" }}>
+          <CustomButton onPressFunction={() => handleSubmit()}>
+            Sélectionner
+          </CustomButton>
+        </View>
       </View>
     </Layout>
   );

@@ -3,8 +3,6 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
 type ArrowSkipProps = {
   skipTo: string | undefined;
 };
@@ -12,12 +10,12 @@ type ArrowSkipProps = {
 function ArrowSkip({ skipTo }: ArrowSkipProps) {
   const navigation = useNavigation<any>();
 
-  function handleSkipPage() {
-    navigation.navigate(skipTo);
-  }
-
   return (
-    <TouchableOpacity onPress={handleSkipPage}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate(skipTo);
+      }}
+    >
       <MaterialCommunityIcons
         name="arrow-right-drop-circle-outline"
         size={40}

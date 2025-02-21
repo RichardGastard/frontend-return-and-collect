@@ -34,7 +34,7 @@ export default function Input({
           mode="outlined"
           label={label}
           placeholder={`Mettre son ${label.toLowerCase()}...`} // reprend le label pour rajouter dans le placeholder
-          outlineColor="#525252" // ligne extérieure
+          outlineColor="#ddd" // ligne extérieure
           selectionColor="#febbba" // curseur
           cursorColor="#febbba"
           activeOutlineColor="#febbba"

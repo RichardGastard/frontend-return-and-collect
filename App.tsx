@@ -8,7 +8,7 @@ import { StyleSheet } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import SignUp from "./screens/SignUpScreen";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
-import Account from "./screens/Account";
+import UserAccountScreen from "./screens/UserAccountScreen";
 import CoordinatesScreen from "./screens/CoordinatesScreen";
 import Payment from "screens/Payment";
 import ValidationScreen from "screens/ValidationScreen";
@@ -17,6 +17,8 @@ import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
+import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
+import UserActivityScreen from "screens/UserActivityScreen";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -33,6 +35,7 @@ import { enableScreens } from "react-native-screens";
 
 // NEW IMPORT
 import { useFonts } from "expo-font";
+import AddressScreen from "screens/AddressScreen";
 
 enableScreens();
 
@@ -59,14 +62,17 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Return"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName = "";
 
-          if (route.name === "Home") {
-            iconName = "home";
-          } else if (route.name === "Package") {
+          if (route.name === "Return") {
             iconName = "package";
+          } else if (route.name === "Commandes") {
+            iconName = "history";
+          } else if (route.name === "Profil") {
+            iconName = "account-cog";
           }
 
           return (
@@ -75,6 +81,10 @@ const TabNavigator = () => {
         },
         animation: "shift",
         tabBarActiveTintColor: "#ff5252",
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          fontFamily: "Poppins-Regular",
+        },
         tabBarInactiveTintColor: "gray",
         tabBarStyle: { position: "absolute" },
         // tabBarBadge: route.name === "Package" ? 5 : null,
@@ -88,8 +98,9 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Package" component={UserSelectSizeScreen} />
+      <Tab.Screen name="Commandes" component={UserActivityScreen} />
+      <Tab.Screen name="Return" component={UserSelectSizeScreen} />
+      <Tab.Screen name="Profil" component={UserAccountScreen} />
     </Tab.Navigator>
   );
 };
@@ -113,7 +124,7 @@ export default function App() {
             {/* LET'S TRY IF CHANGE */}
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="Account" component={Account} />
+            <Stack.Screen name="UserAccount" component={UserAccountScreen} />
             <Stack.Screen
               name="PickerPayment"
               component={PickerPaymentMethodScreen}
@@ -123,7 +134,12 @@ export default function App() {
               component={UserFollowPickerScreen}
             />
             <Stack.Screen name="Coordinates" component={CoordinatesScreen} />
+            <Stack.Screen name="Address" component={AddressScreen} />
             <Stack.Screen name="Payment" component={Payment} />
+            <Stack.Screen
+              name="SignUpCongrats"
+              component={SignUpSuccessScreen}
+            />
             <Stack.Screen name="Validation" component={ValidationScreen} />
             <Stack.Screen name="Carry" component={WhatCanYouCarry} />
             <Stack.Screen

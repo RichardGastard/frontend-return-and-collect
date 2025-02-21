@@ -6,18 +6,20 @@ import CustomButton from "@/components/CustomButton";
 
 import { useState } from "react";
 import {
+  Text,
   View,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
 
 // TODO: Adjust the keyboard avoiding view
 
-function CoordinatesScreen({ navigation }) {
+function SignUpSuccessScreen({ navigation }) {
   const [firstname, setFirstname] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -30,11 +32,9 @@ function CoordinatesScreen({ navigation }) {
 
   return (
     <Layout
-      title="Informations générales"
-      description="Choisissez un profil et remplir les informations"
+      title="Félicitations"
+      description="Votre inscription est complète"
       footer
-      arrowBack
-      arrowSkip="Address"
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -53,40 +53,109 @@ function CoordinatesScreen({ navigation }) {
               justifyContent: "center",
             }}
           >
-            <DropdownMenu
-              onChange={(value) => setUserType(value)}
-              options={["Utilisateur", "Collecteur"]}
-              placeholder="Sélectionnez un profil..."
+            <Image
+              source={require("../assets/Return-and-collect-loader.gif")}
+              style={{
+                width: 300,
+                height: 300,
+                alignSelf: "center",
+                paddingBottom: 0,
+              }}
             />
-            <Input
-              label="Prenom"
-              keyboardType="none"
-              onChangeText={(value) => setFirstname(value)}
-              value={firstname}
-            />
-            <Input
-              label="Nom"
-              keyboardType="none"
-              onChangeText={(value) => setName(value)}
-              value={name}
-            />
-            <Input
-              label="Mobile"
-              keyboardType="tel"
-              onChangeText={(value) => setPhone(value)}
-              value={phone}
-            />
+
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate("Address");
+                navigation.navigate("Home");
               }}
             >
-              Suivant
+              Page de connexion
             </CustomButton>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </Layout>
+
+    // <SafeAreaView style={styles.container}>
+    //   <KeyboardAvoidingView
+    //     behavior={Platform.OS === "ios" ? "padding" : "height"}
+    //     style={{ flex: 1 }}
+    //     // keyboardVerticalOffset={keyboardHeight}
+    //   >
+    //     <ScrollView
+    //       style={{ overflow: "visible" }}
+    //       keyboardDismissMode="interactive"
+    //       keyboardShouldPersistTaps="handled"
+    //     >
+    //       <View>
+    //         <View style={styles.header}>
+    //           <ArrowBack></ArrowBack>
+    //           <Text style={styles.title}>Coordonnées</Text>
+    //         </View>
+    //         <View style={styles.dropDown}>
+    //           <DropdownMenu
+    //             onChange={(value) => setUserType(value)}
+    //             options={["Utilisateur", "Collecteur"]}
+    //             placeholder="Sélectionnez un profil..."
+    //           />
+    //         </View>
+    //         <View style={styles.inputContainer}>
+    //           <Input
+    //             label="Prenom"
+    //             keyboardType="none"
+    //             onChangeText={(value) => setFirstname(value)}
+    //             value={firstname}
+    //           />
+    //           <Input
+    //             label="Nom"
+    //             keyboardType="none"
+    //             onChangeText={(value) => setName(value)}
+    //             value={name}
+    //           />
+    //           <Input
+    //             label="Mobile"
+    //             keyboardType="none"
+    //             onChangeText={(value) => setPhone(value)}
+    //             value={phone}
+    //           />
+    //         </View>
+
+    //         <View style={styles.adress}>
+    //           <Text style={styles.adtext}>Adresse</Text>
+    //         </View>
+
+    //         <View style={styles.adInput}>
+    //           <Input
+    //             label="Numero, Rue"
+    //             keyboardType="none"
+    //             onChangeText={(value) => setNumberstreet(value)}
+    //             value={numberstreet}
+    //           />
+    //           <Input
+    //             label="Code Postale"
+    //             keyboardType="none"
+    //             onChangeText={(value) => setZipcode(value)}
+    //             value={zipcode}
+    //           />
+    //           <Input
+    //             label="Ville"
+    //             keyboardType="none"
+    //             onChangeText={(value) => setCity(value)}
+    //             value={city}
+    //           />
+    //         </View>
+    //       </View>
+
+    //       <View style={styles.submitbtn}>
+    //         <TouchableOpacity
+    //           style={styles.submitButton}
+    //           onPress={() => navigation.navigate("Account")}
+    //         >
+    //           <Text style={{ color: "white" }}>S'enregistrer</Text>
+    //         </TouchableOpacity>
+    //       </View>
+    //     </ScrollView>
+    //   </KeyboardAvoidingView>
+    // </SafeAreaView>
   );
 }
 
@@ -125,6 +194,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
+  // title: {
+  //   fontSize: 36,
+  //   color: "#525252",
+  //   marginLeft: 50,
+  // },
   description: {
     color: "#525252",
   },
@@ -206,4 +280,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoordinatesScreen;
+export default SignUpSuccessScreen;
