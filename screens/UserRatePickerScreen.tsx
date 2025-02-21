@@ -23,25 +23,25 @@ import Layout from "@/components/Layout";
 import RatingStars from "@/components/RatingStars";
 
 function UserRatePickerScreen() {
-    const [name, setName] = useState<string>("MOMO")
-    const [image, setImage] = useState<string>()
-    const [rate, setRate] = useState<number>()
-    const [time, setTime] = useState<string>()
-    const [packageNumber, setPackageNumber] = useState<number>(35)
+  const [name, setName] = useState<string>("MOMO");
+  const [image, setImage] = useState<string>();
+  const [rate, setRate] = useState<number>();
+  const [time, setTime] = useState<string>();
+  const [packageNumber, setPackageNumber] = useState<number>(35);
 
-    useEffect(() => {
-        fetch("http://192.168.1.119:3000/users/pickerInfo/_id")
-        .then((response) => response.json())
-        .then((data) => {
-            setName(data.firstName + data.lastName.charAt(0))
-            setRate(data.rating)
-            setTime("")
-            setPackageNumber(0)
-        })
-    },[])
+  useEffect(() => {
+    fetch("http://192.168.1.119:3000/users/pickerInfo/_id")
+      .then((response) => response.json())
+      .then((data) => {
+        setName(data.firstName + data.lastName.charAt(0));
+        setRate(data.rating);
+        setTime("");
+        setPackageNumber(0);
+      });
+  }, []);
 
-    return (
-        <Layout
+  return (
+    <Layout
       title="Evaluation"
       description="Evaluez le collecteur"
       arrowBack
@@ -58,67 +58,69 @@ function UserRatePickerScreen() {
             keyboardDismissMode="interactive"
             keyboardShouldPersistTaps="handled"
           >
-        <View style={styles.name}>
-          <Text style={styles.prenom}>{name}</Text>
-          </View>
-          <Image
-                source={require("assets/chien.png")}
-                style={{
-                  width: 300,
-                  height: 300,
-                  borderRadius: 200,
-                  alignSelf: "center",
-                  marginTop: 25,
-                }}
-              />
+            <View style={styles.name}>
+              <Text style={styles.prenom}>{name}</Text>
+            </View>
+            <Image
+              source={require("assets/chien.png")}
+              style={{
+                width: 300,
+                height: 300,
+                borderRadius: 200,
+                alignSelf: "center",
+                marginTop: 25,
+              }}
+            />
             <View style={styles.rating}>
-                <RatingStars onPress={() => console.log()}/>
+              <RatingStars onPress={() => console.log()} />
             </View>
             <View style={styles.pkg}>
-                <Text style={styles.package}>Numero de Paquet: {packageNumber}</Text>
+              <Text style={styles.package}>
+                Numero de Paquet: {packageNumber}
+              </Text>
             </View>
             <View style={styles.time}>
-            <MaterialCommunityIcons
-        name="timer-outline"
-        size={40}
-        color="#febbba"
-      ></MaterialCommunityIcons>
+              <MaterialCommunityIcons
+                name="timer-outline"
+                size={40}
+                color="#febbba"
+              ></MaterialCommunityIcons>
             </View>
             <CustomButton>Rate</CustomButton>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-      </Layout>
-    );
-  }
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#fffbf0",
-      padding: 20,
-    },
-    name: {
-        alignItems: "center",
-    },
-    prenom:{
-        fontSize: 30,
-    },
-    rating:{
-        alignItems: "center",
-        marginTop: 25,
-    },
-    pkg: {
-        alignItems: "center",
-        marginTop: 10,
-    },
-    package: {
-        fontSize: 18,
-    },
-    time:{
-        alignItems: "center",
-        marginTop: 10,
-    }
-  });
-  
-  export default UserRatePickerScreen;
+    </Layout>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fffbf0",
+    padding: 20,
+  },
+  name: {
+    alignItems: "center",
+  },
+  prenom: {
+    fontSize: 30,
+  },
+  rating: {
+    alignItems: "center",
+    marginTop: 25,
+  },
+  pkg: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+  package: {
+    fontSize: 18,
+  },
+  time: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+});
+
+export default UserRatePickerScreen;
