@@ -17,6 +17,7 @@ import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
+import UserRatePickerScreen from "screens/UserRatePickerScreen";
 
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 
@@ -155,8 +156,14 @@ export default function App() {
               component={UserCurrentPositionScreen}
             />
             <Stack.Screen
+
+              name="UserRatePicker"
+              component={UserRatePickerScreen}
+/>
+            <Stack.Screen
               name="PickerIsHere"
               component={PickerIsHereScreen}
+
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
