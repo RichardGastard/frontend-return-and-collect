@@ -4,6 +4,7 @@ import CustomButton from "@/components/CustomButton";
 import { logIn } from "reducers/users";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import Layout from "@/components/Layout";
+import CreditCard from "@/components/CreditCard";
 
 import { useState, useEffect } from "react";
 import {
@@ -95,6 +96,11 @@ function HomeScreen({ navigation }) {
         keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 80}
         style={{ flex: 1 }}
       >
+        <CreditCard 
+        name={"Marc HOURSELLE"}
+        cardNumber={"XXXX XXXX XXXX 1234"}
+        expirationdate={"12/26"}
+        />
         {/* fermer le clavier quand clique en dehors */}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
