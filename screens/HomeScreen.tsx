@@ -28,8 +28,10 @@ function HomeScreen({ navigation }) {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
 
+  const [isLoginSuccessful, setIsLoginSuccessful] = useState<boolean>(true);
+
   const handleLoginSubmit = () => {
-    fetch("http://192.168.1.170:3000/users/signin", {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users/signin", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ email: email, password: password }),
@@ -38,6 +40,9 @@ function HomeScreen({ navigation }) {
       .then((data) => {
         if (data.result) {
           dispatch(logIn(email));
+          navigation.navigate("TabNavigator");
+        } else {
+          setIsLoginSuccessful(false);
         }
       });
   };
@@ -110,6 +115,11 @@ function HomeScreen({ navigation }) {
 
             <Input label="Email" keyboardType="email" />
             <Input label="Mot de passe" />
+            {!isLoginSuccessful && (
+              <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
+                Le mot de passe ou l'email est incorrect
+              </Text>
+            )}
             <View style={styles.tips}>
               <View style={styles.checkbox}>
                 <Checkbox
@@ -141,12 +151,9 @@ function HomeScreen({ navigation }) {
             </View>
 
             <CustomButton
-              onPressFunction={
-                () => {
-                  navigation.navigate("TabNavigator");
-                }
-                //handleLoginSubmit()
-              }
+              onPressFunction={() => {
+                handleLoginSubmit();
+              }}
             >
               Se connecter
             </CustomButton>

@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
-import SignUp from "./screens/SignUp";
+import SignUp from "./screens/SignUpScreen";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import UserAccountScreen from "./screens/UserAccountScreen";
 import CoordinatesScreen from "./screens/CoordinatesScreen";
