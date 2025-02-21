@@ -17,6 +17,9 @@ import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
+
+import PickerIsHereScreen from "screens/PickerIsHereScreen";
+
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
 
@@ -150,6 +153,10 @@ export default function App() {
             <Stack.Screen
               name="UserCurrentPosition"
               component={UserCurrentPositionScreen}
+            />
+            <Stack.Screen
+              name="PickerIsHere"
+              component={PickerIsHereScreen}
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
