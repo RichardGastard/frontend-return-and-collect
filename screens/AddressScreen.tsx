@@ -1,7 +1,6 @@
 // COMPONENTS
 import Layout from "@/components/Layout";
 import Input from "@/components/Input";
-import DropdownMenu from "@/components/DropdownMenu";
 import CustomButton from "@/components/CustomButton";
 
 import { useState } from "react";
@@ -17,7 +16,7 @@ import useKeyboardHeight from "react-native-use-keyboard-height";
 
 // TODO: Adjust the keyboard avoiding view
 
-function CoordinatesScreen({ navigation }) {
+function AddressScreen({ navigation }) {
   const [firstname, setFirstname] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -30,11 +29,11 @@ function CoordinatesScreen({ navigation }) {
 
   return (
     <Layout
-      title="Informations générales"
-      description="Choisissez un profil et remplir les informations"
+      title="Adresse"
+      description="Saisissez votre adresse complète"
       footer
       arrowBack
-      arrowSkip="Address"
+      arrowSkip="Payment"
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -53,32 +52,33 @@ function CoordinatesScreen({ navigation }) {
               justifyContent: "center",
             }}
           >
-            <DropdownMenu
-              onChange={(value) => setUserType(value)}
-              options={["Utilisateur", "Collecteur"]}
-              placeholder="Sélectionnez un profil..."
-            />
             <Input
-              label="Prenom"
+              label="N°"
               keyboardType="none"
               onChangeText={(value) => setFirstname(value)}
               value={firstname}
             />
             <Input
-              label="Nom"
+              label="Adresse"
               keyboardType="none"
               onChangeText={(value) => setName(value)}
               value={name}
             />
             <Input
-              label="Mobile"
-              keyboardType="tel"
+              label="Code postal"
+              keyboardType="none"
+              onChangeText={(value) => setPhone(value)}
+              value={phone}
+            />
+            <Input
+              label="Ville"
+              keyboardType="none"
               onChangeText={(value) => setPhone(value)}
               value={phone}
             />
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate("Address");
+                navigation.navigate("Payment");
               }}
             >
               Suivant
@@ -206,4 +206,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoordinatesScreen;
+export default AddressScreen;

@@ -32,7 +32,7 @@ function Layout({
 }: LayoutProps) {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={["right", "left", "top"]}>
         {arrowBack && (
           <View style={styles.arrowBack}>
             <ArrowBack />
@@ -116,9 +116,10 @@ const styles = StyleSheet.create({
     marginTop: "16%",
     width: "95%",
     alignSelf: "center",
-    gap: 7,
+    gap: 14,
   },
   title: {
+    textAlign: "center",
     fontSize: 36,
     color: "#525252",
     fontFamily: "Public-Sans-Bold",
