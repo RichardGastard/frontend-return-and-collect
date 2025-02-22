@@ -113,8 +113,17 @@ function HomeScreen({ navigation }) {
               />
             )}
 
-            <Input label="Email" keyboardType="email" />
-            <Input label="Mot de passe" />
+            <Input
+              label="Email"
+              keyboardType="email"
+              onChangeText={(value) => setEmail(value)}
+              value={email}
+            />
+            <Input
+              label="Mot de passe"
+              onChangeText={(value) => setPassword(value)}
+              value={password}
+            />
             {!isLoginSuccessful && (
               <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
                 Le mot de passe ou l'email est incorrect
