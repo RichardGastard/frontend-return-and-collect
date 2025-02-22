@@ -100,7 +100,7 @@ const keyboardHeight = useKeyboardHeight();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fffbf0",
+    backgroundColor: "#febbba",
 
   },
   oldad:{
