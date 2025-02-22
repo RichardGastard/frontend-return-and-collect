@@ -18,7 +18,7 @@ import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
 import UserRatePickerScreen from "screens/UserRatePickerScreen";
-import UserChangePaiementScreen from "screens/UserChangePaymentScreen";
+import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
 
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 
@@ -127,7 +127,7 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
-            <Stack.Screen name="Home" component={UserChangePaiementScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
             <Stack.Screen
@@ -164,6 +164,11 @@ export default function App() {
             <Stack.Screen
               name="PickerIsHere"
               component={PickerIsHereScreen}
+
+            />
+            <Stack.Screen
+              name="UserChangePayment"
+              component={UserChangePaymentScreen}
 
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
