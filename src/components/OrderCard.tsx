@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, View, StyleSheet, Text } from "react-native";
+import {
+  Image,
+  View,
+  StyleSheet,
+  Text,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 
 type CardProps = {
   orderNumber: number;

@@ -53,14 +53,15 @@ export default function UserCurrentPositionScreen({ navigation }) {
       ></GooglePlacesAutocomplete>
       <View>
         {isMapVisible && <Map dedeliveryPosition={dedeliveryLocation}></Map>}
-
-        <CustomButton
-          onPressFunction={() => {
-            navigation.navigate("TabNavigator");
-          }}
-        >
-          Venez chercher mon colis
-        </CustomButton>
+        <View style={{ marginBottom: "10%" }}>
+          <CustomButton
+            onPressFunction={() => {
+              navigation.navigate("PickerLoader");
+            }}
+          >
+            Venez chercher mon colis
+          </CustomButton>
+        </View>
       </View>
     </Layout>
   );
