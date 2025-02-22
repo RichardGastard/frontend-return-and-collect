@@ -17,6 +17,7 @@ import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
+import UserPickerFound from "screens/UserPickerFound";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -131,6 +132,7 @@ export default function App() {
               component={UserSelectSizeScreen}
             />
             <Stack.Screen name="PickerLoader" component={PickerLoader} />
+            <Stack.Screen name="UserPickerFound" component={UserPickerFound} />
             <Stack.Screen
               name="UserCurrentPosition"
               component={UserCurrentPositionScreen}
