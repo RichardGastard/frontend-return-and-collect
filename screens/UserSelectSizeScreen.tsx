@@ -75,7 +75,12 @@ function UserSelectSizeScreen({ navigation }) {
             setSelectedIndex(index);
           }}
         ></WheelPicker>
-        <View style={{ marginBottom: "50%" }}>
+        <View
+          style={{
+            marginBottom: "70%",
+            justifyContent: "flex-start",
+          }}
+        >
           <CustomButton onPressFunction={() => handleSubmit()}>
             Sélectionner
           </CustomButton>

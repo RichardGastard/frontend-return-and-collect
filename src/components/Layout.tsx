@@ -116,11 +116,11 @@ const styles = StyleSheet.create({
     marginTop: "16%",
     width: "95%",
     alignSelf: "center",
-    gap: 14,
+    gap: 10,
   },
   title: {
     textAlign: "center",
-    fontSize: 36,
+    fontSize: 32,
     color: "#525252",
     fontFamily: "Public-Sans-Bold",
     shadowColor: "#000",
