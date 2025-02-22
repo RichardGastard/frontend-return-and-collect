@@ -88,7 +88,9 @@ const styles = StyleSheet.create({
  submitbtn: {
     marginTop: 10,
  },
+addbtn: {
 
+},
 
 });
 

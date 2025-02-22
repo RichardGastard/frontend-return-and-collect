@@ -123,27 +123,6 @@ function SignUp({ navigation }) {
                 paddingBottom: 0,
               }}
             />
-<<<<<<< HEAD:screens/SignUp.tsx
-          )} */}
-          <View
-            style={{
-              alignSelf: "center",
-              height: "80%",
-              justifyContent: "center",
-            }}
-          >
-            <Input label="Email"></Input>
-            <Input label="Mot de passe"></Input>
-            <Input label="Confirmation de mot de passe"></Input>
-            <CustomButton
-              onPressFunction={() => {
-                navigation.navigate("Coordinates");
-              }}
-            >
-              S'enregistrer
-            </CustomButton>
-          </View>
-=======
           )}
 
           {/* Email input */}
@@ -185,7 +164,6 @@ function SignUp({ navigation }) {
           <CustomButton onPressFunction={handleSubmit}>
             S'enregistrer
           </CustomButton>
->>>>>>> main:screens/SignUpScreen.tsx
         </ScrollView>
       </KeyboardAvoidingView>
     </Layout>
