@@ -18,7 +18,7 @@ function UserSelectSizeScreen({ navigation }) {
   }
 
   function onSwipeRight() {
-    navigation.navigate("Commandes");
+    navigation.navigate("Historique");
   }
 
   function handleSubmit() {
