@@ -47,12 +47,6 @@ function HomeScreen({ navigation }) {
       });
   };
 
-  // CREATE FUNCTION TO CONNECT USER
-  // CREATE FUNCTION TO CREATE USER
-
-  // IMPORT FONTS (PUBLIC SANS BOLD & POPPINS)``
-  // IMPORT CONNECTION WITH GOOGLE
-
   const handleRememberMe = () => {
     if (!isChecked) {
       setIsChecked(true);
