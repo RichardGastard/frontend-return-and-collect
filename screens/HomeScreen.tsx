@@ -95,49 +95,7 @@ function HomeScreen({ navigation }) {
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
           >
-      {!keyboardVisible && (
-        <Image
-          source={require("../assets/Return-and-collect-loader.gif")}
-          style={{
-            width: 200,
-            height: 200,
-            alignSelf: "center",
-            paddingBottom: 0,
-          }}
-        />
-      )}
-
-      <Input
-        label="Email"
-        keyboardType="email"
-        onChangeText={(value) => setEmail(value)}
-        value={email}
-      />
-      <Input
-        label="Mot de passe"
-        onChangeText={(value) => setPassword(value)}
-        value={password}
-      />
-      {!isLoginSuccessful && (
-        <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
-          Le mot de passe ou l'email est incorrect
-        </Text>
-      )}
-      <View style={styles.tips}>
-        <View style={styles.checkbox}>
-          <Checkbox
-            value={isChecked}
-            onValueChange={() => handleRememberMe()}
-            color="#ff5252"
-          />
-          <Text
-            style={{
-              opacity: isChecked ? 1 : 0.2,
-              color: "#525252",
-              fontFamily: "Poppins-Regular",
-            }}
-          >
-
+            
             {!keyboardVisible && (
               <Image
                 source={require("../assets/Return-and-collect-loader.gif")}
