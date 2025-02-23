@@ -47,12 +47,6 @@ function HomeScreen({ navigation }) {
       });
   };
 
-  // CREATE FUNCTION TO CONNECT USER
-  // CREATE FUNCTION TO CREATE USER
-
-  // IMPORT FONTS (PUBLIC SANS BOLD & POPPINS)``
-  // IMPORT CONNECTION WITH GOOGLE
-
   const handleRememberMe = () => {
     if (!isChecked) {
       setIsChecked(true);
@@ -90,17 +84,17 @@ function HomeScreen({ navigation }) {
       description="Connectez-vous ou créez un compte"
       logo={keyboardVisible}
     >
-      {/* <KeyboardAvoidingView
+      <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 80}
         style={{ flex: 1 }}
       >
         {/* fermer le clavier quand clique en dehors */}
-      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
-          > */}
+          >
       {!keyboardVisible && (
         <Image
           source={require("../assets/Return-and-collect-loader.gif")}
@@ -143,45 +137,90 @@ function HomeScreen({ navigation }) {
               fontFamily: "Poppins-Regular",
             }}
           >
-            Se souvenir de moi
-          </Text>
-        </View>
-        <TouchableOpacity>
-          <Text
-            style={{
-              color: "#ff5252",
-              opacity: 0.8,
-              fontFamily: "Poppins-Regular",
-            }}
-          >
-            Mot de passe oublié ?
-          </Text>
-        </TouchableOpacity>
-      </View>
 
-      <CustomButton
-        onPressFunction={() => {
-          handleLoginSubmit();
-        }}
-      >
-        Se connecter
-      </CustomButton>
+            {!keyboardVisible && (
+              <Image
+                source={require("../assets/Return-and-collect-loader.gif")}
+                style={{
+                  width: 200,
+                  height: 200,
+                  alignSelf: "center",
+                  paddingBottom: 0,
+                }}
+              />
+            )}
 
-      <View style={styles.register}>
-        <Text style={{ color: "#525252", fontFamily: "Poppins-Regular" }}>
-          Pas de compte?
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("SignUp");
-          }}
-        >
-          <Text style={{ color: "#febbba", fontWeight: 500 }}>Créez-en un</Text>
-        </TouchableOpacity>
-      </View>
-      {/* </ScrollView>
+            <Input
+              label="Email"
+              keyboardType="email"
+              onChangeText={(value) => setEmail(value)}
+              value={email}
+            />
+            <Input
+              label="Mot de passe"
+              onChangeText={(value) => setPassword(value)}
+              value={password}
+            />
+            {!isLoginSuccessful && (
+              <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
+                Le mot de passe ou l'email est incorrect
+              </Text>
+            )}
+            <View style={styles.tips}>
+              <View style={styles.checkbox}>
+                <Checkbox
+                  value={isChecked}
+                  onValueChange={() => handleRememberMe()}
+                  color="#ff5252"
+                />
+                <Text
+                  style={{
+                    opacity: isChecked ? 1 : 0.2,
+                    color: "#525252",
+                    fontFamily: "Poppins-Regular",
+                  }}
+                >
+                  Se souvenir de moi
+                </Text>
+              </View>
+              <TouchableOpacity>
+                <Text
+                  style={{
+                    color: "#ff5252",
+                    opacity: 0.8,
+                    fontFamily: "Poppins-Regular",
+                  }}
+                >
+                  Mot de passe oublié ?
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <CustomButton
+              onPressFunction={() => {
+                handleLoginSubmit();
+              }}
+            >
+              Se connecter
+            </CustomButton>
+
+            <View style={styles.register}>
+              <Text style={{ color: "#525252", fontFamily: "Poppins-Regular" }}>
+                Pas de compte?
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("SignUp");
+                }}
+              >
+                <Text style={{ color: "#febbba", fontWeight: 500 }}>
+                  Créez-en un
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView> */}
+      </KeyboardAvoidingView>
     </Layout>
   );
 }
