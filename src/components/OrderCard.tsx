@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, View, StyleSheet, Text } from "react-native";
+import {
+  Image,
+  View,
+  StyleSheet,
+  Text,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 
 type CardProps = {
   orderNumber: number;
@@ -29,13 +36,16 @@ function OrderCard({
             marginRight: "5%",
             height: "80%",
             alignSelf: "center",
+            borderLeftWidth: 0.3,
+            borderLeftColor: "#52525250",
+            paddingLeft: "5%",
           }}
         >
           <Text style={styles.title}>
             N°{orderNumber} {status ? "✅" : "❌"}
           </Text>
           <Text style={styles.cardContent}>📍 {location}</Text>
-          <Text style={styles.cardContent}>📦 {collector}</Text>
+          <Text style={styles.cardContent}>👤 {collector}</Text>
           <Text style={styles.cardContent}>🏷️ {price}€</Text>
           <View
             style={{
@@ -62,7 +72,7 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#febbba70",
     borderRightColor: "#febbba80",
-    boxShadow: "5px 5px 5px #febbba50",
+    boxShadow: "5px 5px 5px #ff525255",
   },
   containerValid: {
     height: "25%",
@@ -73,13 +83,16 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#08CC0A35",
     borderRightColor: "#08CC0A40",
-    boxShadow: "5px 5px 5px #08CC0A25",
+    boxShadow: "5px 5px 5px #08CC0A30",
   },
   image: {
     width: 140,
     height: 140,
     borderRadius: 100,
     alignSelf: "center",
+    // borderRightWidth: 0.3,
+    // borderRightColor: "#525252",
+    // marginRight: "5%",
   },
   title: {
     fontFamily: "Public-Sans-Bold",

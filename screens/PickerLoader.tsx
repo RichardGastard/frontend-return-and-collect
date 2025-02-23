@@ -9,70 +9,53 @@ import {
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
 import Loader from "@/components/Loader";
+import Layout from "@/components/Layout";
 
 function PickerLoader({ navigation }) {
-  const [myText, setMyText] = useState<string>("");
+  const [suspension, setSuspension] = useState<string>("");
 
   useEffect(() => {
-    if (myText.length <= 3) {
+    if (suspension.length <= 3) {
       setTimeout(() => {
-        setMyText(myText + ".");
+        setSuspension(suspension + ".");
       }, 1000);
     } else {
-      setMyText("");
+      setSuspension("");
     }
-  }, [myText]);
+  }, [suspension]);
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{ flex: 1 }}
-        >
-          <View style={styles.header}>
-            <Text style={styles.title}>
-              Recherche de votre collecteur {myText}
-            </Text>
-            <Loader />
-          </View>
-          <View style={styles.cancelButton}>
-            <CustomButton
-              children="Annuler"
-              onPressFunction={() => navigation.goBack()}
-              backgroundColor="#ff5252"
-              width={200}
-            />
-          </View>
-          <View style={styles.footer}>
-            <Text style={{ color: "#525252", opacity: 0.4 }}>Made in 🇫🇷</Text>
-          </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <Layout
+      title={`Recherche de votre collecteur ${suspension}`}
+      description="Cela peut prendre quelques instants"
+      footer
+    >
+      <View style={styles.loader}>
+        <Loader />
+      </View>
+      <View style={styles.cancelButton}>
+        <CustomButton
+          children="Annuler"
+          onPressFunction={() => navigation.goBack()}
+          backgroundColor="#ff5252"
+          width={200}
+        />
+      </View>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fffbf0",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  header: {
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    marginTop: "15%",
-    gap: 100,
-  },
-  title: {
-    fontSize: 36,
-    color: "#525252",
-    fontWeight: "bold",
-    textAlign: "center",
+  loader: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.7,
+    shadowRadius: 32.0,
+
+    elevation: 24,
   },
   cancelButton: {
     alignSelf: "center",
@@ -87,11 +70,6 @@ const styles = StyleSheet.create({
     shadowRadius: 16.0,
 
     elevation: 24,
-  },
-  footer: {
-    alignSelf: "center",
-    position: "absolute",
-    bottom: 10,
   },
 });
 

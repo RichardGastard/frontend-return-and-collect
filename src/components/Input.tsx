@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: "#525252",
+    color: "#52525250",
     marginBottom: 4,
     position: "relative",
   },

@@ -34,6 +34,7 @@ export default function CustomButton({
           borderColor: backgroundColor,
           height,
           width,
+          boxShadow: `5px 5px 5px ${backgroundColor}50`,
         },
       ]}
       onPress={onPressFunction}

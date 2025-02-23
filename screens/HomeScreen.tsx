@@ -90,11 +90,12 @@ function HomeScreen({ navigation }) {
         style={{ flex: 1 }}
       >
         {/* fermer le clavier quand clique en dehors */}
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
           >
+            
             {!keyboardVisible && (
               <Image
                 source={require("../assets/Return-and-collect-loader.gif")}

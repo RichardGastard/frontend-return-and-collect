@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import {
   StyleSheet,
   Image,
-  View,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -55,7 +54,7 @@ function SignUp({ navigation }) {
     // TODO : Put real version when not in dev
     // Minimum 8 chars, minimum 1 special char, minimum 1 digit, minimum 1 uppercase
     // const strongPasswordRegex =
-      // /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    // /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
     // Minimum 8 chars
     // const strongPasswordRegex = /.{8,}$/;
     // Accept all
@@ -111,9 +110,10 @@ function SignUp({ navigation }) {
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
+          style={{ overflow: "visible" }}
           keyboardShouldPersistTaps="handled"
         >
-          {/* {!keyboardVisible && (
+          {!keyboardVisible && (
             <Image
               source={require("../assets/Return-and-collect-loader.gif")}
               style={{
@@ -123,27 +123,6 @@ function SignUp({ navigation }) {
                 paddingBottom: 0,
               }}
             />
-<<<<<<< HEAD:screens/SignUp.tsx
-          )} */}
-          <View
-            style={{
-              alignSelf: "center",
-              height: "80%",
-              justifyContent: "center",
-            }}
-          >
-            <Input label="Email"></Input>
-            <Input label="Mot de passe"></Input>
-            <Input label="Confirmation de mot de passe"></Input>
-            <CustomButton
-              onPressFunction={() => {
-                navigation.navigate("Coordinates");
-              }}
-            >
-              S'enregistrer
-            </CustomButton>
-          </View>
-=======
           )}
 
           {/* Email input */}
@@ -185,7 +164,6 @@ function SignUp({ navigation }) {
           <CustomButton onPressFunction={handleSubmit}>
             S'enregistrer
           </CustomButton>
->>>>>>> main:screens/SignUpScreen.tsx
         </ScrollView>
       </KeyboardAvoidingView>
     </Layout>
