@@ -145,7 +145,7 @@ export default function WheelPicker({
         onMomentumScrollEnd={handleMomentumScrollEnd}
         snapToOffsets={offsets}
         decelerationRate={decelerationRate}
-        initialScrollIndex={selectedIndex + 1}
+        initialScrollIndex={selectedIndex}
         getItemLayout={(data, index) => ({
           length: itemHeight,
           offset: itemHeight * index,

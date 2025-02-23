@@ -7,7 +7,7 @@ import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 
 function UserSelectSizeScreen({ navigation }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   /* -------------- */
   /* Handle swiping */
