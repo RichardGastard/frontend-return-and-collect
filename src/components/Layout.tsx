@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   arrowBack: {
     position: "absolute",
-    marginTop: "20%",
+    marginTop: "18%",
     marginLeft: "5%",
     shadowColor: "#000",
     shadowOffset: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   arrowSkip: {
     right: 1,
     position: "absolute",
-    marginTop: "20%",
+    marginTop: "18%",
     marginRight: "5%",
     shadowColor: "#000",
     shadowOffset: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     alignItems: "center",
-    marginTop: "14%",
+    marginTop: "10%",
   },
   header: {
     alignItems: "center",
