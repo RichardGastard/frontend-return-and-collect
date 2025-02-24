@@ -55,7 +55,7 @@ function WhatCanYouCarry({ navigation }) {
         pickerToCapacity: selectedToValue,
       })
     );
-    navigation.navigate('PickerPayment')
+    navigation.navigate("PickerPayment");
   };
 
   return (
@@ -87,13 +87,11 @@ function WhatCanYouCarry({ navigation }) {
           />
           <View style={styles.connection}>
             <CustomButton
-              children = "Valider"
+              children="Valider"
               onPressFunction={() => {
                 handleValidateSubmit();
               }}
-            /> 
-          
-          
+            />
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

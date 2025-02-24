@@ -39,7 +39,7 @@ function HomeScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          dispatch(logIn({email, token: data.token}));
+          dispatch(logIn({ email, token: data.token }));
           navigation.navigate("TabNavigator");
         } else {
           setIsLoginSuccessful(false);
@@ -90,12 +90,11 @@ function HomeScreen({ navigation }) {
         style={{ flex: 1 }}
       >
         {/* fermer le clavier quand clique en dehors */}
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
           >
-            
             {!keyboardVisible && (
               <Image
                 source={require("../assets/Return-and-collect-loader.gif")}
