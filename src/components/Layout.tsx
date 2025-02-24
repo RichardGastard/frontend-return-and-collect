@@ -113,14 +113,14 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
-    marginTop: "16%",
-    width: "95%",
+    marginTop: "14%",
+    width: "80%",
     alignSelf: "center",
     gap: 10,
   },
   title: {
     textAlign: "center",
-    fontSize: 32,
+    fontSize: 28,
     color: "#525252",
     fontFamily: "Public-Sans-Bold",
     shadowColor: "#000",

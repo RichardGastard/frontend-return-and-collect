@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { StyleSheet } from "react-native";
 
-import HomeScreen from "./screens/HomeScreen";
+import HomeScreen from "screens/HomeScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import UserAccountScreen from "./screens/UserAccountScreen";
@@ -157,15 +157,10 @@ export default function App() {
               component={UserCurrentPositionScreen}
             />
             <Stack.Screen
-
               name="UserRatePicker"
               component={UserRatePickerScreen}
-/>
-            <Stack.Screen
-              name="PickerIsHere"
-              component={PickerIsHereScreen}
-
             />
+            <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>

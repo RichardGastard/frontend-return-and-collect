@@ -11,6 +11,7 @@ import {
   FlatListProps,
   FlatList,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import WheelPickerItem from "./WheelPickerItem";
 

@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Image,
-  View,
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-} from "react-native";
+import { Image, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type CardProps = {
   orderNumber: number;
@@ -26,7 +19,9 @@ function OrderCard({
   date,
 }: CardProps) {
   return (
-    <View style={status ? styles.containerValid : styles.containerInvalid}>
+    <TouchableOpacity
+      style={status ? styles.containerValid : styles.containerInvalid}
+    >
       <View style={{ flexDirection: "row" }}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
         <View
@@ -46,7 +41,7 @@ function OrderCard({
           </Text>
           <Text style={styles.cardContent}>📍 {location}</Text>
           <Text style={styles.cardContent}>👤 {collector}</Text>
-          <Text style={styles.cardContent}>🏷️ {price}€</Text>
+          <Text style={styles.cardContent}>💶 {price}€</Text>
           <View
             style={{
               justifyContent: "flex-end",
@@ -54,11 +49,13 @@ function OrderCard({
               flex: 1,
             }}
           >
-            <Text style={(styles.cardContent, { opacity: 0.2 })}>{date}</Text>
+            <Text style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}>
+              {date}
+            </Text>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
   cardContent: {
     fontFamily: "Poppins-Regular",
     color: "#525252",
-    fontSize: 12,
+    fontSize: 13,
   },
 });
 export default OrderCard;

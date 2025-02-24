@@ -1,15 +1,10 @@
-import { useState, useRef, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "@/components/CustomButton";
+// COMPONENT
 import Loader from "@/components/Loader";
 import Layout from "@/components/Layout";
+
+import { useState, useEffect } from "react";
+import { View, StyleSheet } from "react-native";
+import CustomButton from "@/components/CustomButton";
 
 function PickerLoader({ navigation }) {
   const [suspension, setSuspension] = useState<string>("");

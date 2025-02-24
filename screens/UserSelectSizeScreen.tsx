@@ -53,10 +53,7 @@ function UserSelectSizeScreen({ navigation }) {
   ];
 
   return (
-    <Layout
-      title="Sélection"
-      description="Quelle est la taille de votre paquet ?"
-    >
+    <Layout title="Return" description="Quelle est la taille de votre paquet ?">
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
