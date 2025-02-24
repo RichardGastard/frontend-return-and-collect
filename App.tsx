@@ -19,6 +19,7 @@ import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
 import UserPickerFound from "screens/UserPickerFound";
 import UserRatePickerScreen from "screens/UserRatePickerScreen";
+import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
@@ -160,6 +161,11 @@ export default function App() {
             <Stack.Screen
               name="UserRatePicker"
               component={UserRatePickerScreen}
+            />
+            <Stack.Screen
+              name="UserChangePayment"
+              component={UserChangePaymentScreen}
+
             />
             <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />

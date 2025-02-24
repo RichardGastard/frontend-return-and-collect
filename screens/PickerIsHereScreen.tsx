@@ -23,9 +23,9 @@ import CustomModal from "@/components/Modal";
 function PickerIsHereScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
 
-//   const handleSecretCode = () => {
-//     setModalVisible(!isModalVisible);
-//   };
+    const handleSecretCode = () => {
+      setModalVisible(!isModalVisible);
+    };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,19 +58,16 @@ function PickerIsHereScreen() {
               <CustomButton onPressFunction={() => setModalVisible(true)}>
                 Secret Code
               </CustomButton>
-              <CustomModal isVisible={isModalVisible} onClose={() => setModalVisible(false)} title="Voici le Code">
-            <TouchableOpacity  onPress={() => setModalVisible(false)}>
-            <MaterialCommunityIcons
-        name="alpha-x-box"
-        size={30}
-        color="#525252"
-        style={{ opacity: 0.4 }}
-      ></MaterialCommunityIcons>
-            </TouchableOpacity>
-            <View style={styles.validationcode}>
-                <Text>1234</Text>
-            </View>
-      </CustomModal>
+              <CustomModal
+                isVisible={isModalVisible}
+                onClose={() => setModalVisible(false)}
+                title="Voici le Code"
+                code={1234}
+              > 
+
+                <CustomButton
+                onPressFunction={() => setModalVisible(false)} width={100}>Close</CustomButton>
+              </CustomModal>
             </View>
           </View>
         </ScrollView>
@@ -117,6 +114,10 @@ const styles = StyleSheet.create({
   validationcode: {
     marginTop: 20,
     height: 20,
+  },
+  closeText:{
+    color: "white",
+    textAlign: "center",
   }
 });
 
