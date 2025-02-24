@@ -127,7 +127,7 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Home" component={PickerIsHereScreen} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
             <Stack.Screen

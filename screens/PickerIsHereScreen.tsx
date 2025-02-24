@@ -64,10 +64,9 @@ function PickerIsHereScreen() {
                 title="Voici le Code"
                 code={1234}
               > 
-                  <TouchableOpacity style={styles.closebtn}
-                  onPress={() => setModalVisible(false)}>
-                    <Text style={styles.closeText}>Close</Text>
-                </TouchableOpacity>
+
+                <CustomButton
+                onPressFunction={() => setModalVisible(false)} width={100}>Close</CustomButton>
               </CustomModal>
             </View>
           </View>
@@ -115,16 +114,6 @@ const styles = StyleSheet.create({
   validationcode: {
     marginTop: 20,
     height: 20,
-  },
-  closebtn: {
-    borderWidth: 1,
-    height: 30,
-    width: 120,
-    marginTop: 20,
-    textAlign: "center",
-    justifyContent: "center",
-    backgroundColor: "#febbba",
-    borderRadius: 5,
   },
   closeText:{
     color: "white",
