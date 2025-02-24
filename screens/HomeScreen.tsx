@@ -1,7 +1,6 @@
 // COMPONENTS
 import Input from "@/components/Input";
 import CustomButton from "@/components/CustomButton";
-import { logIn } from "reducers/users";
 import Checkbox from "expo-checkbox"; // because Checkbox has been removed from react-native
 import Layout from "@/components/Layout";
 
@@ -19,6 +18,7 @@ import {
   Keyboard,
 } from "react-native";
 import { useDispatch } from "react-redux";
+import { logIn } from "@/reducers/users";
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ function HomeScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          dispatch(logIn(email));
+          dispatch(logIn({email, token: data.token}));
           navigation.navigate("TabNavigator");
         } else {
           setIsLoginSuccessful(false);
