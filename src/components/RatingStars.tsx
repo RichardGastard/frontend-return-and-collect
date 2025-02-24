@@ -29,7 +29,7 @@ export default function RatingStars({
             <TouchableOpacity key={index} onPress={() => handlePress(index)}>
               <FontAwesome
                 name={index < rating ? "star" : "star-o"} 
-                size={25}
+                size={35}
                 color={index < rating ? "gold" : "gray"} // Couleur de l'étoile
                 style={{ marginHorizontal: 5 }}
               />

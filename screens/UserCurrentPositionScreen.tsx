@@ -18,7 +18,6 @@ export default function UserCurrentPositionScreen({ navigation }) {
   return (
     <Layout
       title="Planifier votre délivraison"
-      footer
       arrowBack
       description="Saisissez votre adresse"
     >
@@ -47,20 +46,22 @@ export default function UserCurrentPositionScreen({ navigation }) {
             color: "#525252",
             fontSize: 16,
             borderWidth: 1,
-            borderColor: "#525252",
+            borderColor: "#52525250",
             backgroundColor: "#fffbf0",
           },
         }}
       ></GooglePlacesAutocomplete>
       <View>
         {isMapVisible && <Map dedeliveryPosition={dedeliveryLocation}></Map>}
-        <CustomButton
-          onPressFunction={() => {
-            navigation.navigate("TabNavigator");
-          }}
-        >
-          Venez chercher mon colis
-        </CustomButton>
+        <View style={{ marginBottom: "10%" }}>
+          <CustomButton
+            onPressFunction={() => {
+              navigation.navigate("PickerLoader");
+            }}
+          >
+            Venez chercher mon colis
+          </CustomButton>
+        </View>
       </View>
     </Layout>
   );

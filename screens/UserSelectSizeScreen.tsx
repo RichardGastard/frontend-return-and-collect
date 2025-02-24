@@ -4,18 +4,21 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import WheelPicker from "@/components/WheelPicker";
 import { useSwipe } from "hook/useSwipe";
 import Layout from "@/components/Layout";
+import CustomButton from "@/components/CustomButton";
 
 function UserSelectSizeScreen({ navigation }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   /* -------------- */
   /* Handle swiping */
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
-  function onSwipeLeft() {}
+  function onSwipeLeft() {
+    navigation.navigate("Profil");
+  }
 
   function onSwipeRight() {
-    navigation.navigate("Home");
+    navigation.navigate("Historique");
   }
 
   function handleSubmit() {
@@ -50,11 +53,12 @@ function UserSelectSizeScreen({ navigation }) {
   ];
 
   return (
-    <Layout
-      title="Sélection"
-      description="Quelle est la taille de votre paquet ?"
-    >
-      <View onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+    <Layout title="Return" description="Quelle est la taille de votre paquet ?">
+      <View
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        style={{ marginTop: "15%" }}
+      >
         <WheelPicker
           selectedIndex={selectedIndex}
           options={optionsData}
@@ -68,12 +72,16 @@ function UserSelectSizeScreen({ navigation }) {
             setSelectedIndex(index);
           }}
         ></WheelPicker>
-        <TouchableOpacity
-          style={[styles.submitButton, {position: "relative", top: -25}]}
-          onPress={() => handleSubmit()}
+        <View
+          style={{
+            marginBottom: "70%",
+            justifyContent: "flex-start",
+          }}
         >
-          <Text style={{ color: "white" }}>Sélectionner</Text>
-        </TouchableOpacity>
+          <CustomButton onPressFunction={() => handleSubmit()}>
+            Sélectionner
+          </CustomButton>
+        </View>
       </View>
     </Layout>
   );
