@@ -5,8 +5,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { StyleSheet } from "react-native";
 
-import HomeScreen from "./screens/HomeScreen";
-import SignUp from "./screens/SignUpScreen";
+import HomeScreen from "screens/HomeScreen";
+import SignUpScreen from "./screens/SignUpScreen";
 import UserSelectSizeScreen from "screens/UserSelectSizeScreen";
 import UserAccountScreen from "./screens/UserAccountScreen";
 import CoordinatesScreen from "./screens/CoordinatesScreen";
@@ -17,13 +17,13 @@ import UserCurrentPositionScreen from "screens/UserCurrentPositionScreen";
 import WhatCanYouCarry from "screens/WhatCanYouCarry";
 import PickerPaymentMethodScreen from "screens/PickerPaymentMethodsScreen";
 import UserFollowPickerScreen from "screens/UserFollowPickerScreen";
+import UserPickerFound from "screens/UserPickerFound";
 import UserRatePickerScreen from "screens/UserRatePickerScreen";
 import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
-
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
-
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
+
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -74,7 +74,7 @@ const TabNavigator = () => {
 
           if (route.name === "Return") {
             iconName = "package";
-          } else if (route.name === "Commandes") {
+          } else if (route.name === "Historique") {
             iconName = "history";
           } else if (route.name === "Profil") {
             iconName = "account-cog";
@@ -103,7 +103,7 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Commandes" component={UserActivityScreen} />
+      <Tab.Screen name="Historique" component={UserActivityScreen} />
       <Tab.Screen name="Return" component={UserSelectSizeScreen} />
       <Tab.Screen name="Profil" component={UserAccountScreen} />
     </Tab.Navigator>
@@ -127,8 +127,9 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
+
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
             <Stack.Screen
               name="PickerPayment"
@@ -152,25 +153,21 @@ export default function App() {
               component={UserSelectSizeScreen}
             />
             <Stack.Screen name="PickerLoader" component={PickerLoader} />
+            <Stack.Screen name="UserPickerFound" component={UserPickerFound} />
             <Stack.Screen
               name="UserCurrentPosition"
               component={UserCurrentPositionScreen}
             />
             <Stack.Screen
-
               name="UserRatePicker"
               component={UserRatePickerScreen}
-/>
-            <Stack.Screen
-              name="PickerIsHere"
-              component={PickerIsHereScreen}
-
             />
             <Stack.Screen
               name="UserChangePayment"
               component={UserChangePaymentScreen}
 
             />
+            <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>

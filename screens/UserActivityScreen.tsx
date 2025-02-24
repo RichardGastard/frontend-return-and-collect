@@ -31,8 +31,8 @@ function UserActivityScreen({ navigation }) {
   function onSwipeRight() {}
   return (
     <Layout
-      title="Commandes"
-      description="Vous pouvez retrouver votre historique"
+      title="Historique"
+      description="Vous pouvez retrouver l'ensemble de vos commandes"
     >
       <View
         onTouchStart={onTouchStart}
@@ -46,9 +46,9 @@ function UserActivityScreen({ navigation }) {
           <View style={{ flex: 1, gap: 15 }}>
             <OrderCard
               orderNumber={395885}
-              status
               location="3 rue des baies, 34555 CEDEX"
               collector="Bob"
+              status
               price={3.4}
               date="05/09/2024"
             ></OrderCard>

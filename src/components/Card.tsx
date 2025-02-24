@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderRadius: 80,
+    //borderRadius: 80,
     height: 150,
     width: 350,
     padding: 15,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   image: {
     width: 140,
     height: 140,
-    borderRadius: "50%",
+    //borderRadius: "50%",
     borderWidth: 2,
     borderColor: "white",
   },

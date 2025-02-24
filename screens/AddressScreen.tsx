@@ -20,8 +20,8 @@ function AddressScreen({ navigation }) {
   const [firstname, setFirstname] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
-  const [zipcode, setZipcode] = useState<string>("");
-  const [numberstreet, setNumberstreet] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [zipcode, setZipCode] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [userType, setUserType] = useState<string>("");
 
@@ -55,26 +55,26 @@ function AddressScreen({ navigation }) {
             <Input
               label="N°"
               keyboardType="none"
-              onChangeText={(value) => setFirstname(value)}
-              value={firstname}
+              onChangeText={(value) => setPhone(value)}
+              value={phone}
             />
             <Input
               label="Adresse"
               keyboardType="none"
-              onChangeText={(value) => setName(value)}
-              value={name}
+              onChangeText={(value) => setAddress(value)}
+              value={address}
             />
             <Input
               label="Code postal"
               keyboardType="none"
-              onChangeText={(value) => setPhone(value)}
-              value={phone}
+              onChangeText={(value) => setZipCode(value)}
+              value={zipcode}
             />
             <Input
               label="Ville"
               keyboardType="none"
-              onChangeText={(value) => setPhone(value)}
-              value={phone}
+              onChangeText={(value) => setCity(value)}
+              value={city}
             />
             <CustomButton
               onPressFunction={() => {

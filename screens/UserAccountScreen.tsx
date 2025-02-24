@@ -28,8 +28,15 @@ function UserAccountScreen({ navigation }) {
   function onSwipeRight() {
     navigation.navigate("Return");
   }
+
+  function handleLogOff() {
+    console.log("L'utilisateur se déconnecte");
+  }
   return (
-    <Layout title="Compte" description="Vous pouvez modifier les informations">
+    <Layout
+      title="Paramètre du compte"
+      description="Vous pouvez modifier les informations"
+    >
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
@@ -56,6 +63,19 @@ function UserAccountScreen({ navigation }) {
         >
           Votre moyen de paiement
         </CustomButton>
+
+        <View
+          style={{
+            marginTop: "20%",
+          }}
+        >
+          <CustomButton
+            onPressFunction={handleLogOff}
+            backgroundColor="#ff5252"
+          >
+            Se déconnecter
+          </CustomButton>
+        </View>
       </View>
     </Layout>
   );

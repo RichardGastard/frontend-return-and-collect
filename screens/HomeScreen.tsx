@@ -47,12 +47,6 @@ function HomeScreen({ navigation }) {
       });
   };
 
-  // CREATE FUNCTION TO CONNECT USER
-  // CREATE FUNCTION TO CREATE USER
-
-  // IMPORT FONTS (PUBLIC SANS BOLD & POPPINS)``
-  // IMPORT CONNECTION WITH GOOGLE
-
   const handleRememberMe = () => {
     if (!isChecked) {
       setIsChecked(true);
@@ -96,11 +90,12 @@ function HomeScreen({ navigation }) {
         style={{ flex: 1 }}
       >
         {/* fermer le clavier quand clique en dehors */}
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
           >
+            
             {!keyboardVisible && (
               <Image
                 source={require("../assets/Return-and-collect-loader.gif")}
@@ -113,8 +108,17 @@ function HomeScreen({ navigation }) {
               />
             )}
 
-            <Input label="Email" keyboardType="email" />
-            <Input label="Mot de passe" />
+            <Input
+              label="Email"
+              keyboardType="email"
+              onChangeText={(value) => setEmail(value)}
+              value={email}
+            />
+            <Input
+              label="Mot de passe"
+              onChangeText={(value) => setPassword(value)}
+              value={password}
+            />
             {!isLoginSuccessful && (
               <Text style={{ fontFamily: "Poppins-Regular", color: "red" }}>
                 Le mot de passe ou l'email est incorrect

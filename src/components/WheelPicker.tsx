@@ -11,6 +11,7 @@ import {
   FlatListProps,
   FlatList,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import WheelPickerItem from "./WheelPickerItem";
 
@@ -48,7 +49,7 @@ export default function WheelPicker({
   containerStyle = {},
   itemStyle = {},
   itemTextStyle = {},
-  itemHeight = 40,
+  itemHeight = 30,
   scaleFunction = (x: number) => 1.0 ** x,
   rotationFunction = (x: number) => 1 - Math.pow(1 / 2, x),
   opacityFunction = (x: number) => Math.pow(1 / 3, x),
@@ -120,22 +121,21 @@ export default function WheelPicker({
   }, [selectedIndex]);
 
   return (
-    <View
-      style={[styles.container, { height: containerHeight }, containerStyle]}
-      {...containerProps}
-    >
+    //{ height: containerHeight }
+    <View style={[styles.container, containerStyle]} {...containerProps}>
       <View
         style={[
           styles.selectedIndicator,
           selectedIndicatorStyle,
           {
-            transform: [{ translateY: -itemHeight / 2 }],
+            transform: [{ translateY: -itemHeight / 3 }],
             height: itemHeight,
           },
         ]}
       />
       <Animated.FlatList
         {...flatListProps}
+        contentContainerStyle={{ flexGrow: 1 }}
         ref={flatListRef}
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
@@ -177,6 +177,7 @@ export default function WheelPicker({
 const styles = StyleSheet.create({
   container: {
     position: "relative",
+    height: "67%",
   },
   selectedIndicator: {
     position: "absolute",

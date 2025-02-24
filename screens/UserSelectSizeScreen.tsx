@@ -7,7 +7,7 @@ import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 
 function UserSelectSizeScreen({ navigation }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   /* -------------- */
   /* Handle swiping */
@@ -18,7 +18,7 @@ function UserSelectSizeScreen({ navigation }) {
   }
 
   function onSwipeRight() {
-    navigation.navigate("Commandes");
+    navigation.navigate("Historique");
   }
 
   function handleSubmit() {
@@ -53,10 +53,7 @@ function UserSelectSizeScreen({ navigation }) {
   ];
 
   return (
-    <Layout
-      title="Sélection"
-      description="Quelle est la taille de votre paquet ?"
-    >
+    <Layout title="Return" description="Quelle est la taille de votre paquet ?">
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
@@ -75,7 +72,12 @@ function UserSelectSizeScreen({ navigation }) {
             setSelectedIndex(index);
           }}
         ></WheelPicker>
-        <View style={{ marginBottom: "50%" }}>
+        <View
+          style={{
+            marginBottom: "70%",
+            justifyContent: "flex-start",
+          }}
+        >
           <CustomButton onPressFunction={() => handleSubmit()}>
             Sélectionner
           </CustomButton>
