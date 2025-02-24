@@ -23,6 +23,12 @@ import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
+import PickerAccountScreen from "screens/PickerAccountScreen";
+import UserChangeAdressScreen from "screens/UserChangeAddressScreen";
+import UserChangePasswordScreen from "screens/UserChangePasswordScreen";
+import PickerChangePasswordScreen from "screens/PickerChangePasswordScreen";
+import PickerChangeAddressScreen from "screens/PickerChangeAddressScreen";
+import PickerChangePaymentScreen from "screens/PickerChangePaymentScreen";
 
 
 import { Provider } from "react-redux";
@@ -165,6 +171,36 @@ export default function App() {
             <Stack.Screen
               name="UserChangePayment"
               component={UserChangePaymentScreen}
+
+            />
+            <Stack.Screen
+              name="UserChangeAddress"
+              component={UserChangeAdressScreen}
+
+            />
+            <Stack.Screen
+              name="UserChangePassword"
+              component={UserChangePasswordScreen}
+
+            />
+            <Stack.Screen
+              name="PickerAccount"
+              component={PickerAccountScreen}
+
+            />
+            <Stack.Screen
+              name="PickerChangePassword"
+              component={PickerChangePasswordScreen}
+
+            />
+            <Stack.Screen
+              name="PickerChangeAddressScreen"
+              component={PickerChangeAddressScreen}
+
+            />
+            <Stack.Screen
+              name="PickerChangePaymentScreen"
+              component={PickerChangePaymentScreen}
 
             />
             <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
