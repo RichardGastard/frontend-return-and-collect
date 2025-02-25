@@ -23,8 +23,8 @@ import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
+import PickerHomeScreen from "screens/PickerHomeScreen";
 
-// Redux store configuration
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/store/store";
@@ -106,7 +106,7 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
-
+            <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />

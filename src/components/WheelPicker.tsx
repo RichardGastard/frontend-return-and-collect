@@ -25,6 +25,7 @@ export type WheelPickerOption = {
 
 type WheelPickerProps = {
   selectedIndex: number;
+  horizontal: boolean;
   options: WheelPickerOption[];
   onChange: (index: number) => void;
   selectedIndicatorStyle?: StyleProp<ViewStyle>;
@@ -42,6 +43,7 @@ type WheelPickerProps = {
 };
 
 export default function WheelPicker({
+  horizontal = false,
   selectedIndex,
   options,
   onChange,
@@ -135,10 +137,11 @@ export default function WheelPicker({
       />
       <Animated.FlatList
         {...flatListProps}
+        horizontal={horizontal}
         contentContainerStyle={{ flexGrow: 1 }}
         ref={flatListRef}
         style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={!horizontal}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
