@@ -13,6 +13,8 @@ import {
   Keyboard,
   Text,
 } from "react-native";
+import { logIn } from "@/reducers/users";
+import { useAppDispatch } from "@/store/hooks";
 
 function SignUp({ navigation }) {
   // Email statess
@@ -27,6 +29,9 @@ function SignUp({ navigation }) {
 
   // Keyboard state
   const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
+
+  // Manage redux
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // Listener pour savoir si le clavier est visible
@@ -89,6 +94,7 @@ function SignUp({ navigation }) {
       .then((data) => {
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
+          dispatch(logIn({ token: data.token, email }));
           navigation.navigate("Coordinates");
         } else {
           setIsEmailAlreadyUsed(true);

@@ -20,9 +20,9 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import DropdownMenu from "@/components/DropdownMenu";
 import ArrowBack from "@/components/ArrowBack";
 import Input from "@/components/Input";
-import { pickerProfile } from "reducers/pickers";
 import CustomButton from "@/components/CustomButton";
 import Logo from "@/components/Logo";
+import { pickerProfile } from "@/reducers/pickers";
 
 function WhatCanYouCarry({ navigation }) {
   const [profileName, setProfileName] = useState("");
@@ -55,7 +55,7 @@ function WhatCanYouCarry({ navigation }) {
         pickerToCapacity: selectedToValue,
       })
     );
-    navigation.navigate('PickerPayment')
+    navigation.navigate("PickerPayment");
   };
 
   return (
@@ -87,13 +87,11 @@ function WhatCanYouCarry({ navigation }) {
           />
           <View style={styles.connection}>
             <CustomButton
-              children = "Valider"
+              children="Valider"
               onPressFunction={() => {
                 handleValidateSubmit();
               }}
-            /> 
-          
-          
+            />
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

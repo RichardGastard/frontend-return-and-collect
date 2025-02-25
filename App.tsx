@@ -24,14 +24,10 @@ import PickerIsHereScreen from "screens/PickerIsHereScreen";
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
 
-
+// Redux store configuration
 import { Provider } from "react-redux";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import users from "./reducers/users";
-import pickers from "./reducers/pickers";
+import { store, persistor } from "@/store/store";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -43,23 +39,6 @@ import { useFonts } from "expo-font";
 import AddressScreen from "screens/AddressScreen";
 
 enableScreens();
-
-const reducers = combineReducers({
-  users,
-  pickers,
-});
-
-const persistConfig = { key: "applicationName", storage: AsyncStorage };
-
-const store = configureStore({
-  reducer: persistReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
-});
-
-const persistor = persistStore(store);
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -165,7 +144,6 @@ export default function App() {
             <Stack.Screen
               name="UserChangePayment"
               component={UserChangePaymentScreen}
-
             />
             <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
