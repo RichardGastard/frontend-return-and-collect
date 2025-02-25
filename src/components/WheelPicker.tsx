@@ -25,7 +25,7 @@ export type WheelPickerOption = {
 
 type WheelPickerProps = {
   selectedIndex: number;
-  horizontal: boolean;
+  horizontal?: boolean; // add recently 25/02
   options: WheelPickerOption[];
   onChange: (index: number) => void;
   selectedIndicatorStyle?: StyleProp<ViewStyle>;
