@@ -29,6 +29,7 @@ import UserChangePasswordScreen from "screens/UserChangePasswordScreen";
 import PickerChangePasswordScreen from "screens/PickerChangePasswordScreen";
 import PickerChangeAddressScreen from "screens/PickerChangeAddressScreen";
 import PickerChangePaymentScreen from "screens/PickerChangePaymentScreen";
+import PickerNewPayementScreen from "screens/PickerNewPaymentScreen";
 
 
 import { Provider } from "react-redux";
@@ -194,13 +195,18 @@ export default function App() {
 
             />
             <Stack.Screen
-              name="PickerChangeAddressScreen"
+              name="PickerChangeAddress"
               component={PickerChangeAddressScreen}
 
             />
             <Stack.Screen
-              name="PickerChangePaymentScreen"
+              name="PickerChangePayment"
               component={PickerChangePaymentScreen}
+
+            />
+            <Stack.Screen
+              name="PickerNewPayment"
+              component={PickerNewPayementScreen}
 
             />
             <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />

@@ -10,7 +10,7 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
@@ -20,7 +20,7 @@ import Layout from "@/components/Layout";
 import Input from "@/components/Input";
 import HomeScreen from "./HomeScreen";
 
-function PickerPayement({ navigation }) {
+function PickerNewPayementScreen({ navigation }) {
   const [iban, setIban] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [bic, setBic] = useState<string>("");
@@ -43,15 +43,13 @@ function PickerPayement({ navigation }) {
       console.log("Bic invalide");
       return;
     } else {
-      navigation.navigate("Validation"); // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
+      navigation.navigate("PickerChangePayment");
     }
   };
 
-  // !!!!! CE CODE NE PERMET PAS D'AFFICHER PLUSIEURS ERREURS SIMULTANEMENT !!!!!!!
-
   return (
     <Layout
-      title="Informations de paiement"
+      title="Nouveau compte bancaire"
       description="Remplissez les informations ci-dessous"
       footer
       arrowBack
@@ -105,76 +103,4 @@ function PickerPayement({ navigation }) {
   );
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fffbf0",
-    padding: 20,
-  },
-  header: {},
-
-  topButtons: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    paddingHorizontal: 10,
-  },
-  title: {
-    paddingTop: 50,
-    paddingBottom: 10,
-    textAlign: "center",
-    fontSize: 36,
-    color: "#525252",
-  },
-  error: {
-    color: "red",
-  },
-  inputs: {
-    marginTop: 35,
-    width: "97%",
-    justifyContent: "space-between",
-    marginRight: "auto",
-    marginLeft: "auto",
-    gap: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-
-    elevation: 24,
-    paddingBottom: 50,
-  },
-  CVV: {
-    width: 20,
-  },
-  input: {
-    borderColor: "#525252",
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 50,
-    paddingHorizontal: 10,
-  },
-  smallInputAlign: {
-    borderColor: "#525252",
-
-    justifyContent: "space-between",
-  },
-  smallInput: {
-    borderColor: "#525252",
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 50,
-    paddingHorizontal: 10,
-    width: 150,
-  },
-  ValidateButton: {
-    width: "97%",
-    marginRight: "auto",
-    marginLeft: "auto",
-    marginTop: 30,
-    paddingTop: 50,
-  },
-});
-
-export default PickerPayement;
+export default PickerNewPayementScreen;

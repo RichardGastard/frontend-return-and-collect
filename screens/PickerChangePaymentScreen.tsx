@@ -37,20 +37,22 @@ function PickerChangePaymentScreen({ navigation }) {
         >
           <View style={styles.container}>
             <View style={{flex: 1}}>
-              <BankAccount
-              name={"Marc Hourselle"}
-                bankName={"Bank"}
-                status = {true}
-              ></BankAccount>
+            <BankAccount
+            bankName={"NOM DE LA BANQUE"}
+            name={"HOURSELLE Marc"}
+            iban={"FRXX XXXX XXXX XXXX XXXX XXXX XXXX XXX"}
+            bic={"SogeXXX"}
+            status={true}>
+            </BankAccount>
                <View style={styles.addbtn}>
             <CustomButton
               onPressFunction={() => {
                 navigation.navigate(
-                  "Payment",
+                  "PickerNewPayment",
                 );
               }}
             >
-              Ajoutez une nouvelle carte
+              Ajoutez un nouveau compte bancaire
             </CustomButton>
             </View>
               <View style={styles.submitbtn}>
@@ -58,7 +60,7 @@ function PickerChangePaymentScreen({ navigation }) {
               onPressFunction={() => {
                 navigation.navigate(
                   "UserAccountScreen",
-                  console.log("Votre Mot de passe à bien été changée")
+                  console.log("Votre compte a bien été changé")
                 );
               }}
             >

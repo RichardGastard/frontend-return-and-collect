@@ -108,13 +108,6 @@ function HomeScreen({ navigation }) {
                 }}
               />
             )}
-            <BankAccount
-            bankName={"BANK"}
-            name={"Marc HOURSELLE"}
-            iban={"FRXX XXXX XXXX XXXX XXXX XXXX XXXX XXX"}
-            bic={"SogeXXX"}
-            status={true}>
-            </BankAccount>
             <Input
               label="Email"
               keyboardType="email"
