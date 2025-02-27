@@ -5,9 +5,12 @@ import WheelPicker from "@/components/WheelPicker";
 import { useSwipe } from "hook/useSwipe";
 import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
+import { useAppDispatch } from "@/store/hooks";
+import { loadDelivery } from "@/reducers/deliveries";
 
 function UserSelectSizeScreen({ navigation }) {
   const [selectedIndex, setSelectedIndex] = useState(1);
+  const dispatch = useAppDispatch();
 
   /* -------------- */
   /* Handle swiping */
@@ -22,30 +25,44 @@ function UserSelectSizeScreen({ navigation }) {
   }
 
   function handleSubmit() {
+    dispatch(
+      loadDelivery({
+        volume: optionsData[selectedIndex].volume,
+        size: optionsData[selectedIndex].size,
+      })
+    );
     navigation.navigate("UserCurrentPosition");
   }
 
   const optionsData = [
     {
       titre: "Petit",
+      size: "S",
+      volume: 5,
       description: "Boîte à chaussure",
       // imageUrl: "../assets/logo-simple.svg",
       imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Moyen",
+      size: "M",
+      volume: 50,
       description: "Micro-onde",
       // imageUrl: "../assets/logo-simple.svg",
       imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Large",
+      size: "L",
+      volume: 200,
       description: "Armoire",
       // imageUrl: "../assets/logo-simple.svg",
       imageUrl: require("../assets/logo-without-bg-without-text.png"),
     },
     {
       titre: "Très large",
+      size: "XL",
+      volume: 400,
       description: "Camion",
       // imageUrl: "../assets/logo-simple.svg",
       imageUrl: require("../assets/logo-without-bg-without-text.png"),

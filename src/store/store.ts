@@ -3,10 +3,12 @@ import { persistStore, persistReducer } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "../reducers/users";
 import pickers from "../reducers/pickers";
+import deliveries from "../reducers/deliveries";
 
 const reducers = combineReducers({
   users,
   pickers,
+  deliveries,
 });
 
 const persistConfig = { key: "applicationName", storage: AsyncStorage };

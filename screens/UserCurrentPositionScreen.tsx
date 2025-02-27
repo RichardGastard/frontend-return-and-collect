@@ -5,6 +5,8 @@ import Map, { Coordinates } from "@/components/Map";
 import Layout from "@/components/Layout";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import "react-native-get-random-values";
+import { useAppDispatch } from "@/store/hooks";
+import { loadDelivery } from "@/reducers/deliveries";
 
 const GOOGLE_MAPS_APIKEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_APIKEY;
 
@@ -14,6 +16,8 @@ export default function UserCurrentPositionScreen({ navigation }) {
     latitude: undefined,
     longitude: undefined,
   });
+
+  const dispatch = useAppDispatch();
 
   return (
     <Layout
@@ -30,6 +34,7 @@ export default function UserCurrentPositionScreen({ navigation }) {
             latitude: details.geometry.location.lat,
             longitude: details.geometry.location.lng,
           });
+          dispatch(loadDelivery({ pickupAddress: data.description }));
         }}
         query={{
           key: GOOGLE_MAPS_APIKEY,
