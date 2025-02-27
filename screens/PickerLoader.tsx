@@ -7,7 +7,6 @@ import { View, StyleSheet } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loadDelivery, unloadDelivery } from "@/reducers/deliveries";
-import { ColorSpace } from "react-native-reanimated";
 
 function PickerLoader({ navigation }) {
   const [suspension, setSuspension] = useState<string>("");
