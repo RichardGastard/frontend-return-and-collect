@@ -13,19 +13,38 @@ import {
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
+import { useAppSelector } from "@/store/hooks";
 
 // TODO: Adjust the keyboard avoiding view
 
 function AddressScreen({ navigation }) {
-  const [firstname, setFirstname] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
+  const [number, setNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [zipcode, setZipCode] = useState<string>("");
   const [city, setCity] = useState<string>("");
-  const [userType, setUserType] = useState<string>("");
+  const userData = useAppSelector((state) => state.users.value);
 
   const keyboardHeight = useKeyboardHeight();
+
+  function handleRegisterUser() {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users/", {
+      method: "PUT",
+      body: JSON.stringify({
+        token: userData.token,
+        address: `${number}, ${address}`,
+        zipcode,
+        city,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        if (data.result) {
+          navigation.navigate("Payment");
+        }
+      });
+  }
 
   return (
     <Layout
@@ -55,8 +74,8 @@ function AddressScreen({ navigation }) {
             <Input
               label="N°"
               keyboardType="none"
-              onChangeText={(value) => setPhone(value)}
-              value={phone}
+              onChangeText={(value) => setNumber(value)}
+              value={number}
             />
             <Input
               label="Adresse"
@@ -78,7 +97,7 @@ function AddressScreen({ navigation }) {
             />
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate("Payment");
+                handleRegisterUser();
               }}
             >
               Suivant

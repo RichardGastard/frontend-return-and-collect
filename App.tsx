@@ -23,6 +23,7 @@ import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
+
 import PickerAccountScreen from "screens/PickerAccountScreen";
 import UserChangeAdressScreen from "screens/UserChangeAddressScreen";
 import UserChangePasswordScreen from "screens/UserChangePasswordScreen";
@@ -30,15 +31,11 @@ import PickerChangePasswordScreen from "screens/PickerChangePasswordScreen";
 import PickerChangeAddressScreen from "screens/PickerChangeAddressScreen";
 import PickerChangePaymentScreen from "screens/PickerChangePaymentScreen";
 import PickerNewPayementScreen from "screens/PickerNewPaymentScreen";
-
+import PickerHomeScreen from "screens/PickerHomeScreen";
 
 import { Provider } from "react-redux";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import users from "./reducers/users";
-import pickers from "./reducers/pickers";
+import { store, persistor } from "@/store/store";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -50,23 +47,6 @@ import { useFonts } from "expo-font";
 import AddressScreen from "screens/AddressScreen";
 
 enableScreens();
-
-const reducers = combineReducers({
-  users,
-  pickers,
-});
-
-const persistConfig = { key: "applicationName", storage: AsyncStorage };
-
-const store = configureStore({
-  reducer: persistReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
-});
-
-const persistor = persistStore(store);
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -136,6 +116,11 @@ export default function App() {
             {/* LET'S TRY IF CHANGE */}
 
             <Stack.Screen name="Home" component={HomeScreen} />
+
+            {/* PICKER SCREENS */}
+            <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
+
+            {/* USER SCREENS */}
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
             <Stack.Screen
@@ -172,7 +157,6 @@ export default function App() {
             <Stack.Screen
               name="UserChangePayment"
               component={UserChangePaymentScreen}
-
             />
             <Stack.Screen
               name="UserChangeAddress"

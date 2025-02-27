@@ -14,19 +14,45 @@ import {
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
+import { useAppSelector } from "@/store/hooks";
 
 // TODO: Adjust the keyboard avoiding view
 
 function CoordinatesScreen({ navigation }) {
-  const [firstname, setFirstname] = useState<string>("");
-  const [name, setName] = useState<string>("");
+  // User informations
+  const [firstName, setFirstname] = useState<string>("");
+  const [lastName, setLastname] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
-  const [zipcode, setZipcode] = useState<string>("");
-  const [numberstreet, setNumberstreet] = useState<string>("");
-  const [city, setCity] = useState<string>("");
   const [userType, setUserType] = useState<string>("");
+  const userData = useAppSelector((state) => state.users.value);
 
   const keyboardHeight = useKeyboardHeight();
+
+  function handleRegisterUser() {
+    if (!userType) {
+      alert("Veuillez choisir un type de compte");
+      return;
+    }
+
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users/", {
+      method: "PUT",
+      body: JSON.stringify({
+        token: userData.token,
+        firstName,
+        lastName,
+        phone,
+        userType: userType === "Collecteur" ? "PICKER" : "SENDER",
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        if (data.result) {
+          navigation.navigate("Address");
+        }
+      });
+  }
 
   return (
     <Layout
@@ -62,13 +88,13 @@ function CoordinatesScreen({ navigation }) {
               label="Prenom"
               keyboardType="none"
               onChangeText={(value) => setFirstname(value)}
-              value={firstname}
+              value={firstName}
             />
             <Input
               label="Nom"
               keyboardType="none"
-              onChangeText={(value) => setName(value)}
-              value={name}
+              onChangeText={(value) => setLastname(value)}
+              value={lastName}
             />
             <Input
               label="Mobile"
@@ -78,7 +104,7 @@ function CoordinatesScreen({ navigation }) {
             />
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate("Address");
+                handleRegisterUser();
               }}
             >
               Suivant
