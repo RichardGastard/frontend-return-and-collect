@@ -6,14 +6,16 @@ export type DeliveryState = {
     isOngoing: boolean;
     deliveryId?: string | null;
     pickupAddress?: string | null;
-    volume?: string | null;
+    volume?: number | null;
+    size?: string | null;
   };
 };
 
 export type DeliveryPayload = {
   deliveryId?: string;
   pickupAddress?: string;
-  volume?: string;
+  volume?: number;
+  size?: string | null;
 };
 
 const initialState: DeliveryState = {
@@ -22,6 +24,8 @@ const initialState: DeliveryState = {
     deliveryId: null,
     // Picker specific
     pickupAddress: null,
+    volume: null,
+    size: null,
   },
 };
 
@@ -40,12 +44,16 @@ const deliverySlice = createSlice({
       if (action.payload.volume) {
         state.value.volume = action.payload.volume;
       }
+      if (action.payload.size) {
+        state.value.size = action.payload.size;
+      }
     },
     unloadDelivery: (state, action: PayloadAction<void>) => {
       state.value.isOngoing = false;
       state.value.deliveryId = null;
       state.value.pickupAddress = null;
       state.value.volume = null;
+      state.value.size = null;
     },
   },
 });
