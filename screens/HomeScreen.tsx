@@ -18,6 +18,9 @@ import {
   Keyboard,
 } from "react-native";
 import { useDispatch } from "react-redux";
+
+import BankAccount from "@/components/BankAccount";
+
 import { logIn } from "@/reducers/users";
 
 function HomeScreen({ navigation }) {
@@ -106,7 +109,6 @@ function HomeScreen({ navigation }) {
                 }}
               />
             )}
-
             <Input
               label="Email"
               keyboardType="email"

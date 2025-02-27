@@ -13,39 +13,13 @@ import {
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
 
-function UserChangePasswordScreen({ navigation }) {
+function PickerChangePasswordScreen({ navigation }) {
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [copyNewPassword, setCopyNewPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
 
 const keyboardHeight = useKeyboardHeight();
 
-// const verifyOldPassword = async () => {
-//     try {
-//       const response = await fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users", {
-//         method: "PUT",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ oldPassword }),
-//     });
-
-//       const data = await response.json();
-
-//       if (!response.ok || !data.success) {
-//         setError("L'ancien mot de passe est incorrect.");
-//         return false;
-//       }
-
-//       return true
-//     } catch (error) {
-//         console.error("Erreur lors de la vérification du mot de passe :", error);
-//         setError("Une erreur est survenue. Veuillez réessayer.");
-//         return false;
-//       }
-//     };
-     
   return (
     <Layout
       title="Changement mot de passe"
@@ -116,4 +90,4 @@ const styles = StyleSheet.create({
 
 
 
-export default UserChangePasswordScreen
+export default PickerChangePasswordScreen
