@@ -18,6 +18,27 @@ function Payment({ navigation }) {
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [securityNumber, setSecurityNumber] = useState<string>("");
 
+
+  function handleRegisterpaymentMethod() {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/card", {
+      method: "POST",
+      body: JSON.stringify({
+      name: cardHolder,
+      creditCardNumber: cardNumber,
+      expirationDate: expirationDate,
+      creditCardSecurityDigits: securityNumber
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        if (data.result) {
+          navigation.navigate("Validation");
+        }
+      });
+  }
+
   const [cardHolderValidity, setCardHolderValidity] = useState<boolean>(true);
   const [cardNumberValidity, setcardNumberValidity] = useState<boolean>(true);
   const [expirationDateValidity, setExpirationDateValidity] =
@@ -25,46 +46,46 @@ function Payment({ navigation }) {
   const [securityNumberValidity, setSecurityNumberValidity] =
     useState<boolean>(true);
 
-  const handleSubmit = () => {
-    const cardHolderRegex = /^[a-zA-Z\s]+$/;
-    const cardNumberRegex = /^\d{16}$/;
-    const expirationDateRegex = /^(0[1-9]|1[0-2])\/([0-9]{4})$/;
-    const securityNumberRegex = /^\d{3}$/;
+  // const handleSubmit = () => {
+  //   const cardHolderRegex = /^[a-zA-Z\s]+$/;
+  //   const cardNumberRegex = /^\d{16}$/;
+  //   const expirationDateRegex = /^(0[1-9]|1[0-2])\/([0-9]{4})$/;
+  //   const securityNumberRegex = /^\d{3}$/;
 
-    setCardHolderValidity(true);
-    setcardNumberValidity(true);
-    setExpirationDateValidity(true);
-    setSecurityNumberValidity(true);
+  //   setCardHolderValidity(true);
+  //   setcardNumberValidity(true);
+  //   setExpirationDateValidity(true);
+  //   setSecurityNumberValidity(true);
 
-    if (!cardHolder.match(cardHolderRegex) || cardHolder.length < 2) {
-      setCardHolderValidity(false);
-      console.log("Nom du titulaire incorrect");
-      return;
-    }
-    if (!cardNumber.match(cardNumberRegex) || cardNumber.length !== 16) {
-      setcardNumberValidity(false);
-      console.log("Numéro de carte invalide");
-      return;
-    }
-    if (
-      !expirationDate.match(expirationDateRegex) ||
-      expirationDate.length < 2
-    ) {
-      setExpirationDateValidity(false);
-      console.log("Date d'expiration invalide");
-      return;
-    }
-    if (
-      !securityNumber.match(securityNumberRegex) ||
-      securityNumber.length !== 3
-    ) {
-      setSecurityNumberValidity(false);
-      console.log("Code secret invalide");
-      return;
-    } else {
-      navigation.navigate("Validation"); // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
-    }
-  };
+  //   if (!cardHolder.match(cardHolderRegex) || cardHolder.length < 2) {
+  //     setCardHolderValidity(false);
+  //     console.log("Nom du titulaire incorrect");
+  //     return;
+  //   }
+  //   if (!cardNumber.match(cardNumberRegex) || cardNumber.length !== 16) {
+  //     setcardNumberValidity(false);
+  //     console.log("Numéro de carte invalide");
+  //     return;
+  //   }
+  //   if (
+  //     !expirationDate.match(expirationDateRegex) ||
+  //     expirationDate.length < 2
+  //   ) {
+  //     setExpirationDateValidity(false);
+  //     console.log("Date d'expiration invalide");
+  //     return;
+  //   }
+  //   if (
+  //     !securityNumber.match(securityNumberRegex) ||
+  //     securityNumber.length !== 3
+  //   ) {
+  //     setSecurityNumberValidity(false);
+  //     console.log("Code secret invalide");
+  //     return;
+  //   } else {
+  //     navigation.navigate("Validation"); // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
+  //   }
+  // };
 
   // !!!!! CE CODE NE PERMET PAS D'AFFICHER PLUSIEURS ERREURS SIMULTANEMENT !!!!!!!
 
@@ -99,7 +120,7 @@ function Payment({ navigation }) {
             <Input label="CVV" keyboardType="numeric" />
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate("SignUpCongrats");
+                handleRegisterpaymentMethod();
               }}
             >
               Ajouter la carte

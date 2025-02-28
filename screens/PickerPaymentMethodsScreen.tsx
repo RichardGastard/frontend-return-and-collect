@@ -1,13 +1,7 @@
 import { useState, useRef } from "react";
 import {
-  Button,
-  Text,
-  TextInput,
   View,
   StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView
