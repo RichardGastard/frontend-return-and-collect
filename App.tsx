@@ -23,6 +23,7 @@ import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
+import PickFoundScreen from "screens/PickFoundScreen"
 
 // Redux store configuration
 import { Provider } from "react-redux";
@@ -106,7 +107,6 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
-
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
@@ -127,6 +127,7 @@ export default function App() {
             />
             <Stack.Screen name="Validation" component={ValidationScreen} />
             <Stack.Screen name="Carry" component={WhatCanYouCarry} />
+            <Stack.Screen name="PickFoundScreen" component={PickFoundScreen} />
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
