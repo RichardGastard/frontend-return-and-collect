@@ -1,63 +1,69 @@
+// COMPONENTS
 import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 
 import { useSwipe } from "hook/useSwipe";
 
-import { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import useKeyboardHeight from "react-native-use-keyboard-height";
-
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch } from "react-redux";
+import { logOff } from "@/reducers/users";
 
 function PickerAccountScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
   function onSwipeLeft() {}
 
   function onSwipeRight() {
-    navigation.navigate("Return");
+    navigation.navigate("Collect");
   }
 
   function handleLogOff() {
-    console.log("L'utilisateur se déconnecte");
+    // TODO : Regarder en dessous la proposition
+    // if (window.confirm("Voulez-vous vraiment vous déconnecter ?")) {
+    //   dispatch(logOff());
+    //   navigation.navigate("LogIn");
+    // }
+    dispatch(logOff());
+    navigation.navigate("Home");
   }
+
   return (
     <Layout
-      title="Paramètre du compte"
+      title="Paramètres du compte"
       description="Vous pouvez modifier les informations"
     >
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{ height: "70%" }}
+        style={{
+          height: "70%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <CustomButton
+          width={"75%"}
           onPressFunction={() => {
-            navigation.navigate("UserChangePassword");
+            navigation.navigate("PickerChangePassword");
           }}
         >
           Votre mot de passe
         </CustomButton>
         <CustomButton
+          width={"75%"}
           onPressFunction={() => {
-            navigation.navigate("UserChangeAddress");
+            navigation.navigate("PickerChangeAddress");
           }}
         >
           Votre adresse
         </CustomButton>
         <CustomButton
+          width={"75%"}
           onPressFunction={() => {
-            navigation.navigate("UserChangePaiement");
+            navigation.navigate("PickerChangePayment");
           }}
         >
           Votre compte bancaire
@@ -66,6 +72,7 @@ function PickerAccountScreen({ navigation }) {
         <View
           style={{
             marginTop: "20%",
+            width: "50%",
           }}
         >
           <CustomButton

@@ -13,15 +13,23 @@ import {
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
 import BankAccount from "@/components/BankAccount";
+import { useSwipe } from "hook/useSwipe";
 
 function PickerChangePaymentScreen({ navigation }) {
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
+
+  function onSwipeLeft() {}
+
+  function onSwipeRight() {
+    navigation.goBack();
+  }
 
   const keyboardHeight = useKeyboardHeight();
 
   return (
     <Layout
-      title="Changement moyen de payement"
-      description="Rajoutez un moyen de payement"
+      title="Moyen de paiement"
+      description="Ajoutez, modifiez un moyen de paiement"
       footer
       arrowBack
     >
@@ -35,39 +43,39 @@ function PickerChangePaymentScreen({ navigation }) {
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.container}>
-            <View style={{flex: 1}}>
-            <BankAccount
-            bankName={"NOM DE LA BANQUE"}
-            name={"HOURSELLE Marc"}
-            iban={"FRXX XXXX XXXX XXXX XXXX XXXX XXXX XXX"}
-            bic={"SogeXXX"}
-            status={true}>
-            </BankAccount>
-               <View style={styles.addbtn}>
-            <CustomButton
-              onPressFunction={() => {
-                navigation.navigate(
-                  "PickerNewPayment",
-                );
-              }}
-            >
-              Ajoutez un nouveau compte bancaire
-            </CustomButton>
+          <View
+            style={styles.container}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            <View style={{ flex: 1 }}>
+              <BankAccount
+                bankName={"NOM DE LA BANQUE"}
+                name={"HOURSELLE Marc"}
+                iban={"FRXX XXXX XXXX XXXX XXXX XXXX XXX"}
+                bic={"SogeXXX"}
+                status={true}
+              ></BankAccount>
+
+              <CustomButton
+                onPressFunction={() => {
+                  navigation.navigate("PickerNewPayment");
+                }}
+              >
+                Ajoutez un nouveau compte bancaire
+              </CustomButton>
+
+              <CustomButton
+                onPressFunction={() => {
+                  navigation.navigate(
+                    "UserAccountScreen",
+                    console.log("Votre compte a bien été changé")
+                  );
+                }}
+              >
+                Validez
+              </CustomButton>
             </View>
-              <View style={styles.submitbtn}>
-            <CustomButton
-              onPressFunction={() => {
-                navigation.navigate(
-                  "UserAccountScreen",
-                  console.log("Votre compte a bien été changé")
-                );
-              }}
-            >
-              Validez
-            </CustomButton>
-            </View>
-              </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -80,13 +88,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fffbf0",
   },
- submitbtn: {
+  submitbtn: {
     marginTop: 10,
- },
-addbtn: {
-
-},
-
+  },
+  addbtn: {},
 });
 
 export default PickerChangePaymentScreen;

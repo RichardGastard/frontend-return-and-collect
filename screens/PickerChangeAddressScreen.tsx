@@ -13,14 +13,22 @@ import {
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
+import { useSwipe } from "hook/useSwipe";
 
 const GOOGLE_MAPS_APIKEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_APIKEY;
 
 function PickerChangeAddressScreen({ navigation }) {
   const [newAdress, setNewAdress] = useState<string>("");
   const [copyNewAdress, setCopyNewAdress] = useState<string>("");
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
-const keyboardHeight = useKeyboardHeight();
+  function onSwipeLeft() {}
+
+  function onSwipeRight() {
+    navigation.goBack();
+  }
+
+  const keyboardHeight = useKeyboardHeight();
 
   return (
     <Layout
@@ -40,32 +48,44 @@ const keyboardHeight = useKeyboardHeight();
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-        <View style={styles.container}>
-                    <View style={styles.newad}>
-                    <Input
-                      label="Nouvelle Adresse"
-                      keyboardType="none"
-                      onChangeText={(value) => setNewAdress(value)}
-                      value={newAdress}
-                    />
-                    <Input
-                      label="Copiez la Nouvelle Adresse"
-                      keyboardType="none"
-                      onChangeText={(value) => setCopyNewAdress(value)}
-                      value={copyNewAdress}
-                    />
-                    </View>
-                    <CustomButton onPressFunction={() => {
-            navigation.navigate("UserAccountScreen", console.log("Votre adresse à bien été changée"));
-          }}>Validez</CustomButton>
-                    </View>
-                    </ScrollView>
-    </KeyboardAvoidingView>
+          <View
+            style={styles.container}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            <View style={styles.newad}>
+              <Input
+                label="Nouvelle Adresse"
+                keyboardType="none"
+                onChangeText={(value) => setNewAdress(value)}
+                value={newAdress}
+              />
+              <Input
+                label="Copiez la Nouvelle Adresse"
+                keyboardType="none"
+                onChangeText={(value) => setCopyNewAdress(value)}
+                value={copyNewAdress}
+              />
+            </View>
+            <CustomButton
+              onPressFunction={() => {
+                navigation.navigate(
+                  "UserAccountScreen",
+                  console.log("Votre adresse à bien été changée")
+                );
+              }}
+            >
+              Validez
+            </CustomButton>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Layout>
-    )
+  );
 }
 
-{/* <GooglePlacesAutocomplete
+{
+  /* <GooglePlacesAutocomplete
         placeholder="Votre adresse ..."
         fetchDetails={true}
         query={{
@@ -87,20 +107,17 @@ const keyboardHeight = useKeyboardHeight();
             backgroundColor: "#fffbf0",
           },
         }}
-      ></GooglePlacesAutocomplete>  */}
+      ></GooglePlacesAutocomplete>  */
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fffbf0",
-
   },
-  newad:{
+  newad: {
     marginTop: 30,
-  }
-})
+  },
+});
 
-
-
-
-export default PickerChangeAddressScreen
+export default PickerChangeAddressScreen;
