@@ -1,32 +1,54 @@
 // COMPONENTS
 import Layout from "@/components/Layout";
-import CustomButton from "@/components/CustomButton";
-
 import { useSwipe } from "hook/useSwipe";
+import { View, StyleSheet, ScrollView } from "react-native";
 
-import { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from "react-native";
-
-import useKeyboardHeight from "react-native-use-keyboard-height";
-
-import { SafeAreaView } from "react-native-safe-area-context";
 import OrderCard from "@/components/OrderCard";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "@/store/hooks";
 
 function UserActivityScreen({ navigation }) {
+  const [deliveriesData, setDeliveriesData] = useState([]);
+  const userData = useAppSelector((state) => state.users.value);
+
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
   function onSwipeLeft() {
     navigation.navigate("Return");
   }
+
+  useEffect(() => {
+    fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL +
+        "/deliveries/activity/" +
+        userData.token
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setDeliveriesData(data.deliveries);
+        console.log(data.deliveries);
+      });
+  }, []);
+
+  const deliveryCards = deliveriesData.map((delivery, i) => {
+    const collector = delivery.pickerId
+      ? delivery.pickerId.firstName +
+        " " +
+        delivery.pickerId.lastName.charAt(0).toUpperCase() +
+        "."
+      : "Collecteur non trouvé";
+    return (
+      <OrderCard
+        key={i}
+        orderNumber={delivery._id.substring(0, 5)}
+        location={delivery.pickupAddress}
+        collector={collector}
+        status={delivery === "DELIVERED"}
+        price={delivery.price}
+        date={delivery.createdAt.split("T")[0]}
+      ></OrderCard>
+    );
+  });
 
   function onSwipeRight() {}
   return (
@@ -50,15 +72,16 @@ function UserActivityScreen({ navigation }) {
               collector="Bob"
               status
               price={3.4}
-              date="05/09/2024"
+              date="2024-05-09"
             ></OrderCard>
             <OrderCard
               orderNumber={23525}
               location="23 avenue du général leclerc, 750001 Paris"
               collector="Bob"
               price={1.99}
-              date="21/02/2025"
+              date="2025-01-02"
             ></OrderCard>
+            {deliveryCards}
           </View>
         </ScrollView>
       </View>
