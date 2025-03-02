@@ -23,6 +23,7 @@ import UserChangePaymentScreen from "screens/UserChangePaymentScreen";
 import PickerIsHereScreen from "screens/PickerIsHereScreen";
 import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
+import PickFoundScreen from "screens/PickFoundScreen"
 
 import PickerAccountScreen from "screens/PickerAccountScreen";
 import UserChangeAdressScreen from "screens/UserChangeAddressScreen";
@@ -188,6 +189,7 @@ export default function App() {
             />
             <Stack.Screen name="Validation" component={ValidationScreen} />
             <Stack.Screen name="Carry" component={WhatCanYouCarry} />
+            <Stack.Screen name="PickFoundScreen" component={PickFoundScreen} />
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}
