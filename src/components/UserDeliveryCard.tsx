@@ -3,15 +3,22 @@ import { Image, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import CustomButton from "./CustomButton";
 
 type CardProps = {
-  orderNumber: number;
-    user: string;
+  orderNumber: any;
+  user: string;
   packageSize: string;
   distance: string;
   price: number;
   status: boolean;
 };
 
-function UserDeliveryCard({ user, packageSize, distance, orderNumber, price, status= false }: CardProps) {
+function UserDeliveryCard({
+  user,
+  packageSize,
+  distance,
+  orderNumber,
+  price,
+  status = false,
+}: CardProps) {
   return (
     <TouchableOpacity
       style={status ? styles.containerValid : styles.containerInvalid}
@@ -35,7 +42,7 @@ function UserDeliveryCard({ user, packageSize, distance, orderNumber, price, sta
           </Text>
           <Text style={styles.cardContent}>👤 {user}</Text>
           <Text style={styles.cardContent}>📦 {packageSize}</Text>
-          <Text style={styles.cardContent}>📍 {distance}€</Text>
+          <Text style={styles.cardContent}>📍 {distance} m</Text>
           <Text style={styles.cardContent}>💶 {price}€</Text>
           <View
             style={{
@@ -44,9 +51,9 @@ function UserDeliveryCard({ user, packageSize, distance, orderNumber, price, sta
               flex: 1,
             }}
           >
-            <Text style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}>
-              
-            </Text>
+            <Text
+              style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}
+            ></Text>
           </View>
         </View>
       </View>
@@ -90,12 +97,12 @@ const styles = StyleSheet.create({
     fontFamily: "Public-Sans-Bold",
     alignSelf: "center",
     marginBottom: "5%",
-    fontSize: 13,
+    fontSize: 10,
   },
   cardContent: {
     fontFamily: "Poppins-Regular",
     color: "#525252",
-    fontSize: 13,
+    fontSize: 12,
   },
 });
 export default UserDeliveryCard;
