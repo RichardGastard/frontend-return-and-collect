@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "App";
+
+import { RootState } from "@/store/store";
 
 export type UserState = {
   value: {
@@ -8,6 +9,7 @@ export type UserState = {
     token: string | null;
     firstName: string | null;
     address: string | null;
+    userType: string | null;
   };
 };
 
@@ -18,6 +20,7 @@ const initialState: UserState = {
     token: null,
     firstName: null,
     address: null,
+    userType: null,
   },
 };
 
@@ -31,6 +34,7 @@ const userSlice = createSlice({
       state.value.token = action.payload.token;
       state.value.firstName = action.payload.firstName;
       state.value.address = action.payload.address;
+      state.value.userType = action.payload.userType;
     },
     changeUserInfo: (state, action: PayloadAction<any>) => {
       state.value.email = action.payload.email;

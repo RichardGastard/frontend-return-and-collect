@@ -10,101 +10,124 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
 import ArrowBack from "@/components/ArrowBack";
+import Layout from "@/components/Layout";
 
 import Input from "@/components/Input";
-import HomeScreen from "./HomeScreen";
 
 function PickerPayement({ navigation }) {
   const [iban, setIban] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [bic, setBic] = useState<string>("");
+  const [bankName, setbankName] = useState<string>("");
 
-  const [ibanNumber, setIbanNumber] = useState<boolean>(true);
-  const [bicNumber, setBicNumber] = useState<boolean>(true);
+  // const [ibanNumber, setIbanNumber] = useState<boolean>(true);
+  // const [bicNumber, setBicNumber] = useState<boolean>(true);
 
-  const handleSubmit = () => {
-    const ibanRegex =
-      /b[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?!(?:[ ]?[0-9]){3})(?:[ ]?[0-9]{1,2})?b/;
-    const bicRegex = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?/;
+  // const handleSubmit = () => {
+  //   const ibanRegex =
+  //     /b[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?!(?:[ ]?[0-9]){3})(?:[ ]?[0-9]{1,2})?b/;
+  //   const bicRegex = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?/;
 
-    if (!iban.match(ibanRegex) || iban.length < 2) {
-      setIbanNumber(false);
-      console.log("Iban incorrect");
-      return;
-    }
-    if (!bic.match(bicRegex) || bic.length < 2) {
-      setBicNumber(false);
-      console.log("Bic invalide");
-      return;
-    } else {
-      navigation.navigate("Validation"); // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
-    }
-  };
+  //   if (!iban.match(ibanRegex) || iban.length < 2) {
+  //     setIbanNumber(false);
+  //     console.log("Iban incorrect");
+  //     return;
+  //   }
+  //   if (!bic.match(bicRegex) || bic.length < 2) {
+  //     setBicNumber(false);
+  //     console.log("Bic invalide");
+  //     return;
+  //   } else {
+  //     navigation.navigate("Validation"); // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
+  //   }
+  // };
+
+  function handleRegistercreditMethod() {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/ibanbic", {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        bankName: bankName,
+        iban: iban,
+        bic: bic,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        if (data.result) {
+          navigation.navigate("Validation");
+        }
+      });
+  }
 
   // !!!!! CE CODE NE PERMET PAS D'AFFICHER PLUSIEURS ERREURS SIMULTANEMENT !!!!!!!
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{ flex: 1 }}
+    <Layout
+      title="Informations de paiement"
+      description="Remplissez les informations ci-dessous"
+      footer
+      arrowBack
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 200 : 0}
+      >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardDismissMode="interactive"
+          keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.topButtons}>
-            <ArrowBack />
-
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Validation"); //
-              }}
-            >
-              <Text style={{ fontSize: 16, color: "#525252" }}>
-                Passer cette étape
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.header}>
-            <Text style={styles.title}>Informations de paiement</Text>
-            <TouchableOpacity style={styles.container}></TouchableOpacity>
-          </View>
-          <View style={styles.inputs}>
-            <Text style={{ fontSize: 16, color: "#525252" }}>
-              Nom du titulaire du compte
-            </Text>
+          <View
+            style={{
+              alignSelf: "center",
+              height: "80%",
+              justifyContent: "center",
+            }}
+          >
             <Input
-              label="Nom du titulaire"
+              label="Titulaire du compte"
+              keyboardType="none"
               onChangeText={(value) => setName(value)}
               value={name}
             />
-            <Text style={{ fontSize: 16, color: "#525252" }}>IBAN</Text>
             <Input
-              keyboardType="numeric"
-              label="IBAN"
+              label="Nom de la banque"
+              keyboardType="none"
+              onChangeText={(value) => setbankName(value)}
+              value={bankName}
+            />
+            <Input
+              label="Iban"
+              keyboardType="none"
               onChangeText={(value) => setIban(value)}
               value={iban}
             />
-            <Text style={{ fontSize: 16, color: "#525252" }}>BIC</Text>
             <Input
-              keyboardType="numeric"
-              label="BIC"
+              label="Bic"
+              keyboardType="none"
               onChangeText={(value) => setBic(value)}
               value={bic}
             />
+            <CustomButton
+              onPressFunction={() => {
+                handleRegistercreditMethod();
+              }}
+            >
+              Validez les informations
+            </CustomButton>
           </View>
-          <View style={styles.smallInputAlign}>
-            <View style={styles.ValidateButton}>
-              <CustomButton onPressFunction={() => handleSubmit()}>
-                Valider les informations
-              </CustomButton>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </Layout>
   );
 }
 

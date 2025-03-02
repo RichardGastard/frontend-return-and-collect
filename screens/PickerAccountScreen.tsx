@@ -4,12 +4,12 @@ import CustomButton from "@/components/CustomButton";
 
 import { useSwipe } from "hook/useSwipe";
 
+import { View, StyleSheet } from "react-native";
+
 import { useDispatch } from "react-redux";
-import { View } from "react-native";
+import { logOff } from "@/reducers/users";
 
-import { logOff } from "../src/reducers/users";
-
-function UserAccountScreen({ navigation }) {
+function PickerAccountScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
@@ -17,7 +17,7 @@ function UserAccountScreen({ navigation }) {
   function onSwipeLeft() {}
 
   function onSwipeRight() {
-    navigation.navigate("Return");
+    navigation.navigate("Collect");
   }
 
   function handleLogOff() {
@@ -29,6 +29,7 @@ function UserAccountScreen({ navigation }) {
     dispatch(logOff());
     navigation.navigate("Home");
   }
+
   return (
     <Layout
       title="Paramètres du compte"
@@ -37,33 +38,41 @@ function UserAccountScreen({ navigation }) {
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{ height: "70%" }}
+        style={{
+          height: "70%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <CustomButton
+          width={"75%"}
           onPressFunction={() => {
-            navigation.navigate("UserChangePassword");
+            navigation.navigate("PickerChangePassword");
           }}
         >
           Votre mot de passe
         </CustomButton>
         <CustomButton
+          width={"75%"}
           onPressFunction={() => {
-            navigation.navigate("UserChangeAddress");
+            navigation.navigate("PickerChangeAddress");
           }}
         >
           Votre adresse
         </CustomButton>
         <CustomButton
+          width={"75%"}
           onPressFunction={() => {
-            navigation.navigate("UserChangePaiement");
+            navigation.navigate("PickerChangePayment");
           }}
         >
-          Votre moyen de paiement
+          Votre compte bancaire
         </CustomButton>
 
         <View
           style={{
             marginTop: "20%",
+            width: "50%",
           }}
         >
           <CustomButton
@@ -78,4 +87,6 @@ function UserAccountScreen({ navigation }) {
   );
 }
 
-export default UserAccountScreen;
+const styles = StyleSheet.create({});
+
+export default PickerAccountScreen;

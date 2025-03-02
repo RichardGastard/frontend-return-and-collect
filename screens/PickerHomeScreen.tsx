@@ -1,116 +1,175 @@
-import { useState } from "react";
-import {
-  Button,
-  Text,
-  TextInput,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-  Pressable,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from "react-native";
-
-import { useDispatch } from "react-redux";
-
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import DropdownMenu from "@/components/DropdownMenu";
-import ArrowBack from "@/components/ArrowBack";
-import Input from "@/components/Input";
-import { pickerProfile } from "reducers/pickers";
+// COMPONENTS
+import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
-import Logo from "@/components/Logo";
+import DropdownMenu from "@/components/DropdownMenu";
+import WheelPicker from "@/components/WheelPicker";
+
+import { useSwipe } from "hook/useSwipe";
+
+import { useState } from "react";
+import { Text, View, StyleSheet } from "react-native";
+
+import { useAppSelector } from "@/store/hooks";
+
+// TODO : Improve screen maybe on wheel picker
 
 function PickerHomeScreen({ navigation }) {
-  const [profileName, setProfileName] = useState("");
-  const [selectedFromValue, setSelectedFromValue] = useState("");
-  const [selectedToValue, setSelectedToValue] = useState("");
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
+  const [pickerVehicle, setPickerVehicle] = useState<string>("");
+  const [isAvailable, setIsAvailable] = useState<boolean>(false);
 
-  const options = [
-    "tout petit colis (jusqu'à 1 litre)",
-    "Petit colis (de 1 à 4 litres)",
-    "Moyen colis (de 5 à 10 litres)",
-    "Grand colis (de 10 à 20 litres)",
-    "très grand colis (plus de 20 litres)",
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const userData = useAppSelector((state) => state.users.value);
+
+  const optionsData = [
+    {
+      titre: "Seulement petit",
+      //description: "Boîte à chaussure",
+      // imageUrl: "../assets/logo-simple.svg",
+      //imageUrl: require("../assets/logo-without-bg-without-text.png"),
+    },
+    {
+      titre: "Jusqu'à moyen",
+      //description: "Micro-onde",
+      // imageUrl: "../assets/logo-simple.svg",
+      //imageUrl: require("../assets/logo-without-bg-without-text.png"),
+    },
+    {
+      titre: "Jusqu'à grand",
+      //description: "Armoire",
+      // imageUrl: "../assets/logo-simple.svg",
+      //imageUrl: require("../assets/logo-without-bg-without-text.png"),
+    },
   ];
 
-  const dispatch = useDispatch();
+  function onSwipeLeft() {
+    navigation.navigate("Profil");
+  }
 
-  const handleFromSubmit = (value) => {
-    setSelectedFromValue(value);
-  };
+  function onSwipeRight() {
+    navigation.navigate("Historique");
+  }
 
-  const handleToSubmit = (value) => {
-    setSelectedToValue(value);
-  };
-
-  const handleValidateSubmit = () => {
-    dispatch(
-      pickerProfile({
-        pickerProfilName: profileName,
-        pickerFromCapacity: selectedFromValue,
-        pickerToCapacity: selectedToValue,
-      })
-    );
-    navigation.navigate('PickerPayment')
-  };
-
+  function makePickerAvailable() {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users/", {
+      method: "PUT",
+      body: JSON.stringify({
+        token: userData.token,
+        isAvailable: true,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        if (data.result) {
+          console.log("ENVOYER VERS SCREEN AVEC LES DELIVRAISONS");
+        }
+      });
+  }
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{ flex: 1 }}
-        >
-          <ArrowBack></ArrowBack>
-          <Logo size="large" label="logo-full.png"></Logo>
-          <Input
-            label="Nom de profil"
-            onChangeText={(e) => setProfileName(e)}
-            value={profileName}
-          />
-          <View>
-            <Text style={{ color: "#525252" }}>Vous pouvez transporter</Text>
-          </View>
+    <Layout
+      title="Disponibilité"
+      description="Vous pouvez mettre les informations pour votre délivraison"
+    >
+      <View
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        style={{ flex: 1 }}
+      >
+        <View style={{ gap: 15 }}>
           <DropdownMenu
-            options={options}
-            placeholder="De"
-            onChange={handleFromSubmit}
+            options={["Vélo 🚲", "Scooter 🛵", "Voiture 🚗", "Camion 🚛"]}
+            placeholder={"Choisissez votre moyen de transport..."}
+            onChange={(val) => setPickerVehicle(val)}
           />
-          <DropdownMenu
-            options={options}
-            placeholder="à"
-            onChange={handleToSubmit}
-          />
-          <View style={styles.connection}>
-            <CustomButton
-              children = "Valider"
-              onPressFunction={() => {
-                handleValidateSubmit();
+          {pickerVehicle.length > 0 && (
+            <View>
+              <View>
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Regular",
+                    fontSize: 16,
+                    color: "#525252",
+                    marginLeft: "1%",
+                  }}
+                >
+                  Quel type de colis pouvez-vous transporter ?
+                </Text>
+              </View>
+              <WheelPicker
+                selectedIndex={selectedIndex}
+                options={optionsData}
+                itemHeight={145}
+                visibleRest={1}
+                itemTextStyle={{ fontFamily: "Poppins-Regular" }}
+                scaleFunction={(x: number) => 1.5 ** -x}
+                rotationFunction={(x: number) => 1 - Math.pow(1 / 2, x)}
+                opacityFunction={(x: number) => Math.pow(1 / 3, x)}
+                onChange={(index) => {
+                  setSelectedIndex(index);
+                }}
+              ></WheelPicker>
+            </View>
+          )}
+          {pickerVehicle && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
               }}
-            /> 
-          
-          
-          </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+            >
+              <View
+                style={isAvailable ? styles.available : styles.notAvailable}
+              >
+                <CustomButton
+                  backgroundColor={isAvailable ? "#08CC0A60" : "#525252"}
+                  onPressFunction={() => {
+                    setIsAvailable(!isAvailable);
+                    makePickerAvailable();
+                  }}
+                >
+                  {isAvailable ? "Disponible" : "Non disponible"}
+                </CustomButton>
+              </View>
+            </View>
+          )}
+        </View>
+      </View>
+    </Layout>
   );
 }
+
 const styles = StyleSheet.create({
-  container: {
+  notAvailable: {
     flex: 1,
-    backgroundColor: "#fffbf0",
-    padding: 20,
+    width: "50%",
+    shadowColor: "#000",
+    opacity: 0.8,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 16.0,
+
+    elevation: 24,
   },
-  connection: {
-    width: "100%",
-    marginRight: "auto",
-    marginLeft: "auto",
-    marginTop: 70,
+  available: {
+    flex: 1,
+    width: "50%",
+    shadowColor: "#08CC0A",
+    opacity: 0.8,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 8.0,
+
+    elevation: 24,
   },
 });
 

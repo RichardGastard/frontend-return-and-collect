@@ -25,7 +25,17 @@ import SignUpSuccessScreen from "screens/SignUpSuccessScreen";
 import UserActivityScreen from "screens/UserActivityScreen";
 import PickFoundScreen from "screens/PickFoundScreen"
 
-// Redux store configuration
+import PickerAccountScreen from "screens/PickerAccountScreen";
+import UserChangeAdressScreen from "screens/UserChangeAddressScreen";
+import UserChangePasswordScreen from "screens/UserChangePasswordScreen";
+import PickerChangePasswordScreen from "screens/PickerChangePasswordScreen";
+import PickerChangeAddressScreen from "screens/PickerChangeAddressScreen";
+import PickerChangePaymentScreen from "screens/PickerChangePaymentScreen";
+import PickerNewPayementScreen from "screens/PickerNewPaymentScreen";
+import PickerHomeScreen from "screens/PickerHomeScreen";
+import AddressScreen from "screens/AddressScreen";
+import PickerActivityScreen from "screens/PickerActivityScreen";
+
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/store/store";
@@ -37,12 +47,56 @@ import { enableScreens } from "react-native-screens";
 
 // NEW IMPORT
 import { useFonts } from "expo-font";
-import AddressScreen from "screens/AddressScreen";
 
 enableScreens();
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const PickerTabNavigator = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="Collect"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName = "";
+          if (route.name === "Collect") {
+            iconName = "package";
+          } else if (route.name === "Profil") {
+            iconName = "account-cog";
+          } else if (route.name === "Historique") {
+            iconName = "history";
+          }
+
+          return (
+            <MaterialCommunityIcons name={iconName} size={size} color={color} />
+          );
+        },
+        animation: "shift",
+        tabBarActiveTintColor: "#ff5252",
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          fontFamily: "Poppins-Regular",
+        },
+        tabBarInactiveTintColor: "gray",
+        tabBarStyle: { position: "absolute" },
+        // tabBarBadge: route.name === "Package" ? 5 : null,
+        tabBarBackground: () => (
+          <BlurView
+            tint="light"
+            intensity={100}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name="Historique" component={PickerActivityScreen} />
+      <Tab.Screen name="Collect" component={PickerHomeScreen} />
+      <Tab.Screen name="Profil" component={PickerAccountScreen} />
+    </Tab.Navigator>
+  );
+};
 
 const TabNavigator = () => {
   return (
@@ -108,6 +162,14 @@ export default function App() {
           >
             {/* LET'S TRY IF CHANGE */}
             <Stack.Screen name="Home" component={HomeScreen} />
+
+            {/* PICKER SCREENS */}
+            <Stack.Screen
+              name="PickerTabNavigator"
+              component={PickerTabNavigator}
+            />
+            {/* <Stack.Screen name="PickerHome" component={PickerHomeScreen} /> */}
+            {/* USER SCREENS */}
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
             <Stack.Screen
@@ -145,6 +207,34 @@ export default function App() {
             <Stack.Screen
               name="UserChangePayment"
               component={UserChangePaymentScreen}
+            />
+            <Stack.Screen
+              name="UserChangeAddress"
+              component={UserChangeAdressScreen}
+            />
+            <Stack.Screen
+              name="UserChangePassword"
+              component={UserChangePasswordScreen}
+            />
+            <Stack.Screen
+              name="PickerAccount"
+              component={PickerAccountScreen}
+            />
+            <Stack.Screen
+              name="PickerChangePassword"
+              component={PickerChangePasswordScreen}
+            />
+            <Stack.Screen
+              name="PickerChangeAddress"
+              component={PickerChangeAddressScreen}
+            />
+            <Stack.Screen
+              name="PickerChangePayment"
+              component={PickerChangePaymentScreen}
+            />
+            <Stack.Screen
+              name="PickerNewPayment"
+              component={PickerNewPayementScreen}
             />
             <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />

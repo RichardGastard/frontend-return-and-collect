@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import Input from "@/components/Input";
 import CustomButton from "@/components/CustomButton";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import { useState } from "react";
 import {
@@ -12,18 +13,27 @@ import {
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
+import { useSwipe } from "hook/useSwipe";
 
-function UserChangeAdressScreen({ navigation }) {
-  const [oldAdress, setOldAdress] = useState<string>("");
+const GOOGLE_MAPS_APIKEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_APIKEY;
+
+function PickerChangeAddressScreen({ navigation }) {
   const [newAdress, setNewAdress] = useState<string>("");
   const [copyNewAdress, setCopyNewAdress] = useState<string>("");
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
+
+  function onSwipeLeft() {}
+
+  function onSwipeRight() {
+    navigation.goBack();
+  }
 
   const keyboardHeight = useKeyboardHeight();
 
   return (
     <Layout
-      title="Changement d'adresse"
-      description=""
+      title="Changement d'Adresse"
+      description="Remplissez les champs ci-dessous"
       footer
       arrowBack
       arrowSkip=""
@@ -38,15 +48,11 @@ function UserChangeAdressScreen({ navigation }) {
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.container}>
-            <View style={styles.oldad}>
-              <Input
-                label="Ancienne adresse"
-                keyboardType="none"
-                onChangeText={(value) => setOldAdress(value)}
-                value={oldAdress}
-              />
-            </View>
+          <View
+            style={styles.container}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <View style={styles.newad}>
               <Input
                 label="Nouvelle Adresse"
@@ -78,19 +84,40 @@ function UserChangeAdressScreen({ navigation }) {
   );
 }
 
+{
+  /* <GooglePlacesAutocomplete
+        placeholder="Votre adresse ..."
+        fetchDetails={true}
+        query={{
+          key: GOOGLE_MAPS_APIKEY,
+          language: "fr",
+        }}
+        debounce={500}
+        styles={{
+          listView: {
+            zIndex: 1000,
+            height: 400,
+          },
+          textInput: {
+            height: 50,
+            color: "#525252",
+            fontSize: 16,
+            borderWidth: 1,
+            borderColor: "#52525250",
+            backgroundColor: "#fffbf0",
+          },
+        }}
+      ></GooglePlacesAutocomplete>  */
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fffbf0",
-  },
-  oldad: {
-    marginTop: 30,
-    borderBottomWidth: 1,
-    height: 90,
   },
   newad: {
     marginTop: 30,
   },
 });
 
-export default UserChangeAdressScreen;
+export default PickerChangeAddressScreen;

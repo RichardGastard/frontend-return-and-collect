@@ -18,6 +18,9 @@ import {
   Keyboard,
 } from "react-native";
 import { useDispatch } from "react-redux";
+
+import BankAccount from "@/components/BankAccount";
+
 import { logIn } from "@/reducers/users";
 
 function HomeScreen({ navigation }) {
@@ -40,7 +43,11 @@ function HomeScreen({ navigation }) {
       .then((data) => {
         if (data.result) {
           dispatch(logIn({ email, token: data.token }));
-          navigation.navigate("TabNavigator");
+          if (data.userType === "PICKER") {
+            navigation.navigate("PickerTabNavigator");
+          } else {
+            navigation.navigate("TabNavigator");
+          }
         } else {
           setIsLoginSuccessful(false);
         }
@@ -106,7 +113,6 @@ function HomeScreen({ navigation }) {
                 }}
               />
             )}
-
             <Input
               label="Email"
               keyboardType="email"

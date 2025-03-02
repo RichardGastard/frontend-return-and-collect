@@ -12,43 +12,25 @@ import {
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
+import { useSwipe } from "hook/useSwipe";
 
-function UserChangePasswordScreen({ navigation }) {
+function PickerChangePasswordScreen({ navigation }) {
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [copyNewPassword, setCopyNewPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
+
+  function onSwipeLeft() {}
+
+  function onSwipeRight() {
+    navigation.goBack();
+  }
 
   const keyboardHeight = useKeyboardHeight();
 
-  // const verifyOldPassword = async () => {
-  //     try {
-  //       const response = await fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users", {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ oldPassword }),
-  //     });
-
-  //       const data = await response.json();
-
-  //       if (!response.ok || !data.success) {
-  //         setError("L'ancien mot de passe est incorrect.");
-  //         return false;
-  //       }
-
-  //       return true
-  //     } catch (error) {
-  //         console.error("Erreur lors de la vérification du mot de passe :", error);
-  //         setError("Une erreur est survenue. Veuillez réessayer.");
-  //         return false;
-  //       }
-  //     };
-
   return (
     <Layout
-      title="Changement de votre mot de passe"
+      title="Changement mot de passe"
       description="Remplissez les champs ci-dessous"
       footer
       arrowBack
@@ -63,8 +45,12 @@ function UserChangePasswordScreen({ navigation }) {
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.container}>
-            <View style={styles.oldad}>
+          <View
+            style={styles.container}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            <View style={styles.oldAddress}>
               <Input
                 label="Ancien mot de passe"
                 keyboardType="none"
@@ -72,7 +58,7 @@ function UserChangePasswordScreen({ navigation }) {
                 value={oldPassword}
               />
             </View>
-            <View style={styles.newad}>
+            <View style={styles.newAddress}>
               <Input
                 label="Nouveau mot de passe"
                 keyboardType="none"
@@ -108,14 +94,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fffbf0",
   },
-  oldad: {
+  oldAddress: {
     marginTop: 30,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.3,
+    borderBottomColor: "#52525250",
     height: 90,
   },
-  newad: {
+  newAddress: {
     marginTop: 30,
   },
 });
 
-export default UserChangePasswordScreen;
+export default PickerChangePasswordScreen;
