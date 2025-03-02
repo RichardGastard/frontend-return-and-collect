@@ -43,7 +43,11 @@ function HomeScreen({ navigation }) {
       .then((data) => {
         if (data.result) {
           dispatch(logIn({ email, token: data.token }));
-          navigation.navigate("TabNavigator");
+          if (data.userType === "PICKER") {
+            navigation.navigate("PickerTabNavigator");
+          } else {
+            navigation.navigate("TabNavigator");
+          }
         } else {
           setIsLoginSuccessful(false);
         }

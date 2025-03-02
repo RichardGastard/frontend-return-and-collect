@@ -4,23 +4,14 @@ import CustomButton from "@/components/CustomButton";
 
 import { useSwipe } from "hook/useSwipe";
 
-import { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from "react-native";
+import { useDispatch } from "react-redux";
+import { View } from "react-native";
 
-import useKeyboardHeight from "react-native-use-keyboard-height";
-
-import { SafeAreaView } from "react-native-safe-area-context";
+import { logOff } from "../src/reducers/users";
 
 function UserAccountScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
   function onSwipeLeft() {}
@@ -30,11 +21,17 @@ function UserAccountScreen({ navigation }) {
   }
 
   function handleLogOff() {
-    console.log("L'utilisateur se déconnecte");
+    // TODO : Regarder en dessous la proposition
+    // if (window.confirm("Voulez-vous vraiment vous déconnecter ?")) {
+    //   dispatch(logOff());
+    //   navigation.navigate("LogIn");
+    // }
+    dispatch(logOff());
+    navigation.navigate("Home");
   }
   return (
     <Layout
-      title="Paramètre du compte"
+      title="Paramètres du compte"
       description="Vous pouvez modifier les informations"
     >
       <View
@@ -80,7 +77,5 @@ function UserAccountScreen({ navigation }) {
     </Layout>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default UserAccountScreen;

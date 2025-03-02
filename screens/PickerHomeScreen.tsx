@@ -9,11 +9,7 @@ import { useSwipe } from "hook/useSwipe";
 import { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-const packageOptions = [
-  { id: "S", name: "Petit" },
-  { id: "M", name: "Moyen" },
-  { id: "L", name: "Large" },
-];
+import { useAppSelector } from "@/store/hooks";
 
 // TODO : Improve screen maybe on wheel picker
 
@@ -23,6 +19,8 @@ function PickerHomeScreen({ navigation }) {
   const [isAvailable, setIsAvailable] = useState<boolean>(false);
 
   const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const userData = useAppSelector((state) => state.users.value);
 
   const optionsData = [
     {
@@ -46,22 +44,41 @@ function PickerHomeScreen({ navigation }) {
   ];
 
   function onSwipeLeft() {
-    navigation.navigate("Return");
+    navigation.navigate("Profil");
   }
 
-  function onSwipeRight() {}
+  function onSwipeRight() {
+    navigation.navigate("Historique");
+  }
+
+  function makePickerAvailable() {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users/", {
+      method: "PUT",
+      body: JSON.stringify({
+        token: userData.token,
+        isAvailable: true,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        if (data.result) {
+          console.log("ENVOYER VERS SCREEN AVEC LES DELIVRAISONS");
+        }
+      });
+  }
   return (
     <Layout
       title="Disponibilité"
       description="Vous pouvez mettre les informations pour votre délivraison"
-      arrowSkip="Home"
     >
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         style={{ flex: 1 }}
       >
-        <View style={{ flex: 1, gap: 15 }}>
+        <View style={{ gap: 15 }}>
           <DropdownMenu
             options={["Vélo 🚲", "Scooter 🛵", "Voiture 🚗", "Camion 🚛"]}
             placeholder={"Choisissez votre moyen de transport..."}
@@ -78,13 +95,13 @@ function PickerHomeScreen({ navigation }) {
                     marginLeft: "1%",
                   }}
                 >
-                  Quel type colis pouvez-vous transporter ?
+                  Quel type de colis pouvez-vous transporter ?
                 </Text>
               </View>
               <WheelPicker
                 selectedIndex={selectedIndex}
                 options={optionsData}
-                itemHeight={160}
+                itemHeight={145}
                 visibleRest={1}
                 itemTextStyle={{ fontFamily: "Poppins-Regular" }}
                 scaleFunction={(x: number) => 1.5 ** -x}
@@ -92,22 +109,31 @@ function PickerHomeScreen({ navigation }) {
                 opacityFunction={(x: number) => Math.pow(1 / 3, x)}
                 onChange={(index) => {
                   setSelectedIndex(index);
-                  console.log(optionsData[selectedIndex].titre);
                 }}
               ></WheelPicker>
             </View>
           )}
           {pickerVehicle && (
-            <View>
-              <CustomButton
-                backgroundColor={isAvailable ? "#08CC0A85" : "#525252"}
-                onPressFunction={() => {
-                  setIsAvailable(!isAvailable);
-                  console.log('ADD navigation.navigate("...")');
-                }}
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={isAvailable ? styles.available : styles.notAvailable}
               >
-                Je suis disponible
-              </CustomButton>
+                <CustomButton
+                  backgroundColor={isAvailable ? "#08CC0A60" : "#525252"}
+                  onPressFunction={() => {
+                    setIsAvailable(!isAvailable);
+                    makePickerAvailable();
+                  }}
+                >
+                  {isAvailable ? "Disponible" : "Non disponible"}
+                </CustomButton>
+              </View>
             </View>
           )}
         </View>
@@ -116,6 +142,35 @@ function PickerHomeScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  notAvailable: {
+    flex: 1,
+    width: "50%",
+    shadowColor: "#000",
+    opacity: 0.8,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 16.0,
+
+    elevation: 24,
+  },
+  available: {
+    flex: 1,
+    width: "50%",
+    shadowColor: "#08CC0A",
+    opacity: 0.8,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 8.0,
+
+    elevation: 24,
+  },
+});
 
 export default PickerHomeScreen;

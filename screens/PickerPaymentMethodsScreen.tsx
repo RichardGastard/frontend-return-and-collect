@@ -10,7 +10,7 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
@@ -18,7 +18,6 @@ import ArrowBack from "@/components/ArrowBack";
 import Layout from "@/components/Layout";
 
 import Input from "@/components/Input";
-import HomeScreen from "./HomeScreen";
 
 function PickerPayement({ navigation }) {
   const [iban, setIban] = useState<string>("");
@@ -131,7 +130,6 @@ function PickerPayement({ navigation }) {
     </Layout>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

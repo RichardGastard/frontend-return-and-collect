@@ -1,24 +1,17 @@
-import { useState, useRef } from "react";
+// COMPONENT
+import CustomButton from "@/components/CustomButton";
+import Layout from "@/components/Layout";
+
+import { useState } from "react";
 import {
-  Button,
-  Text,
-  TextInput,
   View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StyleSheet,
 } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "@/components/CustomButton";
-import ArrowBack from "@/components/ArrowBack";
-import Layout from "@/components/Layout";
 
 import Input from "@/components/Input";
-import HomeScreen from "./HomeScreen";
 
 function PickerNewPayementScreen({ navigation }) {
   const [iban, setIban] = useState<string>("");
@@ -35,12 +28,12 @@ function PickerNewPayementScreen({ navigation }) {
 
     if (!iban.match(ibanRegex) || iban.length < 2) {
       setIbanNumber(false);
-      console.log("Iban incorrect");
+      console.log("IBAN incorrect");
       return;
     }
     if (!bic.match(bicRegex) || bic.length < 2) {
       setBicNumber(false);
-      console.log("Bic invalide");
+      console.log("BIC invalide");
       return;
     } else {
       navigation.navigate("PickerChangePayment");
@@ -64,13 +57,7 @@ function PickerNewPayementScreen({ navigation }) {
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-          <View
-            style={{
-              alignSelf: "center",
-              height: "80%",
-              justifyContent: "center",
-            }}
-          >
+          <View style={styles.container}>
             <Input
               label="Titulaire du compte"
               keyboardType="none"
@@ -78,13 +65,13 @@ function PickerNewPayementScreen({ navigation }) {
               value={name}
             />
             <Input
-              label="Iban"
+              label="IBAN"
               keyboardType="none"
               onChangeText={(value) => setIban(value)}
               value={iban}
             />
             <Input
-              label="Bic"
+              label="BIC"
               keyboardType="none"
               onChangeText={(value) => setBic(value)}
               value={bic}
@@ -102,5 +89,13 @@ function PickerNewPayementScreen({ navigation }) {
     </Layout>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: "center",
+    height: "80%",
+    marginTop: "5%",
+    justifyContent: "center",
+  },
+});
 
 export default PickerNewPayementScreen;

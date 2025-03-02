@@ -18,11 +18,11 @@ function UserChangeAdressScreen({ navigation }) {
   const [newAdress, setNewAdress] = useState<string>("");
   const [copyNewAdress, setCopyNewAdress] = useState<string>("");
 
-const keyboardHeight = useKeyboardHeight();
+  const keyboardHeight = useKeyboardHeight();
 
   return (
     <Layout
-      title="Changement d'Adresse"
+      title="Changement d'adresse"
       description=""
       footer
       arrowBack
@@ -38,56 +38,59 @@ const keyboardHeight = useKeyboardHeight();
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-        <View style={styles.container}>
+          <View style={styles.container}>
             <View style={styles.oldad}>
-                    <Input
-                      label="Ancienne adresse"
-                      keyboardType="none"
-                      onChangeText={(value) => setOldAdress(value)}
-                      value={oldAdress}
-                    />
-                    </View>
-                    <View style={styles.newad}>
-                    <Input
-                      label="Nouvelle Adresse"
-                      keyboardType="none"
-                      onChangeText={(value) => setNewAdress(value)}
-                      value={newAdress}
-                    />
-                    <Input
-                      label="Copiez la Nouvelle Adresse"
-                      keyboardType="none"
-                      onChangeText={(value) => setCopyNewAdress(value)}
-                      value={copyNewAdress}
-                    />
-                    </View>
-                    <CustomButton onPressFunction={() => {
-            navigation.navigate("UserAccountScreen", console.log("Votre adresse à bien été changée"));
-          }}>Validez</CustomButton>
-                    </View>
-                    </ScrollView>
-    </KeyboardAvoidingView>
+              <Input
+                label="Ancienne adresse"
+                keyboardType="none"
+                onChangeText={(value) => setOldAdress(value)}
+                value={oldAdress}
+              />
+            </View>
+            <View style={styles.newad}>
+              <Input
+                label="Nouvelle Adresse"
+                keyboardType="none"
+                onChangeText={(value) => setNewAdress(value)}
+                value={newAdress}
+              />
+              <Input
+                label="Copiez la Nouvelle Adresse"
+                keyboardType="none"
+                onChangeText={(value) => setCopyNewAdress(value)}
+                value={copyNewAdress}
+              />
+            </View>
+            <CustomButton
+              onPressFunction={() => {
+                navigation.navigate(
+                  "UserAccountScreen",
+                  console.log("Votre adresse à bien été changée")
+                );
+              }}
+            >
+              Validez
+            </CustomButton>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Layout>
-    )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fffbf0",
-
   },
-  oldad:{
+  oldad: {
     marginTop: 30,
     borderBottomWidth: 1,
     height: 90,
   },
-  newad:{
+  newad: {
     marginTop: 30,
-  }
-})
+  },
+});
 
-
-
-
-export default UserChangeAdressScreen
+export default UserChangeAdressScreen;

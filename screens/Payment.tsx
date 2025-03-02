@@ -86,13 +86,7 @@ function Payment({ navigation }) {
           keyboardDismissMode="interactive"
           keyboardShouldPersistTaps="handled"
         >
-          <View
-            style={{
-              alignSelf: "center",
-              height: "80%",
-              justifyContent: "center",
-            }}
-          >
+          <View style={styles.container}>
             <Input label="Titulaire de la carte" />
             <Input label="Numéro de la carte" keyboardType="numeric" />
             <Input label="Date d'expiration" keyboardType="numeric" />
@@ -113,74 +107,9 @@ function Payment({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fffbf0",
-    padding: 20,
-  },
-  header: {},
-
-  topButtons: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    paddingHorizontal: 10,
-  },
-  title: {
-    paddingTop: 50,
-    paddingBottom: 10,
-    textAlign: "center",
-    fontSize: 36,
-    color: "#525252",
-  },
-  error: {
-    color: "red",
-  },
-  inputs: {
-    marginTop: 35,
-    width: "97%",
-    justifyContent: "space-between",
-    marginRight: "auto",
-    marginLeft: "auto",
-    gap: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-
-    elevation: 24,
-    paddingBottom: 50,
-  },
-  CVV: {
-    width: 20,
-  },
-  input: {
-    borderColor: "#525252",
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 50,
-    paddingHorizontal: 10,
-  },
-  smallInputAlign: {
-    borderColor: "#525252",
-
-    justifyContent: "space-between",
-  },
-  smallInput: {
-    borderColor: "#525252",
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 50,
-    paddingHorizontal: 10,
-    width: 150,
-  },
-  ValidateButton: {
-    width: "97%",
-    marginRight: "auto",
-    marginLeft: "auto",
-    marginTop: 30,
-    paddingTop: 50,
+    alignSelf: "center",
+    height: "80%",
+    justifyContent: "center",
   },
 });
 
