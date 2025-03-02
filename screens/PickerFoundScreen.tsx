@@ -1,9 +1,6 @@
 import Layout from "@/components/Layout";
 import { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-} from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import CustomButton from "@/components/CustomButton";
 import { useAppSelector } from "@/store/hooks";
@@ -17,7 +14,7 @@ type DeliveryData = {
   price: number;
 };
 
-function PickFoundScreen({ navigation }) {
+function PickerFoundScreen({ navigation }) {
   const userData = useAppSelector((state) => {
     state.users.value;
   });
@@ -48,7 +45,7 @@ function PickFoundScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          navigation.navigate("?");
+          console.log("NAVIGATE VERS LA PAGE D'APRES");
         }
       });
   };
@@ -57,7 +54,7 @@ function PickFoundScreen({ navigation }) {
   const handleDenyDelivery = (deliveryId) => {
     setDelivery(
       delivery.filter((data, i) => {
-       return data.orderNumber !== deliveryId;
+        return data.orderNumber !== deliveryId;
       })
     );
   };
@@ -118,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PickFoundScreen;
+export default PickerFoundScreen;

@@ -64,7 +64,7 @@ function PickerHomeScreen({ navigation }) {
       .then((data) => {
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
-          console.log("ENVOYER VERS SCREEN AVEC LES DELIVRAISONS");
+          navigation.navigate("PickerFoundScreen");
         }
       });
   }
