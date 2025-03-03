@@ -2,15 +2,20 @@
 import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 
+import { useRef, useState } from "react";
+import { useEffect } from "react";
+
 import { useSwipe } from "hook/useSwipe";
 
 import { useDispatch } from "react-redux";
-import { View } from "react-native";
+import { View, Alert } from "react-native";
 
 import { logOff } from "../src/reducers/users";
 
 function UserAccountScreen({ navigation }) {
   const dispatch = useDispatch();
+
+  const [connected, setConnected] = useState<boolean>(true);
 
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
 
@@ -21,14 +26,31 @@ function UserAccountScreen({ navigation }) {
   }
 
   function handleLogOff() {
-    // TODO : Regarder en dessous la proposition
-    // if (window.confirm("Voulez-vous vraiment vous déconnecter ?")) {
-    //   dispatch(logOff());
-    //   navigation.navigate("LogIn");
-    // }
-    dispatch(logOff());
-    navigation.navigate("Home");
+    Alert.alert(
+      "Êtes vous sûr de vouloir vous deconnecter ?",
+      'En cliquant sur "Se déconnecter" vous serez redirigé vers la page de connexion',
+      [
+        {
+          text: "Se déconnecter",
+          style: "destructive",
+          onPress: () => {
+            setConnected(!connected);
+          },
+        },
+        {
+          text: "Annuler",
+        },
+      ]
+    );
   }
+
+  useEffect(() => {
+    if (!connected) {
+      dispatch(logOff());
+      navigation.navigate("Home");
+    }
+  }, [connected]);
+
   return (
     <Layout
       title="Paramètres du compte"
