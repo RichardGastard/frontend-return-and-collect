@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import {
-  Image,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
-import { FontAwesome, FontAwesome5 } from "react-native-vector-icons"
+import { Image, Text, View, StyleSheet } from "react-native";
+import { FontAwesome, FontAwesome5 } from "react-native-vector-icons";
 import HalfStar from "./HalfStar";
 
 type CardProps = {
@@ -13,26 +8,25 @@ type CardProps = {
   name: string;
   ratedStars: number;
   numberOfDeliveries: string;
-  vehicle: "velo" | "scooter" | "voiture" | "fourgon" ;
+  vehicle: "velo" | "scooter" | "voiture" | "fourgon";
 };
-
-
-
 
 function Card(props: CardProps) {
   return (
     <View style={styles.container}>
       <View>
-        <Image source={props.image} style={styles.image}/>
+        <Image source={props.image} style={styles.image} />
       </View>
       <View style={styles.infos}>
         <Text style={styles.name}>{props.name}</Text>
-        <View style={styles.stars}>
-        {renderStars(props.ratedStars)}
-        </View>
+        <View style={styles.stars}>{renderStars(props.ratedStars)}</View>
         <Text style={styles.deliveries}>{props.numberOfDeliveries}</Text>
         <View style={styles.vehicle}>
-          <FontAwesome5 name={getVehicleIcon(props.vehicle)} size={20} color="gray" />
+          <FontAwesome5
+            name={getVehicleIcon(props.vehicle)}
+            size={20}
+            color="gray"
+          />
         </View>
       </View>
     </View>
@@ -72,7 +66,9 @@ const renderStars = (rated: number) => {
   return stars;
 };
 
-const getVehicleIcon = (vehicle: "velo" | "scooter" | "voiture" | "fourgon" ) => {
+const getVehicleIcon = (
+  vehicle: "velo" | "scooter" | "voiture" | "fourgon"
+) => {
   switch (vehicle) {
     case "velo":
       return "bicycle";
@@ -85,44 +81,54 @@ const getVehicleIcon = (vehicle: "velo" | "scooter" | "voiture" | "fourgon" ) =>
     default:
       return "bicycle";
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    //borderRadius: 80,
+    borderWidth: 0.3,
+    borderColor: "#febbba",
+    borderRadius: 80,
     height: 150,
     width: 350,
     padding: 15,
-    },
+    backgroundColor: "#fffbf0",
+    boxShadow: "5px 5px 5px #febbba70",
+  },
   image: {
-    width: 140,
-    height: 140,
-    //borderRadius: "50%",
-    borderWidth: 2,
-    borderColor: "white",
+    width: 120,
+    height: 120,
+    borderRadius: "50%",
+    borderWidth: 0.5,
+    borderColor: "#febbba20",
   },
   infos: {
     flexDirection: "column",
     width: 200,
-    height: 150,
+    height: 100,
     color: "#525252",
-    alignItems: "center",
+    paddingLeft: 30,
+    alignItems: "flex-start",
     justifyContent: "center",
+    borderLeftWidth: 0.2,
+    borderLeftColor: "#52525250",
+    marginLeft: 30
   },
   name: {
     fontSize: 20,
+    fontFamily: "Public-Sans-Bold",
+    color: "#525252",
+    fontWeight: "900",
   },
   stars: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   deliveries: {
-    fontSize: 20,
+    fontSize: 15,
+    fontFamily: "Poppins-Regular",
+    color: "#525252",
   },
-  vehicle: {
-
-  }
+  vehicle: { position: "relative", left: 30 },
 });
 export default Card;
