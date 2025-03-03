@@ -9,11 +9,17 @@ import { useSwipe } from "hook/useSwipe";
 import { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 
+import { updatePickerAvailability } from "@/reducers/pickers";
+
 import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch } from "@/store/hooks";
+import { updateAvailability } from "@/reducers/users";
 
 // TODO : Improve screen maybe on wheel picker
 
 function PickerHomeScreen({ navigation }) {
+  const dispatch = useAppDispatch();
+
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
   const [pickerVehicle, setPickerVehicle] = useState<string>("");
   const [isAvailable, setIsAvailable] = useState<boolean>(false);
@@ -64,10 +70,14 @@ function PickerHomeScreen({ navigation }) {
       .then((data) => {
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
-          navigation.navigate("PickerFoundScreen");
+          dispatch(updateAvailability());
+          if (!userData.isAvailable) {
+            navigation.navigate("PickerFoundScreen");
+          }
         }
       });
   }
+
   return (
     <Layout
       title="Disponibilité"

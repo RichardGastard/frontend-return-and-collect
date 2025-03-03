@@ -1,38 +1,56 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// LE REDUCER N'EST PAS UTILE
 
-export type UserState = {
-  value: {
+{
+  /*
+  import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+  import PickerActivityScreen from "screens/PickerActivityScreen";
+  
+  export type UserState = {
+    value: {
+      pickerProfilName: string;
+      pickerFromCapacity: string;
+      pickerToCapacity: string;
+      pickerAvailabilty: boolean;
+    };
+  };
+  
+  type PickerInfos = {
     pickerProfilName: string;
     pickerFromCapacity: string;
     pickerToCapacity: string;
+    pickerAvailability: boolean;
   };
-};
-
-type PickerInfos = {
-  pickerProfilName: string;
-  pickerFromCapacity: string;
-  pickerToCapacity: string;
-};
-const initialState: UserState = {
-  value: {
-    pickerProfilName: null,
-    pickerFromCapacity: null,
-    pickerToCapacity: null,
-  },
-};
-
-const userSlice = createSlice({
-  name: "users",
-  initialState,
-  reducers: {
-    pickerProfile: (state, action: PayloadAction<PickerInfos>) => {
-      state.value.pickerProfilName = action.payload.pickerProfilName;
-      state.value.pickerFromCapacity = action.payload.pickerFromCapacity;
-      state.value.pickerToCapacity = action.payload.pickerToCapacity;
+  const initialState: UserState = {
+    value: {
+      pickerProfilName: null,
+      pickerFromCapacity: null,
+      pickerToCapacity: null,
+      pickerAvailabilty: false,
     },
-  },
-});
-
-export const { pickerProfile } = userSlice.actions;
-
-export default userSlice.reducer;
+  };
+  
+  const userSlice = createSlice({
+    name: "users",
+    initialState,
+    reducers: {
+      pickerProfile: (state, action: PayloadAction<PickerInfos>) => {
+        state.value.pickerProfilName = action.payload.pickerProfilName;
+        state.value.pickerFromCapacity = action.payload.pickerFromCapacity;
+        state.value.pickerToCapacity = action.payload.pickerToCapacity;
+        state.value.pickerAvailabilty = action.payload.pickerAvailability;
+      },
+      updatePickerAvailability: (state, action: PayloadAction<PickerInfos>) => {
+        if (!state.value.pickerAvailabilty) {
+          state.value.pickerAvailabilty = true;
+        } else {
+          state.value.pickerAvailabilty = false;
+        }
+      },
+    },
+  });
+  
+  export const { pickerProfile, updatePickerAvailability } = userSlice.actions;
+  
+  export default userSlice.reducer;
+  */
+}
