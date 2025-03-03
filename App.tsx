@@ -126,7 +126,7 @@ const TabNavigator = () => {
         },
         tabBarInactiveTintColor: "gray",
         tabBarStyle: { position: "absolute" },
-        // tabBarBadge: route.name === "Package" ? 5 : null,
+        //tabBarBadge: route.name === "Historique" ? 5 : null,
         tabBarBackground: () => (
           <BlurView
             tint="light"
@@ -164,11 +164,15 @@ export default function App() {
             <Stack.Screen name="Home" component={HomeScreen} />
 
             {/* PICKER SCREENS */}
+            <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
             <Stack.Screen
               name="PickerTabNavigator"
               component={PickerTabNavigator}
             />
-            {/* <Stack.Screen name="PickerHome" component={PickerHomeScreen} /> */}
+            <Stack.Screen
+              name="PickerFoundScreen"
+              component={PickerFoundScreen}
+            />
             {/* USER SCREENS */}
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
@@ -189,10 +193,6 @@ export default function App() {
             />
             <Stack.Screen name="Validation" component={ValidationScreen} />
             <Stack.Screen name="Carry" component={WhatCanYouCarry} />
-            <Stack.Screen
-              name="PickerFoundScreen"
-              component={PickerFoundScreen}
-            />
             <Stack.Screen
               name="UserSelectSize"
               component={UserSelectSizeScreen}

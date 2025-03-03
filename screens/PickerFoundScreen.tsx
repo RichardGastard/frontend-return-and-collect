@@ -27,11 +27,13 @@ function PickerFoundScreen({ navigation }) {
     )
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data);
         const deliveryData = data.deliveries.map((data, i) => {
-          data.distance = 10;
-          data.orderNumber = i;
+          setDelivery([...delivery, data]);
+          // deliveryData.distance = 10;
+          // deliveryData.orderNumber = i;
+          // setDelivery([...delivery, data]);
         });
-        setDelivery(deliveryData);
       });
   }, []);
 
@@ -63,40 +65,53 @@ function PickerFoundScreen({ navigation }) {
     return (
       <>
         <UserDeliveryCard
-          key={i}
-          orderNumber={data.orderNumber}
-          user={data.senderId}
+          orderNumber={data._id}
+          user={data.senderId} // RECUPERER LE FIRSTNAME SUR LA USER DB
           packageSize={data.size}
-          distance={data.distance}
-          price={data.price}
-          status={true}
+          distance={"34"}
+          price={30}
         />
-        <CustomButton
-          backgroundColor="#2dd91a"
-          children="Accepter"
-          onPressFunction={() => {
-            handleAcceptDelivery(data.orderNumber);
-          }}
-          width={110}
-          height={30}
-        ></CustomButton>
-        <CustomButton
-          backgroundColor="#eb4334"
-          children="Refuser"
-          onPressFunction={() => {
-            handleDenyDelivery(data.orderNumber);
-          }}
-          width={100}
-          height={30}
-        ></CustomButton>
+        <View style={{ flexDirection: "row", gap: 15 }}>
+          <CustomButton
+            backgroundColor="#2dd91a"
+            children="Accepter"
+            onPressFunction={() => {
+              handleAcceptDelivery(data.orderNumber);
+            }}
+            width={110}
+            height={30}
+          ></CustomButton>
+          <CustomButton
+            backgroundColor="#eb4334"
+            children="Refuser"
+            onPressFunction={() => {
+              handleDenyDelivery(data.orderNumber);
+            }}
+            width={100}
+            height={30}
+          ></CustomButton>
+        </View>
       </>
     );
   });
   return (
     <Layout footer title="Livraisons disponibles" arrowBack>
       <View style={styles.container}>
-        {deliveryCard}
-        <View style={styles.Btns}></View>
+        {/* {deliveryCard} */}
+        <UserDeliveryCard
+          orderNumber={12424242}
+          user={"BOB"} // RECUPERER LE FIRSTNAME SUR LA USER DB
+          packageSize={"Petit"}
+          distance={"34"}
+          price={30}
+        />
+        <UserDeliveryCard
+          orderNumber={12424242}
+          user={"BOB"} // RECUPERER LE FIRSTNAME SUR LA USER DB
+          packageSize={"Petit"}
+          distance={"34"}
+          price={30}
+        />
       </View>
     </Layout>
   );
@@ -106,6 +121,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    marginBottom: "15%",
+    gap: 15,
   },
   Btns: {
     justifyContent: "space-evenly",

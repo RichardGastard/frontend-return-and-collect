@@ -1,20 +1,47 @@
 import React from "react";
-import { Image, View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import {
+  Image,
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Button,
+  Alert,
+} from "react-native";
 import CustomButton from "./CustomButton";
 
 type CardProps = {
-  orderNumber: number;
-    user: string;
+  orderNumber: any;
+  user: string;
   packageSize: string;
   distance: string;
   price: number;
   status: boolean;
 };
 
-function UserDeliveryCard({ user, packageSize, distance, orderNumber, price, status= false }: CardProps) {
+function UserDeliveryCard({
+  user,
+  packageSize,
+  distance,
+  orderNumber,
+  price,
+  status = false,
+}: CardProps) {
+  const [isTaken, setIsTaken] = useState<boolean>(null);
+
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, "0");
+  let mm = String(today.getMonth() + 1).padStart(2, "0");
+  let yyyy = today.getFullYear();
+
+  today = mm + "/" + dd + "/" + yyyy;
+
   return (
-    <TouchableOpacity
-      style={status ? styles.containerValid : styles.containerInvalid}
+    <View
+      style={
+        status || isTaken ? styles.containerValid : styles.containerInvalid
+      }
     >
       <View style={{ flexDirection: "row" }}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
@@ -31,11 +58,11 @@ function UserDeliveryCard({ user, packageSize, distance, orderNumber, price, sta
           }}
         >
           <Text style={styles.title}>
-            N°{orderNumber} {status ? "✅" : "❌"}
+            N°{orderNumber} {status || isTaken ? "✅" : "⏳"}
           </Text>
           <Text style={styles.cardContent}>👤 {user}</Text>
           <Text style={styles.cardContent}>📦 {packageSize}</Text>
-          <Text style={styles.cardContent}>📍 {distance}€</Text>
+          <Text style={styles.cardContent}>📍 {distance} m</Text>
           <Text style={styles.cardContent}>💶 {price}€</Text>
           <View
             style={{
@@ -44,32 +71,103 @@ function UserDeliveryCard({ user, packageSize, distance, orderNumber, price, sta
               flex: 1,
             }}
           >
-            <Text style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}>
-              
-            </Text>
+            <Text
+              style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}
+            ></Text>
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: "row",
+          flex: 1,
+          height: "20%",
+          justifyContent: "center",
+          alignContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {!isTaken ? (
+          <TouchableOpacity
+            style={{
+              borderTopWidth: 1,
+              borderRightWidth: 1,
+              borderLeftWidth: 1,
+              borderColor: "#52525220",
+              borderRadius: 50,
+              width: "50%",
+              alignItems: "center",
+              paddingTop: 0,
+              backgroundColor: "#fffbf0",
+            }}
+            onPress={() => {
+              Alert.alert(
+                "Êtes vous sûr de vouloir prendre ce colis ?",
+                'En cliquant sur "Accepter" vous vous engagez à aller chercher le colis dans la journée',
+                [
+                  {
+                    text: "Annuler",
+                    style: "destructive",
+                    onPress: () => {
+                      console.log(isTaken);
+                    },
+                  },
+                  {
+                    text: "Accepter",
+                    onPress: () => {
+                      setIsTaken(true);
+                    },
+                  },
+                ]
+              );
+            }}
+          >
+            <Text
+              style={{
+                color: "#52525255",
+                alignSelf: "center",
+                fontSize: 15,
+                fontFamily: "Poppins-Regular",
+              }}
+            >
+              Je prends !
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <View>
+            <Text
+              style={{
+                color: "#52525255",
+                alignSelf: "center",
+                fontSize: 15,
+                fontFamily: "Poppins-Regular",
+              }}
+            >
+              Commande acceptée le : {today}
+            </Text>
+          </View>
+        )}
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   containerInvalid: {
-    height: "25%",
+    height: "30%",
     width: "99%",
-    borderWidth: 0.3,
+    borderWidth: 0.5,
     borderRadius: 30,
     justifyContent: "center",
     borderColor: "#52525220",
     borderBottomColor: "#febbba70",
     borderRightColor: "#febbba80",
-    boxShadow: "5px 5px 5px #ff525255",
+    boxShadow: "5px 5px 5px #FF450050",
   },
   containerValid: {
-    height: "25%",
+    height: "30%",
     width: "99%",
-    borderWidth: 0.3,
+    borderWidth: 0.5,
     borderRadius: 30,
     justifyContent: "center",
     borderColor: "#52525220",
@@ -95,7 +193,7 @@ const styles = StyleSheet.create({
   cardContent: {
     fontFamily: "Poppins-Regular",
     color: "#525252",
-    fontSize: 13,
+    fontSize: 12,
   },
 });
 export default UserDeliveryCard;
