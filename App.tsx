@@ -160,19 +160,19 @@ export default function App() {
               gestureDirection: "horizontal",
             }}
           >
-            <Stack.Screen
-              name="PickerFoundScreen"
-              component={PickerFoundScreen}
-            />
             {/* LET'S TRY IF CHANGE */}
             <Stack.Screen name="Home" component={HomeScreen} />
 
             {/* PICKER SCREENS */}
+            <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
             <Stack.Screen
               name="PickerTabNavigator"
               component={PickerTabNavigator}
             />
-            {/* <Stack.Screen name="PickerHome" component={PickerHomeScreen} /> */}
+            <Stack.Screen
+              name="PickerFoundScreen"
+              component={PickerFoundScreen}
+            />
             {/* USER SCREENS */}
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="UserAccount" component={UserAccountScreen} />
