@@ -1,11 +1,4 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import Map from "@/components/Map";
 import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
@@ -26,10 +19,11 @@ function UserFollowPickerScreen() {
       >
         <View style={styles.card}>
           <Card
+            //TODO : Real informations
             image={require("assets/livreur-4.jpg")}
-            name={"BOB"}
+            name={"Bob"}
             ratedStars={2.55}
-            numberOfDeliveries={"xDeliveries"}
+            numberOfDeliveries={"498 deliveries"}
             vehicle={"scooter"}
           />
         </View>

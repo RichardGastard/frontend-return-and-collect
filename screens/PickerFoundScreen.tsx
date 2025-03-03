@@ -82,20 +82,6 @@ function PickerFoundScreen({ navigation }) {
     <Layout footer title="Livraisons disponibles" arrowBack>
       <View style={styles.container}>
         {deliveryCard}
-        {/* <UserDeliveryCard
-          orderNumber={12424242}
-          user={"BOB"} // RECUPERER LE FIRSTNAME SUR LA USER DB
-          packageSize={"Petit"}
-          distance={"34"}
-          price={30}
-        />
-        <UserDeliveryCard
-          orderNumber={12424242}
-          user={"BOB"} // RECUPERER LE FIRSTNAME SUR LA USER DB
-          packageSize={"Petit"}
-          distance={"34"}
-          price={30}
-        /> */}
       </View>
     </Layout>
   );
