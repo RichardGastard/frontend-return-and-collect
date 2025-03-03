@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   containerInvalid: {
     height: "30%",
     width: "99%",
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderRadius: 30,
     justifyContent: "center",
     borderColor: "#52525220",
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   containerValid: {
     height: "30%",
     width: "99%",
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderRadius: 30,
     justifyContent: "center",
     borderColor: "#52525220",

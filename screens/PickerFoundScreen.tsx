@@ -105,6 +105,13 @@ function PickerFoundScreen({ navigation }) {
           distance={"34"}
           price={30}
         />
+        <UserDeliveryCard
+          orderNumber={12424242}
+          user={"BOB"} // RECUPERER LE FIRSTNAME SUR LA USER DB
+          packageSize={"Petit"}
+          distance={"34"}
+          price={30}
+        />
       </View>
     </Layout>
   );
@@ -115,6 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginBottom: "15%",
+    gap: 15,
   },
   Btns: {
     justifyContent: "space-evenly",

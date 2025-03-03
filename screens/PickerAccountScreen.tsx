@@ -6,6 +6,8 @@ import { useSwipe } from "hook/useSwipe";
 
 import { View, StyleSheet, Alert } from "react-native";
 
+import { useState, useEffect } from "react";
+
 import { useDispatch } from "react-redux";
 import { logOff } from "@/reducers/users";
 
