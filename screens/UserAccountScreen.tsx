@@ -39,6 +39,7 @@ function UserAccountScreen({ navigation }) {
         },
         {
           text: "Annuler",
+          style: "cancel",
         },
       ]
     );

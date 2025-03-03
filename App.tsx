@@ -126,7 +126,7 @@ const TabNavigator = () => {
         },
         tabBarInactiveTintColor: "gray",
         tabBarStyle: { position: "absolute" },
-        // tabBarBadge: route.name === "Package" ? 5 : null,
+        //tabBarBadge: route.name === "Historique" ? 5 : null,
         tabBarBackground: () => (
           <BlurView
             tint="light"
