@@ -1,65 +1,48 @@
-import { useState, useRef } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Keyboard,
-  KeyboardEvent,
 } from "react-native";
 import Map from "@/components/Map";
-
-import { SafeAreaView } from "react-native-safe-area-context";
-import ArrowBack from "@/components/ArrowBack";
 import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
+import Layout from "@/components/Layout";
 
 function UserFollowPickerScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-        // keyboardVerticalOffset={keyboardHeight}
+    <Layout
+      title="Suivi du collecteur"
+      description="Suivez en temps réel votre délivraison"
+      arrowBack
+      footer
+    >
+      <ScrollView
+        style={{ overflow: "visible" }}
+        keyboardDismissMode="interactive"
+        keyboardShouldPersistTaps="handled"
       >
-        <ScrollView
-          style={{ overflow: "visible" }}
-          keyboardDismissMode="interactive"
-          keyboardShouldPersistTaps="handled"
-        >
-          <View>
-            <View style={styles.header}>
-              <ArrowBack></ArrowBack>
-              <Text style={styles.title}>Suivi du Collecteur</Text>
-            </View>
-          </View>
-          <View style={styles.card}>
-            <Card
-              image={require("assets/chien.png")}
-              name={"BOB"}
-              ratedStars={2.55}
-              numberOfDeliveries={"xDeliveries"}
-              vehicle={"scooter"}
-            />
-          </View>
-          <View style={styles.map}>
-            <Map
-              pickerPosition={{ latitude: 43.26855, longitude: 5.385144 }}
-            ></Map>
-          </View>
-          <View style={styles.code}>
-            <CustomButton onPressFunction={() => console.log('ça continue')}>Secret Code</CustomButton>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        <View style={styles.card}>
+          <Card
+            image={require("assets/livreur-4.jpg")}
+            name={"BOB"}
+            ratedStars={2.55}
+            numberOfDeliveries={"xDeliveries"}
+            vehicle={"scooter"}
+          />
+        </View>
+        <View style={styles.map}>
+          <Map
+            pickerPosition={{ latitude: 43.26855, longitude: 5.385144 }}
+          ></Map>
+          <CustomButton onPressFunction={() => console.log("ça continue")}>
+            Secret Code
+          </CustomButton>
+        </View>
+      </ScrollView>
+    </Layout>
   );
 }
 
@@ -79,15 +62,12 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   card: {
-    marginTop: 30,
+    marginTop: 0,
     alignItems: "center",
   },
   map: {
-    marginTop: 30,
+    marginTop: 20,
   },
-    code: {
-  marginTop: 60, 
-  }
 });
 
 export default UserFollowPickerScreen;

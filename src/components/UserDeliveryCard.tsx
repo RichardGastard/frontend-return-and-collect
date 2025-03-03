@@ -18,6 +18,7 @@ type CardProps = {
   distance: string;
   price: number;
   status: boolean;
+  onAccept: () => void;
 };
 
 function UserDeliveryCard({
@@ -27,6 +28,7 @@ function UserDeliveryCard({
   orderNumber,
   price,
   status = false,
+  onAccept,
 }: CardProps) {
   const [isTaken, setIsTaken] = useState<boolean>(null);
 
@@ -116,6 +118,7 @@ function UserDeliveryCard({
                     text: "Accepter",
                     onPress: () => {
                       setIsTaken(true);
+                      onAccept();
                     },
                   },
                 ]

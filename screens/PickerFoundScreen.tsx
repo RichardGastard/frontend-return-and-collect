@@ -16,10 +16,11 @@ type DeliveryData = {
 
 function PickerFoundScreen({ navigation }) {
   const userData = useAppSelector((state) => {
-    state.users.value;
+    return state.users.value;
   });
 
-  const [delivery, setDelivery] = useState<DeliveryData[]>([]);
+  // const [delivery, setDelivery] = useState<DeliveryData[]>([]);
+  const [delivery, setDelivery] = useState<any>([]);
 
   useEffect(() => {
     fetch(
@@ -37,7 +38,7 @@ function PickerFoundScreen({ navigation }) {
       });
   }, []);
 
-  const handleAcceptDelivery = (deliveryId) => {
+  const handleAcceptDelivery = (deliveryId: string) => {
     //Accepte la livraison trouvée
     fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/assign", {
       method: "POST",
@@ -65,40 +66,23 @@ function PickerFoundScreen({ navigation }) {
     return (
       <>
         <UserDeliveryCard
-          orderNumber={data._id}
-          user={data.senderId} // RECUPERER LE FIRSTNAME SUR LA USER DB
+          key={i}
+          orderNumber={data._id.substring(0, 5)}
+          user={data.senderId.firstName} // RECUPERER LE FIRSTNAME SUR LA USER DB
           packageSize={data.size}
-          distance={"34"}
-          price={30}
+          distance={data.pickupAddress}
+          price={data.price}
+          status={false}
+          onAccept={() => handleAcceptDelivery(data._id)}
         />
-        <View style={{ flexDirection: "row", gap: 15 }}>
-          <CustomButton
-            backgroundColor="#2dd91a"
-            children="Accepter"
-            onPressFunction={() => {
-              handleAcceptDelivery(data.orderNumber);
-            }}
-            width={110}
-            height={30}
-          ></CustomButton>
-          <CustomButton
-            backgroundColor="#eb4334"
-            children="Refuser"
-            onPressFunction={() => {
-              handleDenyDelivery(data.orderNumber);
-            }}
-            width={100}
-            height={30}
-          ></CustomButton>
-        </View>
       </>
     );
   });
   return (
     <Layout footer title="Livraisons disponibles" arrowBack>
       <View style={styles.container}>
-        {/* {deliveryCard} */}
-        <UserDeliveryCard
+        {deliveryCard}
+        {/* <UserDeliveryCard
           orderNumber={12424242}
           user={"BOB"} // RECUPERER LE FIRSTNAME SUR LA USER DB
           packageSize={"Petit"}
@@ -111,7 +95,7 @@ function PickerFoundScreen({ navigation }) {
           packageSize={"Petit"}
           distance={"34"}
           price={30}
-        />
+        /> */}
       </View>
     </Layout>
   );
