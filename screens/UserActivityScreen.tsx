@@ -1,17 +1,31 @@
 // COMPONENTS
 import Layout from "@/components/Layout";
 import { useSwipe } from "hook/useSwipe";
-import { View, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  Dimensions,
+} from "react-native";
 
 import OrderCard from "@/components/OrderCard";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hooks";
 
 function UserActivityScreen({ navigation }) {
   const [deliveriesData, setDeliveriesData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   const userData = useAppSelector((state) => state.users.value);
 
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   function onSwipeLeft() {
     navigation.navigate("Return");
@@ -26,9 +40,8 @@ function UserActivityScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         setDeliveriesData(data.deliveries);
-        console.log(data.deliveries);
       });
-  }, []);
+  }, [refreshing]);
 
   const deliveryCards = deliveriesData.map((delivery, i) => {
     const collector = delivery.pickerId
@@ -62,28 +75,18 @@ function UserActivityScreen({ navigation }) {
         style={{ flex: 1 }}
       >
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 10 }}
           keyboardShouldPersistTaps="handled"
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            ></RefreshControl>
+          }
         >
-          <View style={{ flex: 1, gap: 15 }}>
-            <OrderCard
-              orderNumber={395885}
-              location="3 rue des baies, 34555 CEDEX"
-              collector="Bob"
-              status
-              price={3.4}
-              date="2024-05-09"
-            ></OrderCard>
-            <OrderCard
-              orderNumber={23525}
-              location="23 avenue du général leclerc, 750001 Paris"
-              collector="Bob"
-              price={1.99}
-              date="2025-01-02"
-            ></OrderCard>
-            {deliveryCards}
-          </View>
+          <View style={{ flex: 1, gap: 15 }}>{deliveryCards}</View>
         </ScrollView>
+        <View style={{ height: 65 }}></View>
       </View>
     </Layout>
   );

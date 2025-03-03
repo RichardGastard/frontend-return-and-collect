@@ -49,7 +49,7 @@ function OrderCard({
               flex: 1,
             }}
           >
-            <Text style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}>
+            <Text style={(styles.cardContent, { opacity: 0.2, fontSize: 11, position: "absolute", right: 10 })}>
               {date}
             </Text>
           </View>
@@ -61,7 +61,7 @@ function OrderCard({
 
 const styles = StyleSheet.create({
   containerInvalid: {
-    height: "25%",
+    height: 160,
     width: "99%",
     borderWidth: 0.5,
     borderRadius: 30,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     boxShadow: "5px 5px 5px #ff525255",
   },
   containerValid: {
-    height: "25%",
+    height: 160,
     width: "99%",
     borderWidth: 0.5,
     borderRadius: 30,
