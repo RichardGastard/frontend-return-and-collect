@@ -10,6 +10,7 @@ export type UserState = {
     firstName: string | null;
     address: string | null;
     userType: string | null;
+    isAvailable: boolean | null;
   };
 };
 
@@ -21,6 +22,7 @@ const initialState: UserState = {
     firstName: null,
     address: null,
     userType: null,
+    isAvailable: false,
   },
 };
 
@@ -35,6 +37,7 @@ const userSlice = createSlice({
       state.value.firstName = action.payload.firstName;
       state.value.address = action.payload.address;
       state.value.userType = action.payload.userType;
+      state.value.isAvailable = false;
     },
     changeUserInfo: (state, action: PayloadAction<any>) => {
       state.value.email = action.payload.email;
@@ -47,11 +50,16 @@ const userSlice = createSlice({
       state.value.token = null;
       state.value.firstName = null;
       state.value.address = null;
+      state.value.isAvailable = false;
+    },
+    updateAvailability: (state, action: PayloadAction<boolean>) => {
+      state.value.isAvailable = !state.value.isAvailable;
     },
   },
 });
 
-export const { logIn, changeUserInfo, logOff } = userSlice.actions;
+export const { logIn, changeUserInfo, logOff, updateAvailability } =
+  userSlice.actions;
 
 export const selectUserData = (state: RootState) => state.users.value;
 
