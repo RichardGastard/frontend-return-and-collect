@@ -160,6 +160,10 @@ export default function App() {
               gestureDirection: "horizontal",
             }}
           >
+            <Stack.Screen
+              name="UserFollowPicker"
+              component={UserFollowPickerScreen}
+            />
             {/* LET'S TRY IF CHANGE */}
             <Stack.Screen name="Home" component={HomeScreen} />
 
@@ -180,10 +184,6 @@ export default function App() {
               name="PickerPayment"
               component={PickerPaymentMethodScreen}
             />
-            <Stack.Screen
-              name="UserFollowPicker"
-              component={UserFollowPickerScreen}
-            />
             <Stack.Screen name="Coordinates" component={CoordinatesScreen} />
             <Stack.Screen name="Address" component={AddressScreen} />
             <Stack.Screen name="Payment" component={Payment} />
@@ -198,11 +198,11 @@ export default function App() {
               component={UserSelectSizeScreen}
             />
             <Stack.Screen name="PickerLoader" component={PickerLoader} />
-            <Stack.Screen name="UserPickerFound" component={UserPickerFound} />
             <Stack.Screen
               name="UserCurrentPosition"
               component={UserCurrentPositionScreen}
             />
+            <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen
               name="UserRatePicker"
               component={UserRatePickerScreen}
@@ -219,6 +219,7 @@ export default function App() {
               name="UserChangePassword"
               component={UserChangePasswordScreen}
             />
+            <Stack.Screen name="UserPickerFound" component={UserPickerFound} />
             <Stack.Screen
               name="PickerAccount"
               component={PickerAccountScreen}
@@ -239,7 +240,6 @@ export default function App() {
               name="PickerNewPayment"
               component={PickerNewPayementScreen}
             />
-            <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen
               name="UserTabNavigator"
               component={UserTabNavigator}

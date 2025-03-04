@@ -3,30 +3,43 @@ import Map from "@/components/Map";
 import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
-import { useEffect, useState } from "react";
+
+import CustomModal from "@/components/CustomModal";
+import { LatitudeLongitude } from "@/utils/distance";
+
 import { useAppSelector } from "@/store/hooks";
 
+import { useEffect, useState } from "react";
+
 function UserFollowPickerScreen() {
+  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+
+  const [dedeliveryPosition, setDedeliveryPosition] =
+    useState<LatitudeLongitude>(null);
+  const [pickerPosition, setPickerPosition] = useState<LatitudeLongitude>(null);
+
   const deliveryData = useAppSelector((state) => state.deliveries.value);
-
-  const [pickerPosition, setPickerPosition] = useState({
-    latitude: undefined,
-    longitude: undefined,
-  });
-
+    
   useEffect(() => {
     const interval = setInterval(() => {
       fetch(
         process.env.EXPO_PUBLIC_BACKEND_URL +
+
           "/deliveries/info/" +
+
           deliveryData.deliveryId
       )
         .then((response) => response.json())
         .then((data) => {
-          setPickerPosition(data.pickerPosition);
-        });
-    }, 3000);
 
+          if (data.pickupPosition && data.pickerPosition) {
+            console.log(data);
+            setDedeliveryPosition(data.pickupPosition);
+            setPickerPosition(data.pickerPosition);
+          }
+        });
+      //TODO : setInterval plus lent pour
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -53,10 +66,31 @@ function UserFollowPickerScreen() {
           />
         </View>
         <View style={styles.map}>
-          <Map pickerPosition={pickerPosition}></Map>
-          <CustomButton onPressFunction={() => console.log("ça continue")}>
+
+          <Map
+            pickerPosition={pickerPosition}
+            dedeliveryPosition={dedeliveryPosition}
+          ></Map>
+          <CustomButton
+            onPressFunction={() => {
+              setModalIsVisible(!modalIsVisible);
+            }}
+          >
             Secret Code
           </CustomButton>
+          <CustomModal
+            isVisible={modalIsVisible}
+            title="Votre code secret"
+            onClose={() => setModalIsVisible(false)}
+            code="1234"
+          >
+            <CustomButton
+              onPressFunction={() => setModalIsVisible(false)}
+              width={100}
+            >
+              Fermer
+            </CustomButton>
+          </CustomModal>
         </View>
       </ScrollView>
     </Layout>
