@@ -3,6 +3,7 @@ import Map from "@/components/Map";
 import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
+
 import CustomModal from "@/components/CustomModal";
 import { LatitudeLongitude } from "@/utils/distance";
 
@@ -18,16 +19,19 @@ function UserFollowPickerScreen() {
   const [pickerPosition, setPickerPosition] = useState<LatitudeLongitude>(null);
 
   const deliveryData = useAppSelector((state) => state.deliveries.value);
-
+    
   useEffect(() => {
     const interval = setInterval(() => {
       fetch(
         process.env.EXPO_PUBLIC_BACKEND_URL +
-          "/deliveries/info" +
+
+          "/deliveries/info/" +
+
           deliveryData.deliveryId
       )
         .then((response) => response.json())
         .then((data) => {
+
           if (data.pickupPosition && data.pickerPosition) {
             console.log(data);
             setDedeliveryPosition(data.pickupPosition);
@@ -62,6 +66,7 @@ function UserFollowPickerScreen() {
           />
         </View>
         <View style={styles.map}>
+
           <Map
             pickerPosition={pickerPosition}
             dedeliveryPosition={dedeliveryPosition}

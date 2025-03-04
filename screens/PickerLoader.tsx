@@ -46,6 +46,7 @@ function PickerLoader({ navigation }) {
         token: userData.token,
         description: "Pas de description",
         pickupAddress: deliveryStoreData.pickupAddress,
+        pickupPosition: deliveryStoreData.pickupPosition,
         volume: deliveryStoreData.volume,
         size: deliveryStoreData.size,
       }),

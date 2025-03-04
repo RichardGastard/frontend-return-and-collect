@@ -34,7 +34,13 @@ export default function UserCurrentPositionScreen({ navigation }) {
             latitude: details.geometry.location.lat,
             longitude: details.geometry.location.lng,
           });
-          dispatch(loadDelivery({ pickupAddress: data.description }));
+          const { lat, lng } = details.geometry.location;
+          dispatch(
+            loadDelivery({
+              pickupAddress: data.description,
+              pickupPosition: { latitude: lat, longitude: lng },
+            })
+          );
         }}
         query={{
           key: GOOGLE_MAPS_APIKEY,

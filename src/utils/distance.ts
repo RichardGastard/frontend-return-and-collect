@@ -1,4 +1,4 @@
-type LatitudeLongitude = {
+export type LatitudeLongitude = {
   latitude: number;
   longitude: number;
 };

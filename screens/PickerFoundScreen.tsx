@@ -2,19 +2,22 @@ import Layout from "@/components/Layout";
 import { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 
-import CustomButton from "@/components/CustomButton";
 import { useAppSelector } from "@/store/hooks";
 import UserDeliveryCard from "@/components/UserDeliveryCard";
+import { computeDistanceInMeters, LatitudeLongitude } from "@/utils/distance";
+
+import * as Location from "expo-location";
 
 type DeliveryData = {
-  orderNumber: number;
+  _id: number;
   senderId: string;
-  size: string;
+  pickerId: string;
   distance: string;
   price: number;
 };
 
 function PickerFoundScreen({ navigation }) {
+  const [location, setLocation] = useState<LatitudeLongitude>(null);
   const userData = useAppSelector((state) => {
     return state.users.value;
   });
@@ -22,19 +25,36 @@ function PickerFoundScreen({ navigation }) {
   // const [delivery, setDelivery] = useState<DeliveryData[]>([]);
   const [delivery, setDelivery] = useState<any>([]);
 
+  // Demande d'autorisation d'accès à la position
   useEffect(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        const location = await Location.getCurrentPositionAsync({});
+        setLocation({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    // TODO : IMPORTANT
     fetch(
       process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/isLookingForPicker"
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
-        const deliveryData = data.deliveries.map((data, i) => {
-          setDelivery([...delivery, data]);
-          // deliveryData.distance = 10;
-          // deliveryData.orderNumber = i;
-          // setDelivery([...delivery, data]);
+        console.log(data);
+        const deliveryData = data.deliveries.map((delivery, i) => {
+          delivery.distance = computeDistanceInMeters(
+            data.pickupPosition,
+            location
+          );
+          delivery.orderNumber = i;
         });
+        setDelivery([deliveryData]);
       });
   }, []);
 
@@ -48,7 +68,7 @@ function PickerFoundScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log("NAVIGATE VERS LA PAGE D'APRES");
+          navigation.navigate("PickerGoToLocation");
         }
       });
   };
