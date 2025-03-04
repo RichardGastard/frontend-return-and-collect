@@ -3,8 +3,33 @@ import Map from "@/components/Map";
 import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "@/store/hooks";
 
 function UserFollowPickerScreen() {
+  const deliveryData = useAppSelector((state) => state.deliveries.value);
+
+  const [pickerPosition, setPickerPosition] = useState({
+    latitude: undefined,
+    longitude: undefined,
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL +
+          "/deliveries/info/" +
+          deliveryData.deliveryId
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setPickerPosition(data.pickerPosition);
+        });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Layout
       title="Suivi du collecteur"
@@ -28,9 +53,7 @@ function UserFollowPickerScreen() {
           />
         </View>
         <View style={styles.map}>
-          <Map
-            pickerPosition={{ latitude: 43.26855, longitude: 5.385144 }}
-          ></Map>
+          <Map pickerPosition={pickerPosition}></Map>
           <CustomButton onPressFunction={() => console.log("ça continue")}>
             Secret Code
           </CustomButton>
