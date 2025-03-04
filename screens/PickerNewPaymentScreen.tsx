@@ -14,31 +14,31 @@ import {
 import Input from "@/components/Input";
 
 function PickerNewPayementScreen({ navigation }) {
+  const [bankName, setBankName] = useState<string>("");
   const [iban, setIban] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [bic, setBic] = useState<string>("");
 
-  const [ibanNumber, setIbanNumber] = useState<boolean>(true);
-  const [bicNumber, setBicNumber] = useState<boolean>(true);
 
-  const handleSubmit = () => {
-    const ibanRegex =
-      /b[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?!(?:[ ]?[0-9]){3})(?:[ ]?[0-9]{1,2})?b/;
-    const bicRegex = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?/;
-
-    if (!iban.match(ibanRegex) || iban.length < 2) {
-      setIbanNumber(false);
-      console.log("IBAN incorrect");
-      return;
-    }
-    if (!bic.match(bicRegex) || bic.length < 2) {
-      setBicNumber(false);
-      console.log("BIC invalide");
-      return;
-    } else {
-      navigation.navigate("PickerChangePayment");
-    }
-  };
+  function handleRegistercreditMethod() {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/iban", {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        bankName: bankName,
+        iban: iban,
+        bic: bic,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        if (data.result) {
+          navigation.navigate("Validation");
+        }
+      });
+  }
 
   return (
     <Layout
@@ -58,6 +58,12 @@ function PickerNewPayementScreen({ navigation }) {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.container}>
+          <Input
+              label="Nom de la banque"
+              keyboardType="none"
+              onChangeText={(value) => setBankName(value)}
+              value={bankName}
+            />
             <Input
               label="Titulaire du compte"
               keyboardType="none"
@@ -78,7 +84,7 @@ function PickerNewPayementScreen({ navigation }) {
             />
             <CustomButton
               onPressFunction={() => {
-                handleSubmit();
+                handleRegistercreditMethod();
               }}
             >
               Validez les informations

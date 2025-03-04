@@ -64,7 +64,7 @@ function PickerIsHereScreen() {
                 title="Voici le Code"
                 code={1234}
               > 
-
+              
                 <CustomButton
                 onPressFunction={() => setModalVisible(false)} width={100}>Close</CustomButton>
               </CustomModal>

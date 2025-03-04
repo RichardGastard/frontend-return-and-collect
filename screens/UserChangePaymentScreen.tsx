@@ -65,7 +65,7 @@ function UserChangePaiementScreen({ navigation }) {
               onPressFunction={() => {
                 navigation.navigate(
                   "UserAccountScreen",
-                  console.log("Votre Mot de passe à bien été changée")
+                  console.log("Votre moyen de paiement à bien étè changé")
                 );
               }}
             >

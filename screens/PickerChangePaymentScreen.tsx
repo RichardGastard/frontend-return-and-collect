@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 import CreditCard from "@/components/CreditCard";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -25,6 +25,25 @@ function PickerChangePaymentScreen({ navigation }) {
   }
 
   const keyboardHeight = useKeyboardHeight();
+
+  const [bankName, setbankName] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [iban, setIban] = useState<string>("");
+  const [bic, setBic] = useState<string>("");
+
+
+
+
+  useEffect(() => {
+      fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/accountInfos/")
+        .then((response) => response.json())
+        .then((data) => {
+          setbankName(data.bankName);
+          setName(data.name);
+          setIban(data.iban);
+          setBic(data.bic);
+        });
+    }, []);
 
   return (
     <Layout
@@ -50,10 +69,10 @@ function PickerChangePaymentScreen({ navigation }) {
           >
             <View style={{ flex: 1 }}>
               <BankAccount
-                bankName={"NOM DE LA BANQUE"}
-                name={"HOURSELLE Marc"}
-                iban={"FRXX XXXX XXXX XXXX XXXX XXXX XXX"}
-                bic={"SogeXXX"}
+                bankName={bankName}
+                name={name}
+                iban={iban}
+                bic={bic}
                 status={true}
               ></BankAccount>
 

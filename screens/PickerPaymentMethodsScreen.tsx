@@ -19,30 +19,8 @@ function PickerPayement({ navigation }) {
   const [bic, setBic] = useState<string>("");
   const [bankName, setbankName] = useState<string>("");
 
-  // const [ibanNumber, setIbanNumber] = useState<boolean>(true);
-  // const [bicNumber, setBicNumber] = useState<boolean>(true);
-
-  // const handleSubmit = () => {
-  //   const ibanRegex =
-  //     /b[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?!(?:[ ]?[0-9]){3})(?:[ ]?[0-9]{1,2})?b/;
-  //   const bicRegex = /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?/;
-
-  //   if (!iban.match(ibanRegex) || iban.length < 2) {
-  //     setIbanNumber(false);
-  //     console.log("Iban incorrect");
-  //     return;
-  //   }
-  //   if (!bic.match(bicRegex) || bic.length < 2) {
-  //     setBicNumber(false);
-  //     console.log("Bic invalide");
-  //     return;
-  //   } else {
-  //     navigation.navigate("Validation"); // Penser à Changer la route ainsi que sur le bouton : "Passez cette étape" !!!
-  //   }
-  // };
-
   function handleRegistercreditMethod() {
-    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/ibanbic", {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/iban", {
       method: "POST",
       body: JSON.stringify({
         name: name,

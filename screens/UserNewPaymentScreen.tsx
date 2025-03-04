@@ -13,7 +13,7 @@ import {
 } from "react-native";
 
 function Payment({ navigation }) {
-  const [bankName, setBankName] = useState<string>("")
+  const [bankName, setbankName] = useState<string>("")
   const [cardHolder, setCardHolder] = useState<string>("");
   const [cardNumber, setcardNumber] = useState<string>("");
   const [expirationDate, setExpirationDate] = useState<string>("");
@@ -36,7 +36,7 @@ function Payment({ navigation }) {
       .then((data) => {
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
-          navigation.navigate("Validation");
+          navigation.navigate("UserChangePayment");
         }
       });
   }
@@ -44,9 +44,8 @@ function Payment({ navigation }) {
   return (
     <Layout
       title="Moyen de paiement"
-      description="Ajoutez votre moyen de paiement"
+      description="Ajoutez votre nouveau moyen de paiement"
       arrowBack
-      arrowSkip="SignUpCongrats"
       footer
     >
       <KeyboardAvoidingView
