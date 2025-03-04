@@ -160,10 +160,6 @@ export default function App() {
               gestureDirection: "horizontal",
             }}
           >
-            <Stack.Screen
-              name="UserFollowPicker"
-              component={UserFollowPickerScreen}
-            />
             {/* LET'S TRY IF CHANGE */}
             <Stack.Screen name="Home" component={HomeScreen} />
 
@@ -206,6 +202,10 @@ export default function App() {
             <Stack.Screen
               name="UserRatePicker"
               component={UserRatePickerScreen}
+            />
+            <Stack.Screen
+              name="UserFollowPicker"
+              component={UserFollowPickerScreen}
             />
             <Stack.Screen
               name="UserChangePayment"
