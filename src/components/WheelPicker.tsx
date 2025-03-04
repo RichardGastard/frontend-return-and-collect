@@ -19,8 +19,8 @@ import WheelPickerItem from "./WheelPickerItem";
 
 export type WheelPickerOption = {
   titre: string;
-  description: string;
-  imageUrl: string;
+  description?: string;
+  imageUrl?: string;
 };
 
 type WheelPickerProps = {

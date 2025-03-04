@@ -98,7 +98,7 @@ const PickerTabNavigator = () => {
   );
 };
 
-const TabNavigator = () => {
+const UserTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Return"
@@ -240,7 +240,10 @@ export default function App() {
               component={PickerNewPayementScreen}
             />
             <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen
+              name="UserTabNavigator"
+              component={UserTabNavigator}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

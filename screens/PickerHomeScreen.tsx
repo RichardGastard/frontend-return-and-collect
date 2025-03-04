@@ -9,8 +9,6 @@ import { useSwipe } from "hook/useSwipe";
 import { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-import { updatePickerAvailability } from "@/reducers/pickers";
-
 import { useAppSelector } from "@/store/hooks";
 import { useAppDispatch } from "@/store/hooks";
 import { updateAvailability } from "@/reducers/users";
@@ -30,7 +28,7 @@ function PickerHomeScreen({ navigation }) {
 
   const optionsData = [
     {
-      titre: "Seulement petit",
+      titre: "Petit",
       //description: "Boîte à chaussure",
       // imageUrl: "../assets/logo-simple.svg",
       //imageUrl: require("../assets/logo-without-bg-without-text.png"),

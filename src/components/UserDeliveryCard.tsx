@@ -32,12 +32,12 @@ function UserDeliveryCard({
 }: CardProps) {
   const [isTaken, setIsTaken] = useState<boolean>(null);
 
-  let today = new Date();
-  let dd = String(today.getDate()).padStart(2, "0");
-  let mm = String(today.getMonth() + 1).padStart(2, "0");
-  let yyyy = today.getFullYear();
+  let todayDate = new Date();
+  let dd = String(todayDate.getDate()).padStart(2, "0");
+  let mm = String(todayDate.getMonth() + 1).padStart(2, "0");
+  let yyyy = todayDate.getFullYear();
 
-  today = mm + "/" + dd + "/" + yyyy;
+  let today = mm + "/" + dd + "/" + yyyy;
 
   return (
     <View

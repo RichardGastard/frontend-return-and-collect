@@ -46,7 +46,7 @@ function HomeScreen({ navigation }) {
           if (data.userType === "PICKER") {
             navigation.navigate("PickerTabNavigator");
           } else {
-            navigation.navigate("TabNavigator");
+            navigation.navigate("UserTabNavigator");
           }
         } else {
           setIsLoginSuccessful(false);
