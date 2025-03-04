@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
+import CustomButton from "./CustomButton";
 
 interface ModalProps {
   isVisible: boolean;
   onClose: () => void;
   title?: string;
-  code: number,
+  code: string;
   children?: React.ReactNode;
 }
 
@@ -39,28 +40,25 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "column",
     justifyContent: "center",
-    alignItems:"center",
-    position: "absolute",
+    alignItems: "center",
     height: 180,
     width: 180,
-    alignSelf: "center"
+    alignSelf: "center",
+    gap: 10,
   },
   title: {
     fontSize: 18,
-    fontWeight: "bold",
-    position: "absolute",
-    top: 5,
-    left: 0,
-    right: 0,
+    fontFamily: "Public-Sans-Bold",
     textAlign: "center",
-    paddingVertical: 5,
   },
   secretCode: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "Poppins-Regular",
+    top: 10,
   },
   content: {
     height: 30,
+    marginBottom: 50,
   },
 });
 

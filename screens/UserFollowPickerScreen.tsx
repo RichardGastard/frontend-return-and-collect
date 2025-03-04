@@ -3,8 +3,42 @@ import Map from "@/components/Map";
 import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
+import CustomModal from "@/components/CustomModal";
+import { LatitudeLongitude } from "@/utils/distance";
+
+import { useAppSelector } from "@/store/hooks";
+
+import { useEffect, useState } from "react";
 
 function UserFollowPickerScreen() {
+  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+
+  const [dedeliveryPosition, setDedeliveryPosition] =
+    useState<LatitudeLongitude>(null);
+  const [pickerPosition, setPickerPosition] = useState<LatitudeLongitude>(null);
+
+  const deliveryData = useAppSelector((state) => state.deliveries.value);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL +
+          "/deliveries/info" +
+          deliveryData.deliveryId
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.pickupPosition && data.pickerPosition) {
+            console.log(data);
+            setDedeliveryPosition(data.pickupPosition);
+            setPickerPosition(data.pickerPosition);
+          }
+        });
+      //TODO : setInterval plus lent pour
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Layout
       title="Suivi du collecteur"
@@ -29,11 +63,29 @@ function UserFollowPickerScreen() {
         </View>
         <View style={styles.map}>
           <Map
-            pickerPosition={{ latitude: 43.26855, longitude: 5.385144 }}
+            pickerPosition={pickerPosition}
+            dedeliveryPosition={dedeliveryPosition}
           ></Map>
-          <CustomButton onPressFunction={() => console.log("ça continue")}>
+          <CustomButton
+            onPressFunction={() => {
+              setModalIsVisible(!modalIsVisible);
+            }}
+          >
             Secret Code
           </CustomButton>
+          <CustomModal
+            isVisible={modalIsVisible}
+            title="Votre code secret"
+            onClose={() => setModalIsVisible(false)}
+            code="1234"
+          >
+            <CustomButton
+              onPressFunction={() => setModalIsVisible(false)}
+              width={100}
+            >
+              Fermer
+            </CustomButton>
+          </CustomModal>
         </View>
       </ScrollView>
     </Layout>

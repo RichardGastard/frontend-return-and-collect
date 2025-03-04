@@ -64,25 +64,21 @@ function PickerFoundScreen({ navigation }) {
 
   const deliveryCard = delivery.map((data, i) => {
     return (
-      <>
-        <UserDeliveryCard
-          key={i}
-          orderNumber={data._id.substring(0, 5)}
-          user={data.senderId.firstName} // RECUPERER LE FIRSTNAME SUR LA USER DB
-          packageSize={data.size}
-          distance={data.pickupAddress}
-          price={data.price}
-          status={false}
-          onAccept={() => handleAcceptDelivery(data._id)}
-        />
-      </>
+      <UserDeliveryCard
+        key={i}
+        orderNumber={data._id.substring(0, 5)}
+        user={data.senderId.firstName} // RECUPERER LE FIRSTNAME SUR LA USER DB
+        packageSize={data.size}
+        distance={data.pickupAddress}
+        price={data.price}
+        status={false}
+        onAccept={() => handleAcceptDelivery(data._id)}
+      />
     );
   });
   return (
     <Layout footer title="Livraisons disponibles" arrowBack>
-      <View style={styles.container}>
-        {deliveryCard}
-      </View>
+      <View style={styles.container}>{deliveryCard}</View>
     </Layout>
   );
 }

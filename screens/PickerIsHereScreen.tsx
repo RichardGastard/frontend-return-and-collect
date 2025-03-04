@@ -1,17 +1,7 @@
 import { useState, useRef } from "react";
-import {
-  Button,
-  Text,
-  TextInput,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from "react-native";
+import { StyleSheet } from "react-native";
+import Layout from "@/components/Layout";
+
 import { FontAwesome, FontAwesome5 } from "react-native-vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -23,56 +13,65 @@ import CustomModal from "@/components/Modal";
 function PickerIsHereScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
 
-    const handleSecretCode = () => {
-      setModalVisible(!isModalVisible);
-    };
+  const handleSecretCode = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-        // keyboardVerticalOffset={keyboardHeight}
-      >
-        <ScrollView
-          style={{ overflow: "visible" }}
-          keyboardDismissMode="interactive"
-          keyboardShouldPersistTaps="handled"
-        >
-          <View>
-            <View style={styles.header}>
-              <ArrowBack></ArrowBack>
-              <Text style={styles.title}>Le Collecteur est Arrivé</Text>
-            </View>
-            <View style={styles.backgroundbell}>
-              <View style={styles.bell}>
-                <FontAwesome
-                  style={styles.fontbell}
-                  name={"bell"}
-                  size={200}
-                  color="gray"
-                />
-              </View>
-            </View>
-            <View style={styles.code}>
-              <CustomButton onPressFunction={() => setModalVisible(true)}>
-                Secret Code
-              </CustomButton>
-              <CustomModal
-                isVisible={isModalVisible}
-                onClose={() => setModalVisible(false)}
-                title="Voici le Code"
-                code={1234}
-              > 
+    <Layout
+      title="Votre collecteur est arrivé"
+      description="Veuillez donner le code secret à votre collecteur"
+      arrowBack
+    >
+      <CustomButton onPressFunction={() => setModalVisible(true)}>
+        Afficher votre code secret
+      </CustomButton>
+    </Layout>
+    // <SafeAreaView style={styles.container}>
+    //   <KeyboardAvoidingView
+    //     behavior={Platform.OS === "ios" ? "padding" : "height"}
+    //     style={{ flex: 1 }}
+    //     // keyboardVerticalOffset={keyboardHeight}
+    //   >
+    //     <ScrollView
+    //       style={{ overflow: "visible" }}
+    //       keyboardDismissMode="interactive"
+    //       keyboardShouldPersistTaps="handled"
+    //     >
+    //       <View>
+    //         <View style={styles.header}>
+    //           <ArrowBack></ArrowBack>
+    //           <Text style={styles.title}>Le Collecteur est Arrivé</Text>
+    //         </View>
+    //         <View style={styles.backgroundbell}>
+    //           <View style={styles.bell}>
+    //             <FontAwesome
+    //               style={styles.fontbell}
+    //               name={"bell"}
+    //               size={200}
+    //               color="gray"
+    //             />
+    //           </View>
+    //         </View>
+    //         <View style={styles.code}>
+    //           <CustomButton onPressFunction={() => setModalVisible(true)}>
+    //             Secret Code
+    //           </CustomButton>
+    //           <CustomModal
+    //             isVisible={isModalVisible}
+    //             onClose={() => setModalVisible(false)}
+    //             title="Voici le Code"
+    //             code={1234}
+    //           >
 
-                <CustomButton
-                onPressFunction={() => setModalVisible(false)} width={100}>Close</CustomButton>
-              </CustomModal>
-            </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    //             <CustomButton
+    //             onPressFunction={() => setModalVisible(false)} width={100}>Close</CustomButton>
+    //           </CustomModal>
+    //         </View>
+    //       </View>
+    //     </ScrollView>
+    //   </KeyboardAvoidingView>
+    // </SafeAreaView>
   );
 }
 
@@ -115,10 +114,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     height: 20,
   },
-  closeText:{
+  closeText: {
     color: "white",
     textAlign: "center",
-  }
+  },
 });
 
 export default PickerIsHereScreen;
