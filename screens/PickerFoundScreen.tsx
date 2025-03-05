@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
-import { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { useState, useEffect, useCallback } from "react";
+import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import UserDeliveryCard from "@/components/UserDeliveryCard";
@@ -18,6 +18,7 @@ type DeliveryData = {
 };
 
 function PickerFoundScreen({ navigation }) {
+  const [refreshing, setRefreshing] = useState(false);
   const [location, setLocation] = useState<LatitudeLongitude>(null);
   const userData = useAppSelector((state) => {
     return state.users.value;
@@ -53,6 +54,13 @@ function PickerFoundScreen({ navigation }) {
           setDelivery(deliveryData);
         }, 100);
       });
+  }, [refreshing]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   }, []);
 
   const handleAcceptDelivery = (deliveryId: string) => {
@@ -60,7 +68,11 @@ function PickerFoundScreen({ navigation }) {
     fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/assign", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ deliveryId, token: userData.token, pickerPosition: location }),
+      body: JSON.stringify({
+        deliveryId,
+        token: userData.token,
+        pickerPosition: location,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -116,7 +128,14 @@ function PickerFoundScreen({ navigation }) {
   });
   return (
     <Layout footer title="Livraisons disponibles" arrowBack>
-      <View style={styles.container}>{deliveryCard}</View>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View style={styles.container}>{deliveryCard}</View>
+      </ScrollView>
     </Layout>
   );
 }
