@@ -167,14 +167,14 @@ export default function App() {
             {/* PICKER SCREENS */}
             <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
             <Stack.Screen
-              name="PickerTabNavigator"
-              component={PickerTabNavigator}
-            />
-            <Stack.Screen
               name="PickerFoundScreen"
               component={PickerFoundScreen}
             />
             <Stack.Screen
+
+              name="PickerTabNavigator"
+              component={PickerTabNavigator}/>
+<Stack.Screen
               name="PickerGoToLocation"
               component={PickerGoToLocationScreen}
             />
@@ -209,12 +209,12 @@ export default function App() {
               component={UserRatePickerScreen}
             />
             <Stack.Screen
-              name="UserFollowPicker"
-              component={UserFollowPickerScreen}
-            />
-            <Stack.Screen
               name="UserChangePayment"
               component={UserChangePaymentScreen}
+            />
+            <Stack.Screen
+              name="UserFollowPicker"
+              component={UserFollowPickerScreen}
             />
             <Stack.Screen
               name="UserChangeAddress"
