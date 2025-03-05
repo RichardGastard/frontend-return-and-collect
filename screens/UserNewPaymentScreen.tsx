@@ -12,7 +12,7 @@ import {
   ScrollView,
 } from "react-native";
 
-function Payment({ navigation }) {
+function UserNewPayementScreen({ navigation }) {
   const [bankName, setbankName] = useState<string>("")
   const [cardHolder, setCardHolder] = useState<string>("");
   const [cardNumber, setcardNumber] = useState<string>("");
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Payment;
+export default UserNewPayementScreen;

@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import Input from "@/components/Input";
+import { useAppSelector } from "@/store/hooks";
 
 function PickerNewPayementScreen({ navigation }) {
   const [bankName, setBankName] = useState<string>("");
@@ -19,11 +20,13 @@ function PickerNewPayementScreen({ navigation }) {
   const [name, setName] = useState<string>("");
   const [bic, setBic] = useState<string>("");
 
+  const userData = useAppSelector(state => state.users.value)
 
   function handleRegistercreditMethod() {
     fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/iban", {
       method: "POST",
       body: JSON.stringify({
+        token: "5xfYZdQgLf6tpdpa4S5VcoFm3on2Xpev", //userData.token,
         name: name,
         bankName: bankName,
         iban: iban,
@@ -33,9 +36,9 @@ function PickerNewPayementScreen({ navigation }) {
     })
       .then((r) => r.json())
       .then((data) => {
-        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        // Envoie vers la page Account pour que le picker puisse modifier son profil
         if (data.result) {
-          navigation.navigate("Validation");
+          navigation.navigate("PickerChangePayment");
         }
       });
   }
@@ -58,30 +61,10 @@ function PickerNewPayementScreen({ navigation }) {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.container}>
-          <Input
-              label="Nom de la banque"
-              keyboardType="none"
-              onChangeText={(value) => setBankName(value)}
-              value={bankName}
-            />
-            <Input
-              label="Titulaire du compte"
-              keyboardType="none"
-              onChangeText={(value) => setName(value)}
-              value={name}
-            />
-            <Input
-              label="IBAN"
-              keyboardType="none"
-              onChangeText={(value) => setIban(value)}
-              value={iban}
-            />
-            <Input
-              label="BIC"
-              keyboardType="none"
-              onChangeText={(value) => setBic(value)}
-              value={bic}
-            />
+            <Input label="Nom de la banque" />
+            <Input label="Titulaire du compte" />
+            <Input label="IBAN" keyboardType="numeric" />
+            <Input label="BIC" keyboardType="numeric" />
             <CustomButton
               onPressFunction={() => {
                 handleRegistercreditMethod();

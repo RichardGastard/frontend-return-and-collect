@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 import CreditCard from "@/components/CreditCard";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -16,6 +16,22 @@ import useKeyboardHeight from "react-native-use-keyboard-height";
 function UserChangePaiementScreen({ navigation }) {
 
   const keyboardHeight = useKeyboardHeight();
+
+  const [bankName, setbankName] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [creditCardNumber, setCreditCardNumber] = useState<string>("");
+  const [expirationDate, setExpirationDate] = useState<string>("");
+
+  useEffect(() => {
+        fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/cardInfos/")
+          .then((response) => response.json())
+          .then((data) => {
+            setbankName(data.paymentMethod.bankName);
+            setName(data.paymentMethod.name);
+            setCreditCardNumber(data.paymentMethod.creditCardNumber);
+            setExpirationDate(data.paymentMethod.expirationDate);
+          });
+      }, []);
 
   return (
     <Layout
@@ -37,17 +53,11 @@ function UserChangePaiementScreen({ navigation }) {
           <View style={styles.container}>
             <View style={{flex: 1, gap: 15,}}>
               <CreditCard
-              name={"Marc Hourselle"}
-                bankName={"Bank"}
-                cardNumber={"XXXX XXXX XXXX 1234"}
-                expirationdate={"12/26"}
+              name={name}
+                bankName={bankName}
+                cardNumber={creditCardNumber}
+                expirationdate={expirationDate}
                 status = {true}
-              ></CreditCard>
-              <CreditCard
-              name={"Marc Hourselle"}
-                bankName={"Bank"}
-                cardNumber={"XXXX XXXX XXXX 1234"}
-                expirationdate={"12/26"}
               ></CreditCard>
                <View style={styles.addbtn}>
             <CustomButton

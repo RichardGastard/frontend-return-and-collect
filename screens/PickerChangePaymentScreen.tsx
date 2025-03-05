@@ -38,10 +38,10 @@ function PickerChangePaymentScreen({ navigation }) {
       fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/accountInfos/")
         .then((response) => response.json())
         .then((data) => {
-          setbankName(data.bankName);
-          setName(data.name);
-          setIban(data.iban);
-          setBic(data.bic);
+          setbankName(data.creditMethod.bankName);
+          setName(data.creditMethod.name);
+          setIban(data.creditMethod.iban);
+          setBic(data.creditMethod.bic);
         });
     }, []);
 
@@ -87,8 +87,8 @@ function PickerChangePaymentScreen({ navigation }) {
               <CustomButton
                 onPressFunction={() => {
                   navigation.navigate(
-                    "UserAccountScreen",
-                    console.log("Votre compte a bien été changé")
+                    "PickerAccountScreen",
+                    console.log("Votre compte bancaire a bien été changé")
                   );
                 }}
               >
