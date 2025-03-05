@@ -8,7 +8,6 @@ import { computeDistanceInMeters, LatitudeLongitude } from "@/utils/distance";
 
 import * as Location from "expo-location";
 import { loadDelivery } from "@/reducers/deliveries";
-import { DotSize } from "react-native-animated-nav-tab-bar";
 
 type DeliveryData = {
   _id: number;
