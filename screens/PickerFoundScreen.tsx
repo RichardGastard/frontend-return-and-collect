@@ -60,7 +60,7 @@ function PickerFoundScreen({ navigation }) {
     fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/assign", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ deliveryId, token: userData.token }),
+      body: JSON.stringify({ deliveryId, token: userData.token, pickerPosition: location }),
     })
       .then((response) => response.json())
       .then((data) => {

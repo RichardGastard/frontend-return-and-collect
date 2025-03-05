@@ -4,8 +4,6 @@ import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
 
-import { useRef } from "react";
-
 import CustomModal from "@/components/CustomModal";
 import { LatitudeLongitude } from "@/utils/distance";
 
@@ -30,25 +28,6 @@ function UserFollowPickerScreen() {
   const [userSecretCode, setUserSecretCode] = useState<string>("");
 
   const deliveryData = useAppSelector((state) => state.deliveries.value);
-
-  fetch(
-    process.env.EXPO_PUBLIC_BACKEND_URL +
-      "/deliveries/info/" +
-      deliveryData.deliveryId
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.delivery.pickupPosition && data.delivery.pickerPosition) {
-        setDedeliveryPosition(data.delivery.pickupPosition);
-        setPickerPosition(data.delivery.pickerPosition);
-        setPickerFirstname(data.delivery.pickerId.firstName);
-        setPickerNumberOfDeliveries(data.delivery.pickerId.numberOfDeliveries);
-        setPickerRating(data.delivery.pickerId.rating);
-        setPickerTransportType(data.delivery.pickerId.transportType);
-        setPickerNumberOfDeliveries(data.delivery.pickerId.numberOfRatings);
-        setUserSecretCode(data.delivery.secretCode);
-      }
-    });
 
   useEffect(() => {
     const interval = setInterval(() => {

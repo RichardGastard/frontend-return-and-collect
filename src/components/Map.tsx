@@ -59,8 +59,7 @@ export default function Map({
         barycentre.longitude =
           (dedeliveryPosition.longitude + pickerPosition.longitude) / 2;
         deltaMax = Math.max(
-          Math.abs(dedeliveryPosition.latitude - pickerPosition.latitude) *
-            1.3,
+          Math.abs(dedeliveryPosition.latitude - pickerPosition.latitude) * 1.3,
           deltaMax
         );
         deltaMax = Math.max(
@@ -114,7 +113,7 @@ export default function Map({
               color="black"
             />
           </Marker>
-          {location && (
+          {location && dedeliveryPosition && pickerPosition && (
             <MapViewDirections
               ref={mapViewDirectionsRef}
               origin={dedeliveryPosition}
