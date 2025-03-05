@@ -15,6 +15,9 @@ export function computeDistanceInMeters(
   start: LatitudeLongitude,
   stop: LatitudeLongitude
 ) {
+  if(!(start && stop)) {
+    return({ meters: 0, kilometers: 0 })
+  }
   const R = 6371000;
   const phi1 = start.latitude * (Math.PI / 180);
   const phi2 = stop.latitude * (Math.PI / 180);
