@@ -2,11 +2,13 @@ import Layout from "@/components/Layout";
 import { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import UserDeliveryCard from "@/components/UserDeliveryCard";
 import { computeDistanceInMeters, LatitudeLongitude } from "@/utils/distance";
 
 import * as Location from "expo-location";
+import { loadDelivery } from "@/reducers/deliveries";
+import { DotSize } from "react-native-animated-nav-tab-bar";
 
 type DeliveryData = {
   _id: number;
@@ -25,6 +27,8 @@ function PickerFoundScreen({ navigation }) {
   // const [delivery, setDelivery] = useState<DeliveryData[]>([]);
   const [delivery, setDelivery] = useState<any>([]);
 
+  const dispatch = useAppDispatch();
+
   // Demande d'autorisation d'accès à la position
   useEffect(() => {
     (async () => {
@@ -40,21 +44,15 @@ function PickerFoundScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    // TODO : IMPORTANT
     fetch(
       process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/isLookingForPicker"
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        const deliveryData = data.deliveries.map((delivery, i) => {
-          delivery.distance = computeDistanceInMeters(
-            data.pickupPosition,
-            location
-          );
-          delivery.orderNumber = i;
-        });
-        setDelivery([deliveryData]);
+        const deliveryData = data.deliveries;
+        setTimeout(() => {
+          setDelivery(deliveryData);
+        }, 100);
       });
   }, []);
 
@@ -68,6 +66,15 @@ function PickerFoundScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          dispatch(
+            loadDelivery({
+              deliveryId: data.data.deliveryId,
+              pickupAddress: data.data.pickupAddress,
+              pickupPosition: data.data.pickupPosition,
+              volume: data.data.volume,
+              size: data.data.size,
+            })
+          );
           navigation.navigate("PickerGoToLocation");
         }
       });
@@ -83,13 +90,25 @@ function PickerFoundScreen({ navigation }) {
   };
 
   const deliveryCard = delivery.map((data, i) => {
+    let distance = "0m";
+    if (data.pickupPosition) {
+      const distanceComputed = computeDistanceInMeters(
+        data.pickupPosition,
+        location
+      );
+      if (distanceComputed.kilometers > 0) {
+        distance = distanceComputed.kilometers.toLocaleString() + " km";
+      } else {
+        distance = distanceComputed.meters.toLocaleString() + " m";
+      }
+    }
     return (
       <UserDeliveryCard
         key={i}
         orderNumber={data._id.substring(0, 5)}
         user={data.senderId.firstName} // RECUPERER LE FIRSTNAME SUR LA USER DB
         packageSize={data.size}
-        distance={data.pickupAddress}
+        distance={distance}
         price={data.price}
         status={false}
         onAccept={() => handleAcceptDelivery(data._id)}

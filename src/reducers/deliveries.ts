@@ -7,7 +7,7 @@ export type DeliveryState = {
     isOngoing: boolean;
     deliveryId?: string | null;
     pickupAddress?: string | null;
-    pickupPosition?: LatitudeLongitude;
+    pickupPosition?: LatitudeLongitude | null;
     volume?: number | null;
     size?: string | null;
   };
@@ -16,7 +16,7 @@ export type DeliveryState = {
 export type DeliveryPayload = {
   deliveryId?: string;
   pickupAddress?: string;
-  pickupPosition?: LatitudeLongitude;
+  pickupPosition?: LatitudeLongitude | null;
   volume?: number;
   size?: string | null;
 };

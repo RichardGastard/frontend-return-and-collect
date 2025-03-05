@@ -64,7 +64,7 @@ function UserDeliveryCard({
           </Text>
           <Text style={styles.cardContent}>👤 {user}</Text>
           <Text style={styles.cardContent}>📦 {packageSize}</Text>
-          <Text style={styles.cardContent}>📍 {distance} m</Text>
+          <Text style={styles.cardContent}>📍 {distance}</Text>
           <Text style={styles.cardContent}>💶 {price}€</Text>
           <View
             style={{

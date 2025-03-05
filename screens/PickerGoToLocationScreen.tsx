@@ -5,10 +5,27 @@ import Layout from "@/components/Layout";
 import Input from "@/components/Input";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hooks";
+import * as Location from "expo-location";
+import { LatitudeLongitude } from "@/utils/distance";
 
 function PickerGoToLocationScreen() {
+  const [location, setLocation] = useState<LatitudeLongitude>(null);
   const [secretCode, setSecretCode] = useState<string>("");
   const deliveryData = useAppSelector((state) => state.deliveries.value);
+
+  // Demande d'autorisation d'accès à la position
+  useEffect(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        const location = await Location.getCurrentPositionAsync({});
+        setLocation({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+      }
+    })();
+  }, []); 
 
   function handleCodeSubmission() {
     fetch(
@@ -46,7 +63,8 @@ function PickerGoToLocationScreen() {
       >
         <View style={styles.map}>
           <Map
-            pickerPosition={{ latitude: 43.26855, longitude: 5.385144 }}
+            pickerPosition={location}
+            dedeliveryPosition={deliveryData.pickupPosition}
           ></Map>
           <Input
             label="Code secret"
