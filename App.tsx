@@ -171,10 +171,10 @@ export default function App() {
               component={PickerFoundScreen}
             />
             <Stack.Screen
-
               name="PickerTabNavigator"
-              component={PickerTabNavigator}/>
-<Stack.Screen
+              component={PickerTabNavigator}
+            />
+            <Stack.Screen
               name="PickerGoToLocation"
               component={PickerGoToLocationScreen}
             />
