@@ -27,6 +27,7 @@ function UserFollowPickerScreen() {
   const [dedeliveryPosition, setDedeliveryPosition] =
     useState<LatitudeLongitude>(null);
   const [pickerPosition, setPickerPosition] = useState<LatitudeLongitude>(null);
+  const [userSecretCode, setUserSecretCode] = useState<string>("");
 
   const deliveryData = useAppSelector((state) => state.deliveries.value);
 
@@ -40,8 +41,8 @@ function UserFollowPickerScreen() {
         .then((response) => response.json())
         .then((data) => {
           if (data.delivery.pickupPosition && data.delivery.pickerPosition) {
-            setDedeliveryPosition(data.pickupPosition);
-            setPickerPosition(data.pickerPosition);
+            setDedeliveryPosition(data.delivery.pickupPosition);
+            setPickerPosition(data.delivery.pickerPosition);
             setPickerFirstname(data.delivery.pickerId.firstName);
             setPickerNumberOfDeliveries(
               data.delivery.pickerId.numberOfDeliveries
@@ -49,10 +50,11 @@ function UserFollowPickerScreen() {
             setPickerRating(data.delivery.pickerId.rating);
             setPickerTransportType(data.delivery.pickerId.transportType);
             setPickerNumberOfDeliveries(data.delivery.pickerId.numberOfRatings);
+            setUserSecretCode(data.delivery.secretCode);
           }
         });
       //TODO : setInterval plus lent pour
-    }, 100);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -94,7 +96,7 @@ function UserFollowPickerScreen() {
             isVisible={modalIsVisible}
             title="Votre code secret"
             onClose={() => setModalIsVisible(false)}
-            code="1234"
+            code={userSecretCode}
           >
             <CustomButton
               onPressFunction={() => setModalIsVisible(false)}

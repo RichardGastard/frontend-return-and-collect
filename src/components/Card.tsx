@@ -8,7 +8,7 @@ type CardProps = {
   name: string;
   ratedStars: number;
   numberOfDeliveries: string;
-  vehicle: string | "velo" | "scooter" | "voiture" | "fourgon";
+  vehicle: "Vélo 🚲" | "Scooter 🛵" | "Voiture 🚗" | "Camion 🚛";
 };
 
 function Card(props: CardProps) {
@@ -18,15 +18,16 @@ function Card(props: CardProps) {
         <Image source={props.image} style={styles.image} />
       </View>
       <View style={styles.infos}>
-        <View
+        {/* <View
           style={{
-            width: "50%",
+            width: "80%",
             alignItems: "center",
             paddingBottom: 10,
+            borderWidth: 1,
           }}
-        >
-          <Text style={styles.name}>{props.name}</Text>
-        </View>
+        > */}
+        <Text style={styles.name}>{props.name}</Text>
+        {/* </View> */}
         <View style={styles.stars}>{renderStars(props.ratedStars)}</View>
         <Text style={styles.deliveries}>
           {props.numberOfDeliveries}{" "}
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   name: {
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: "Public-Sans-Bold",
     color: "#525252",
     fontWeight: "900",
