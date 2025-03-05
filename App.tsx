@@ -162,7 +162,7 @@ export default function App() {
             }}
           >
             {/* LET'S TRY IF CHANGE */}
-            <Stack.Screen name="Home" component={PickerNewPayementScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
 
             {/* PICKER SCREENS */}
             <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
