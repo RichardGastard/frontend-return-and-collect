@@ -15,12 +15,20 @@ export function computeDistanceInMeters(
   start: LatitudeLongitude,
   stop: LatitudeLongitude
 ) {
-  const sinPart = Math.sin(start.latitude) * Math.sin(stop.latitude);
-  const cosPart =
-    Math.cos(start.latitude) *
-    Math.cos(stop.latitude) *
-    Math.cos(stop.longitude - start.longitude);
-  return Math.acos(sinPart + cosPart) * 6371 * 1000;
+  const R = 6371000;
+  const phi1 = start.latitude * (Math.PI / 180);
+  const phi2 = stop.latitude * (Math.PI / 180);
+
+  const deltaPhi = (stop.latitude - start.latitude) * (Math.PI / 180);
+  const deltaLambda = (stop.longitude - start.longitude) * (Math.PI / 180);
+
+  const a =
+    Math.sin(deltaPhi / 2) ** 2 +
+    Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltaLambda / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const meters = Math.round(R * c);
+  const kilometers = Math.round(meters / 1000);
+  return { meters, kilometers };
 }
 
 export function computeTravelTime(meters: number, kmsPerHour: number) {
