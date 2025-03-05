@@ -55,11 +55,11 @@ export default function Map({
       let barycentre = { ...dedeliveryPosition };
       if (pickerPosition && dedeliveryPosition) {
         barycentre.latitude =
-          (dedeliveryPosition.latitude + dedeliveryPosition.latitude) / 2;
+          (dedeliveryPosition.latitude + pickerPosition.latitude) / 2;
         barycentre.longitude =
-          (dedeliveryPosition.longitude + dedeliveryPosition.longitude) / 2;
+          (dedeliveryPosition.longitude + pickerPosition.longitude) / 2;
         deltaMax = Math.max(
-          Math.abs(dedeliveryPosition.latitude - dedeliveryPosition.latitude) *
+          Math.abs(dedeliveryPosition.latitude - pickerPosition.latitude) *
             1.3,
           deltaMax
         );
@@ -81,9 +81,9 @@ export default function Map({
           1000
         );
         mapViewDirectionsRef.current?.forceUpdate();
-      }, 200);
+      }, 1000);
     }
-  }, [dedeliveryPosition]);
+  }, [dedeliveryPosition, pickerPosition]);
 
   // TODO : Mettre des images/icons pour les markers
   return (
