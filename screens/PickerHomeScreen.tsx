@@ -61,6 +61,7 @@ function PickerHomeScreen({ navigation }) {
       body: JSON.stringify({
         token: userData.token,
         isAvailable: true,
+        transportType: pickerVehicle,
       }),
       headers: { "Content-Type": "application/json" },
     })
@@ -68,6 +69,7 @@ function PickerHomeScreen({ navigation }) {
       .then((data) => {
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
+          console.log(data);
           dispatch(updateAvailability());
           if (!userData.isAvailable) {
             navigation.navigate("PickerFoundScreen");

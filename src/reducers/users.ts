@@ -11,6 +11,7 @@ export type UserState = {
     address: string | null;
     userType: string | null;
     isAvailable: boolean | null;
+    transportType: string | null;
   };
 };
 
@@ -23,6 +24,7 @@ const initialState: UserState = {
     address: null,
     userType: null,
     isAvailable: false,
+    transportType: "Vélo 🚲",
   },
 };
 
@@ -38,6 +40,7 @@ const userSlice = createSlice({
       state.value.address = action.payload.address;
       state.value.userType = action.payload.userType;
       state.value.isAvailable = false;
+      state.value.transportType = action.payload.transportType;
     },
     changeUserInfo: (state, action: PayloadAction<any>) => {
       state.value.email = action.payload.email;
