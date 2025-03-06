@@ -36,7 +36,6 @@ function PickerNewPayementScreen({ navigation }) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data)
         // Envoie vers la page Account pour que le picker puisse modifier son profil
         if (data.result) {
           navigation.navigate("PickerChangePayment");
