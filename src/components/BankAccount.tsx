@@ -9,6 +9,8 @@ type BankProps = {
   status?: boolean;
 };
 
+
+
 function BankAccount({ bankName, name, iban, bic, status = false }: BankProps) {
   return (
     <View style={status ? styles.containerValid : styles.containerInvalid}>

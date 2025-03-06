@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 import CreditCard from "@/components/CreditCard";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -14,6 +14,7 @@ import {
 import useKeyboardHeight from "react-native-use-keyboard-height";
 import BankAccount from "@/components/BankAccount";
 import { useSwipe } from "hook/useSwipe";
+import { useAppSelector } from "@/store/hooks";
 
 function PickerChangePaymentScreen({ navigation }) {
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
@@ -25,6 +26,25 @@ function PickerChangePaymentScreen({ navigation }) {
   }
 
   const keyboardHeight = useKeyboardHeight();
+
+  const [bankName, setbankName] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [iban, setIban] = useState<string>("");
+  const [bic, setBic] = useState<string>("");
+
+const userData = useAppSelector(state => state.users.value)
+
+
+  useEffect(() => {
+      fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/accountInfos/" + userData.token)
+        .then((response) => response.json())
+        .then((data) => {
+          setbankName(data.data.bankName);
+          setName(data.data.name);
+          setIban(data.data.iban);
+          setBic(data.data.bic);
+        });
+    }, []);
 
   return (
     <Layout
@@ -50,10 +70,10 @@ function PickerChangePaymentScreen({ navigation }) {
           >
             <View style={{ flex: 1 }}>
               <BankAccount
-                bankName={"NOM DE LA BANQUE"}
-                name={"HOURSELLE Marc"}
-                iban={"FRXX XXXX XXXX XXXX XXXX XXXX XXX"}
-                bic={"SogeXXX"}
+                bankName={bankName}
+                name={name}
+                iban={iban}
+                bic={bic}
                 status={true}
               ></BankAccount>
 
@@ -68,8 +88,7 @@ function PickerChangePaymentScreen({ navigation }) {
               <CustomButton
                 onPressFunction={() => {
                   navigation.navigate(
-                    "UserAccountScreen",
-                    console.log("Votre compte a bien été changé")
+                    "PickerAccount"
                   );
                 }}
               >

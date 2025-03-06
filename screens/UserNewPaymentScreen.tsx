@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { useAppSelector } from "@/store/hooks";
 
-function Payment({ navigation }) {
+function UserNewPayementScreen({ navigation }) {
   const [bankName, setBankName] = useState<string>("");
   const [cardHolder, setCardHolder] = useState<string>("");
   const [cardNumber, setcardNumber] = useState<string>("");
@@ -37,18 +37,18 @@ function Payment({ navigation }) {
     })
       .then((r) => r.json())
       .then((data) => {
+        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
-          navigation.navigate("Validation");
+          navigation.navigate("UserChangePayment");
         }
-      });
+      })
   }
 
   return (
     <Layout
       title="Moyen de paiement"
-      description="Ajoutez votre moyen de paiement"
+      description="Ajoutez votre nouveau moyen de paiement"
       arrowBack
-      arrowSkip="SignUpCongrats"
       footer
     >
       <KeyboardAvoidingView
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Payment;
+export default UserNewPayementScreen;

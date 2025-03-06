@@ -35,6 +35,7 @@ import PickerNewPayementScreen from "screens/PickerNewPaymentScreen";
 import PickerHomeScreen from "screens/PickerHomeScreen";
 import AddressScreen from "screens/AddressScreen";
 import PickerActivityScreen from "screens/PickerActivityScreen";
+import UserNewPaymentScreen from "screens/UserNewPaymentScreen";
 import PickerGoToLocationScreen from "screens/PickerGoToLocationScreen";
 
 import { Provider } from "react-redux";
@@ -250,6 +251,11 @@ export default function App() {
               name="PickerNewPayment"
               component={PickerNewPayementScreen}
             />
+            <Stack.Screen
+              name="UserNewPayment"
+              component={UserNewPaymentScreen}
+            />
+            <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen
               name="UserTabNavigator"
               component={UserTabNavigator}
