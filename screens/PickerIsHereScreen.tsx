@@ -13,7 +13,6 @@ import { FontAwesome } from "react-native-vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ArrowBack from "@/components/ArrowBack";
 import CustomButton from "@/components/CustomButton";
-import CustomModal from "@/components/Modal";
 
 function PickerIsHereScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -52,17 +51,7 @@ function PickerIsHereScreen() {
             <View style={styles.code}>
               <CustomButton onPressFunction={() => setModalVisible(true)}>
                 Secret Code
-              </CustomButton>
-              <CustomModal
-                isVisible={isModalVisible}
-                onClose={() => setModalVisible(false)}
-                title="Voici le Code"
-                code={1234}
-              > 
-              
-                <CustomButton
-                onPressFunction={() => setModalVisible(false)} width={100}>Close</CustomButton>
-              </CustomModal>
+              </Custom
             </View>
           </View>
         </ScrollView>
