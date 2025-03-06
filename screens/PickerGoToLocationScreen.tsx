@@ -1,9 +1,9 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import Map from "@/components/Map";
+import Map, { Coordinates } from "@/components/Map";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
 import Input from "@/components/Input";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "@/store/hooks";
 import * as Location from "expo-location";
 import { LatitudeLongitude } from "@/utils/distance";
@@ -19,10 +19,29 @@ function PickerGoToLocationScreen({ navigation }) {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
-        const location = await Location.getCurrentPositionAsync({});
-        setLocation({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
+        Location.watchPositionAsync({ timeInterval: 1000, distanceInterval: 50 }, (location) => {
+          setLocation({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+          });
+          fetch(
+            process.env.EXPO_PUBLIC_BACKEND_URL +
+              "/deliveries/updatePickerPosition/",
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                deliveryId: deliveryData.deliveryId,
+                latitude: location.coords?.latitude ?? 0,
+                longitude: location.coords?.longitude ?? 0,
+              }),
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              console.log("Position updated");
+            });
         });
       }
     })();
