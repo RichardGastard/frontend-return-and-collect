@@ -7,8 +7,9 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hooks";
 import * as Location from "expo-location";
 import { LatitudeLongitude } from "@/utils/distance";
+import { DeliveryStatus } from "@/utils/enums";
 
-function PickerGoToLocationScreen() {
+function PickerGoToLocationScreen({ navigation }) {
   const [location, setLocation] = useState<LatitudeLongitude>(null);
   const [secretCode, setSecretCode] = useState<string>("");
   const deliveryData = useAppSelector((state) => state.deliveries.value);
@@ -25,7 +26,7 @@ function PickerGoToLocationScreen() {
         });
       }
     })();
-  }, []); 
+  }, []);
 
   function handleCodeSubmission() {
     fetch(
@@ -42,9 +43,22 @@ function PickerGoToLocationScreen() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log("OK  ! Faire le screen pour confirmer la délivraison");
+          fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/status", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              deliveryId: deliveryData.deliveryId,
+              status: DeliveryStatus.IN_TRANSIT,
+            }),
+          })
+            .then((response) => response.json())
+            .then((res) => {
+              if (res.result) {
+                navigation.navigate("PickerGoToUnload");
+              }
+            });
         } else {
-          console.log("Mauvais code");
+          alert("Le code est erroné");
         }
       });
   }
