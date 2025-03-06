@@ -30,6 +30,18 @@ function UserFollowPickerScreen() {
   const deliveryData = useAppSelector((state) => state.deliveries.value);
 
   useEffect(() => {
+    fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL +
+        "/reviews/meanRating/" +
+        deliveryData.pickerId
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setPickerRating(data.meanRating);
+      });
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       fetch(
         process.env.EXPO_PUBLIC_BACKEND_URL +
@@ -45,7 +57,6 @@ function UserFollowPickerScreen() {
             setPickerNumberOfDeliveries(
               data.delivery.pickerId.numberOfDeliveries
             );
-            setPickerRating(data.delivery.pickerId.rating);
             setPickerTransportType(data.delivery.pickerId.transportType);
             setPickerNumberOfDeliveries(data.delivery.pickerId.numberOfRatings);
             setUserSecretCode(data.delivery.secretCode);
@@ -60,7 +71,7 @@ function UserFollowPickerScreen() {
     <Layout
       title="Suivi du collecteur"
       description="Suivez en temps réel votre délivraison"
-      arrowBack
+      arrowSkip="UserTabNavigator"
       footer
     >
       <ScrollView
