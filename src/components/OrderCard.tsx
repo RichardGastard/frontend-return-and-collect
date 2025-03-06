@@ -1,12 +1,14 @@
+import { DeliveryStatus } from "@/utils/enums";
 import React from "react";
 import { Image, View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 type CardProps = {
-  orderNumber: number;
+  orderNumber: string;
   location: string;
   collector: string;
   price: number;
-  status?: boolean;
+  status: string;
   date: string; // DATE ?
 };
 
@@ -15,12 +17,26 @@ function OrderCard({
   location,
   collector,
   price,
-  status = false,
+  status,
   date,
 }: CardProps) {
+  const navigation = useNavigation<any>();
   return (
     <TouchableOpacity
-      style={status ? styles.containerValid : styles.containerInvalid}
+      style={
+        status === DeliveryStatus.DELIVERED
+          ? styles.containerDelivered
+          : status === DeliveryStatus.LOOKING_FOR_PICKER
+          ? styles.containerLookingForPicker
+          : status === DeliveryStatus.ASSIGNED
+          ? styles.containerAssigned
+          : styles.containerCanceled
+      }
+      onPress={() => {
+        if (status === DeliveryStatus.ASSIGNED) {
+          navigation.navigate("UserFollowPicker");
+        }
+      }}
     >
       <View style={{ flexDirection: "row" }}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
@@ -37,7 +53,14 @@ function OrderCard({
           }}
         >
           <Text style={styles.title}>
-            N°{orderNumber} {status ? "✅" : "❌"}
+            N°{orderNumber.toUpperCase()}{" "}
+            {status === DeliveryStatus.DELIVERED
+              ? "✅"
+              : status === DeliveryStatus.LOOKING_FOR_PICKER
+              ? "🔎"
+              : status === DeliveryStatus.ASSIGNED
+              ? "🙋‍♂️"
+              : "❌"}
           </Text>
           <Text style={styles.cardContent}>📍 {location}</Text>
           <Text style={styles.cardContent}>👤 {collector}</Text>
@@ -49,7 +72,12 @@ function OrderCard({
               flex: 1,
             }}
           >
-            <Text style={(styles.cardContent, { opacity: 0.2, fontSize: 11, position: "absolute", right: 10 })}>
+            <Text
+              style={
+                (styles.cardContent,
+                { opacity: 0.2, fontSize: 11, position: "absolute", right: 10 })
+              }
+            >
               {date}
             </Text>
           </View>
@@ -60,7 +88,7 @@ function OrderCard({
 }
 
 const styles = StyleSheet.create({
-  containerInvalid: {
+  containerCanceled: {
     height: 160,
     width: "99%",
     borderWidth: 0.5,
@@ -71,7 +99,7 @@ const styles = StyleSheet.create({
     borderRightColor: "#febbba80",
     boxShadow: "5px 5px 5px #ff525255",
   },
-  containerValid: {
+  containerDelivered: {
     height: 160,
     width: "99%",
     borderWidth: 0.5,
@@ -82,14 +110,33 @@ const styles = StyleSheet.create({
     borderRightColor: "#08CC0A40",
     boxShadow: "5px 5px 5px #08CC0A30",
   },
+  containerLookingForPicker: {
+    height: 160,
+    width: "99%",
+    borderWidth: 0.5,
+    borderRadius: 30,
+    justifyContent: "center",
+    borderColor: "#52525220",
+    borderBottomColor: "#ED7F1020",
+    borderRightColor: "#ED7F1030",
+    boxShadow: "5px 5px 5px #ED7F1040",
+  },
+  containerAssigned: {
+    height: 160,
+    width: "99%",
+    borderWidth: 0.5,
+    borderRadius: 30,
+    justifyContent: "center",
+    borderColor: "#52525220",
+    borderBottomColor: "#FFFF0020",
+    borderRightColor: "#FFFF0030",
+    boxShadow: "5px 5px 5px #FFFF0050",
+  },
   image: {
     width: 140,
     height: 140,
     borderRadius: 100,
     alignSelf: "center",
-    // borderRightWidth: 0.3,
-    // borderRightColor: "#525252",
-    // marginRight: "5%",
   },
   title: {
     fontFamily: "Public-Sans-Bold",
