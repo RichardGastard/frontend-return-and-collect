@@ -37,7 +37,6 @@ function UserNewPayementScreen({ navigation }) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data)
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
           navigation.navigate("UserChangePayment");
