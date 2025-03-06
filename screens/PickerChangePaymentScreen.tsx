@@ -88,8 +88,7 @@ const userData = useAppSelector(state => state.users.value)
               <CustomButton
                 onPressFunction={() => {
                   navigation.navigate(
-                    "PickerAccount",
-                    console.log("Votre compte bancaire a bien été changé")
+                    "PickerAccount"
                   );
                 }}
               >
