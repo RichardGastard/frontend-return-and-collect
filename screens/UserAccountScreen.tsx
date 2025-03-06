@@ -78,7 +78,7 @@ function UserAccountScreen({ navigation }) {
         </CustomButton>
         <CustomButton
           onPressFunction={() => {
-            navigation.navigate("UserChangePaiement");
+            navigation.navigate("UserChangePayment");
           }}
         >
           Votre moyen de paiement

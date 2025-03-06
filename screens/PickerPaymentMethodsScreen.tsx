@@ -12,6 +12,7 @@ import ArrowBack from "@/components/ArrowBack";
 import Layout from "@/components/Layout";
 
 import Input from "@/components/Input";
+import { useAppSelector } from "@/store/hooks";
 
 function PickerPayement({ navigation }) {
   const [iban, setIban] = useState<string>("");
@@ -19,10 +20,13 @@ function PickerPayement({ navigation }) {
   const [bic, setBic] = useState<string>("");
   const [bankName, setbankName] = useState<string>("");
 
+  const userData = useAppSelector((state) => state.users.value);
+
   function handleRegistercreditMethod() {
     fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/iban", {
       method: "POST",
       body: JSON.stringify({
+        token: userData.token,
         name: name,
         bankName: bankName,
         iban: iban,
@@ -32,7 +36,7 @@ function PickerPayement({ navigation }) {
     })
       .then((r) => r.json())
       .then((data) => {
-        // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
+        console.log(data)
         if (data.result) {
           navigation.navigate("Validation");
         }

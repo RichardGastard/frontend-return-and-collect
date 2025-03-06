@@ -11,34 +11,38 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
+import { useAppSelector } from "@/store/hooks";
 
 function UserNewPayementScreen({ navigation }) {
-  const [bankName, setbankName] = useState<string>("")
+  const [bankName, setBankName] = useState<string>("");
   const [cardHolder, setCardHolder] = useState<string>("");
   const [cardNumber, setcardNumber] = useState<string>("");
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [securityNumber, setSecurityNumber] = useState<string>("");
 
+  const userData = useAppSelector((state) => state.users.value);
 
   function handleRegisterpaymentMethod() {
     fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/payments/card", {
       method: "POST",
       body: JSON.stringify({
-      bankName: bankName,
-      name: cardHolder,
-      creditCardNumber: cardNumber,
-      expirationDate: expirationDate,
-      creditCardSecurityDigits: securityNumber
+        token: userData.token,
+        bankName: bankName,
+        name: cardHolder,
+        creditCardNumber: cardNumber,
+        expirationDate: expirationDate,
+        creditCardSecurityDigits: securityNumber,
       }),
       headers: { "Content-Type": "application/json" },
     })
       .then((r) => r.json())
       .then((data) => {
+        console.log(data)
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
           navigation.navigate("UserChangePayment");
         }
-      });
+      })
   }
 
   return (
@@ -59,11 +63,34 @@ function UserNewPayementScreen({ navigation }) {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.container}>
-            <Input label="Nom de la banque" />
-            <Input label="Titulaire de la carte" />
-            <Input label="Numéro de la carte" keyboardType="numeric" />
-            <Input label="Date d'expiration" keyboardType="numeric" />
-            <Input label="CVV" keyboardType="numeric" />
+            <Input
+              label="Nom de la banque"
+              onChangeText={(value) => setBankName(value)}
+              value={bankName}
+            />
+            <Input
+              label="Titulaire de la carte"
+              onChangeText={(value) => setCardHolder(value)}
+              value={cardHolder}
+            />
+            <Input
+              label="Numéro de la carte"
+              keyboardType="numeric"
+              onChangeText={(value) => setcardNumber(value)}
+              value={cardNumber}
+            />
+            <Input
+              label="Date d'expiration"
+              keyboardType="numeric"
+              onChangeText={(value) => setExpirationDate(value)}
+              value={expirationDate}
+            />
+            <Input
+              label="CVV"
+              keyboardType="numeric"
+              onChangeText={(value) => setSecurityNumber(value)}
+              value={securityNumber}
+            />
             <CustomButton
               onPressFunction={() => {
                 handleRegisterpaymentMethod();

@@ -14,6 +14,7 @@ import {
 import useKeyboardHeight from "react-native-use-keyboard-height";
 import BankAccount from "@/components/BankAccount";
 import { useSwipe } from "hook/useSwipe";
+import { useAppSelector } from "@/store/hooks";
 
 function PickerChangePaymentScreen({ navigation }) {
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 3);
@@ -31,17 +32,17 @@ function PickerChangePaymentScreen({ navigation }) {
   const [iban, setIban] = useState<string>("");
   const [bic, setBic] = useState<string>("");
 
-
+const userData = useAppSelector(state => state.users.value)
 
 
   useEffect(() => {
-      fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/accountInfos/")
+      fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/accountInfos/" + userData.token)
         .then((response) => response.json())
         .then((data) => {
-          setbankName(data.creditMethod.bankName);
-          setName(data.creditMethod.name);
-          setIban(data.creditMethod.iban);
-          setBic(data.creditMethod.bic);
+          setbankName(data.data.bankName);
+          setName(data.data.name);
+          setIban(data.data.iban);
+          setBic(data.data.bic);
         });
     }, []);
 
@@ -87,7 +88,7 @@ function PickerChangePaymentScreen({ navigation }) {
               <CustomButton
                 onPressFunction={() => {
                   navigation.navigate(
-                    "PickerAccountScreen",
+                    "PickerAccount",
                     console.log("Votre compte bancaire a bien été changé")
                   );
                 }}

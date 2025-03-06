@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import useKeyboardHeight from "react-native-use-keyboard-height";
+import { useAppSelector } from "@/store/hooks";
 
 function UserChangePaiementScreen({ navigation }) {
 
@@ -21,15 +22,16 @@ function UserChangePaiementScreen({ navigation }) {
   const [name, setName] = useState<string>("");
   const [creditCardNumber, setCreditCardNumber] = useState<string>("");
   const [expirationDate, setExpirationDate] = useState<string>("");
+  const userData = useAppSelector(state => state.users.value);
 
   useEffect(() => {
-        fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/cardInfos/")
+        fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/cardInfos/" + userData.token)
           .then((response) => response.json())
           .then((data) => {
-            setbankName(data.paymentMethod.bankName);
-            setName(data.paymentMethod.name);
-            setCreditCardNumber(data.paymentMethod.creditCardNumber);
-            setExpirationDate(data.paymentMethod.expirationDate);
+            setbankName(data.data.bankName);
+            setName(data.data.name);
+            setCreditCardNumber(data.data.creditCardNumber);
+            setExpirationDate(data.data.expirationDate);
           });
       }, []);
 
@@ -63,7 +65,7 @@ function UserChangePaiementScreen({ navigation }) {
             <CustomButton
               onPressFunction={() => {
                 navigation.navigate(
-                  "Payment",
+                  "UserNewPayment",
                 );
               }}
             >
