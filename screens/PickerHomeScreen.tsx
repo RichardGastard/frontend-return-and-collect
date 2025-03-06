@@ -7,7 +7,7 @@ import WheelPicker from "@/components/WheelPicker";
 import { useSwipe } from "hook/useSwipe";
 
 import { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 import { useAppSelector } from "@/store/hooks";
 import { useAppDispatch } from "@/store/hooks";
@@ -61,6 +61,7 @@ function PickerHomeScreen({ navigation }) {
       body: JSON.stringify({
         token: userData.token,
         isAvailable: true,
+        transportType: pickerVehicle,
       }),
       headers: { "Content-Type": "application/json" },
     })
@@ -80,6 +81,7 @@ function PickerHomeScreen({ navigation }) {
     <Layout
       title="Disponibilité"
       description="Vous pouvez mettre les informations pour votre délivraison"
+      footer
     >
       <View
         onTouchStart={onTouchStart}
@@ -142,6 +144,32 @@ function PickerHomeScreen({ navigation }) {
                   {isAvailable ? "Disponible" : "Non disponible"}
                 </CustomButton>
               </View>
+              {isAvailable && (
+                <View
+                  style={{
+                    marginTop: "10%",
+                    top: 40,
+                    width: "80%",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("PickerFoundScreen");
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "Poppins-Regular",
+                        color: "#52525280",
+                      }}
+                    >
+                      Voir les délivraisons en attente
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           )}
         </View>

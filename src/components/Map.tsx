@@ -13,6 +13,7 @@ export type Coordinates = {
 type MapProps = {
   dedeliveryPosition?: Coordinates;
   pickerPosition?: Coordinates;
+  unloadPosition?: Coordinates;
   height?: DimensionValue;
   width?: DimensionValue;
 };
@@ -22,6 +23,7 @@ const GOOGLE_MAPS_APIKEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_APIKEY;
 export default function Map({
   dedeliveryPosition,
   pickerPosition,
+  unloadPosition,
   height = (Dimensions.get("window").height * 40) / 100,
   width = (Dimensions.get("window").width * 90) / 100,
 }: MapProps) {
@@ -50,22 +52,21 @@ export default function Map({
 
   // Lorsque la position est acquise, la MapView se focalise sur la position
   useEffect(() => {
-    if (dedeliveryPosition) {
+    if (dedeliveryPosition || unloadPosition) {
       let deltaMax = 0.005;
-      let barycentre = { ...dedeliveryPosition };
-      if (pickerPosition && dedeliveryPosition) {
+      const targetPosition = dedeliveryPosition ?? unloadPosition;
+      let barycentre = { ...targetPosition };
+      if (pickerPosition && targetPosition) {
         barycentre.latitude =
-          (dedeliveryPosition.latitude + dedeliveryPosition.latitude) / 2;
+          (targetPosition.latitude + pickerPosition.latitude) / 2;
         barycentre.longitude =
-          (dedeliveryPosition.longitude + dedeliveryPosition.longitude) / 2;
+          (targetPosition.longitude + pickerPosition.longitude) / 2;
         deltaMax = Math.max(
-          Math.abs(dedeliveryPosition.latitude - dedeliveryPosition.latitude) *
-            1.3,
+          Math.abs(targetPosition.latitude - pickerPosition.latitude) * 1.3,
           deltaMax
         );
         deltaMax = Math.max(
-          Math.abs(pickerPosition.longitude - dedeliveryPosition.longitude) *
-            1.3,
+          Math.abs(pickerPosition.longitude - targetPosition.longitude) * 1.3,
           deltaMax
         );
       }
@@ -81,9 +82,9 @@ export default function Map({
           1000
         );
         mapViewDirectionsRef.current?.forceUpdate();
-      }, 200);
+      }, 1000);
     }
-  }, [dedeliveryPosition]);
+  }, [dedeliveryPosition, pickerPosition]);
 
   // TODO : Mettre des images/icons pour les markers
   return (
@@ -101,9 +102,20 @@ export default function Map({
       showsUserLocation={true}
       // rotateEnabled={false}
     >
-      <Marker coordinate={dedeliveryPosition}>
-        <MaterialCommunityIcons name="human-greeting" size={48} color="black" />
-      </Marker>
+      {dedeliveryPosition && (
+        <Marker coordinate={dedeliveryPosition}>
+          <MaterialCommunityIcons
+            name="human-greeting"
+            size={48}
+            color="black"
+          />
+        </Marker>
+      )}
+      {unloadPosition && (
+        <Marker coordinate={unloadPosition}>
+          <MaterialCommunityIcons name="warehouse" size={48} color="black" />
+        </Marker>
+      )}
       {pickerPosition && (
         <>
           {/* TODO: Changer les MaterialIcons en Image */}
@@ -117,8 +129,8 @@ export default function Map({
           {location && (
             <MapViewDirections
               ref={mapViewDirectionsRef}
-              origin={dedeliveryPosition}
-              destination={pickerPosition}
+              origin={pickerPosition}
+              destination={dedeliveryPosition ?? unloadPosition}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={3}
               strokeColor="blue"

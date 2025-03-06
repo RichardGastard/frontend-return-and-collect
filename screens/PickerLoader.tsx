@@ -7,6 +7,7 @@ import { View, StyleSheet } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loadDelivery, unloadDelivery } from "@/reducers/deliveries";
+import { DeliveryStatus } from "@/utils/enums";
 
 function PickerLoader({ navigation }) {
   const [suspension, setSuspension] = useState<string>("");
@@ -46,6 +47,7 @@ function PickerLoader({ navigation }) {
         token: userData.token,
         description: "Pas de description",
         pickupAddress: deliveryStoreData.pickupAddress,
+        pickupPosition: deliveryStoreData.pickupPosition,
         volume: deliveryStoreData.volume,
         size: deliveryStoreData.size,
       }),
@@ -62,12 +64,13 @@ function PickerLoader({ navigation }) {
 
     // On dismount, cancel delivery
     return () => {
-      fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/cancel", {
-        method: "POST",
+      fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/deliveries/status", {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           token: userData.token,
           deliveryId: deliveryIdRef.current,
+          status: DeliveryStatus.CANCELED
         }),
       })
         .then((response) => response.json())

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import {
   Text,
@@ -17,9 +18,9 @@ import CustomModal from "@/components/Modal";
 function PickerIsHereScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
 
-    const handleSecretCode = () => {
-      setModalVisible(!isModalVisible);
-    };
+  const handleSecretCode = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -109,10 +110,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     height: 20,
   },
-  closeText:{
+  closeText: {
     color: "white",
     textAlign: "center",
-  }
+  },
 });
 
 export default PickerIsHereScreen;

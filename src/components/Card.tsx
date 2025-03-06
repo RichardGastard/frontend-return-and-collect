@@ -8,7 +8,7 @@ type CardProps = {
   name: string;
   ratedStars: number;
   numberOfDeliveries: string;
-  vehicle: "velo" | "scooter" | "voiture" | "fourgon";
+  vehicle: "Vélo 🚲" | "Scooter 🛵" | "Voiture 🚗" | "Camion 🚛";
 };
 
 function Card(props: CardProps) {
@@ -18,9 +18,23 @@ function Card(props: CardProps) {
         <Image source={props.image} style={styles.image} />
       </View>
       <View style={styles.infos}>
+        {/* <View
+          style={{
+            width: "80%",
+            alignItems: "center",
+            paddingBottom: 10,
+            borderWidth: 1,
+          }}
+        > */}
         <Text style={styles.name}>{props.name}</Text>
+        {/* </View> */}
         <View style={styles.stars}>{renderStars(props.ratedStars)}</View>
-        <Text style={styles.deliveries}>{props.numberOfDeliveries}</Text>
+        <Text style={styles.deliveries}>
+          {props.numberOfDeliveries}{" "}
+          {Number(props.numberOfDeliveries) > 1
+            ? "délivraisons"
+            : "délivraison"}
+        </Text>
         <View style={styles.vehicle}>
           <FontAwesome5
             name={getVehicleIcon(props.vehicle)}
@@ -67,16 +81,16 @@ const renderStars = (rated: number) => {
 };
 
 const getVehicleIcon = (
-  vehicle: "velo" | "scooter" | "voiture" | "fourgon"
+  vehicle: "Vélo 🚲" | "Scooter 🛵" | "Voiture 🚗" | "Camion 🚛"
 ) => {
   switch (vehicle) {
-    case "velo":
+    case "Vélo 🚲":
       return "bicycle";
-    case "scooter":
+    case "Scooter 🛵":
       return "motorcycle";
-    case "voiture":
+    case "Voiture 🚗":
       return "car";
-    case "fourgon":
+    case "Camion 🚛":
       return "truck";
     default:
       return "bicycle";
@@ -113,10 +127,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderLeftWidth: 0.2,
     borderLeftColor: "#52525250",
-    marginLeft: 30
+    marginLeft: 30,
   },
   name: {
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: "Public-Sans-Bold",
     color: "#525252",
     fontWeight: "900",
@@ -129,6 +143,6 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Regular",
     color: "#525252",
   },
-  vehicle: { position: "relative", left: 30 },
+  vehicle: { position: "relative", left: 30, marginTop: 10 },
 });
 export default Card;

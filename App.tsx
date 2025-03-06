@@ -36,6 +36,7 @@ import PickerHomeScreen from "screens/PickerHomeScreen";
 import AddressScreen from "screens/AddressScreen";
 import PickerActivityScreen from "screens/PickerActivityScreen";
 import UserNewPaymentScreen from "screens/UserNewPaymentScreen";
+import PickerGoToLocationScreen from "screens/PickerGoToLocationScreen";
 
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -48,6 +49,7 @@ import { enableScreens } from "react-native-screens";
 
 // NEW IMPORT
 import { useFonts } from "expo-font";
+import PickerGoToUnloadScreen from "screens/PickerGoToUnloadScreen";
 
 enableScreens();
 
@@ -167,12 +169,20 @@ export default function App() {
             {/* PICKER SCREENS */}
             <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
             <Stack.Screen
+              name="PickerFoundScreen"
+              component={PickerFoundScreen}
+            />
+            <Stack.Screen
               name="PickerTabNavigator"
               component={PickerTabNavigator}
             />
             <Stack.Screen
-              name="PickerFoundScreen"
-              component={PickerFoundScreen}
+              name="PickerGoToLocation"
+              component={PickerGoToLocationScreen}
+            />
+            <Stack.Screen
+              name="PickerGoToUnload"
+              component={PickerGoToUnloadScreen}
             />
             {/* USER SCREENS */}
             <Stack.Screen name="SignUp" component={SignUpScreen} />
@@ -180,10 +190,6 @@ export default function App() {
             <Stack.Screen
               name="PickerPayment"
               component={PickerPaymentMethodScreen}
-            />
-            <Stack.Screen
-              name="UserFollowPicker"
-              component={UserFollowPickerScreen}
             />
             <Stack.Screen name="Coordinates" component={CoordinatesScreen} />
             <Stack.Screen name="Address" component={AddressScreen} />
@@ -199,11 +205,11 @@ export default function App() {
               component={UserSelectSizeScreen}
             />
             <Stack.Screen name="PickerLoader" component={PickerLoader} />
-            <Stack.Screen name="UserPickerFound" component={UserPickerFound} />
             <Stack.Screen
               name="UserCurrentPosition"
               component={UserCurrentPositionScreen}
             />
+            <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen
               name="UserRatePicker"
               component={UserRatePickerScreen}
@@ -213,6 +219,10 @@ export default function App() {
               component={UserChangePaymentScreen}
             />
             <Stack.Screen
+              name="UserFollowPicker"
+              component={UserFollowPickerScreen}
+            />
+            <Stack.Screen
               name="UserChangeAddress"
               component={UserChangeAdressScreen}
             />
@@ -220,6 +230,7 @@ export default function App() {
               name="UserChangePassword"
               component={UserChangePasswordScreen}
             />
+            <Stack.Screen name="UserPickerFound" component={UserPickerFound} />
             <Stack.Screen
               name="PickerAccount"
               component={PickerAccountScreen}

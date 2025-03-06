@@ -34,7 +34,7 @@ function UserActivityScreen({ navigation }) {
   useEffect(() => {
     fetch(
       process.env.EXPO_PUBLIC_BACKEND_URL +
-        "/deliveries/activity/" +
+        "/deliveries/userActivity/" +
         userData.token
     )
       .then((response) => response.json())
@@ -43,25 +43,29 @@ function UserActivityScreen({ navigation }) {
       });
   }, [refreshing]);
 
-  const deliveryCards = deliveriesData.map((delivery, i) => {
-    const collector = delivery.pickerId
-      ? delivery.pickerId.firstName +
-        " " +
-        delivery.pickerId.lastName.charAt(0).toUpperCase() +
-        "."
-      : "Collecteur non trouvé";
-    return (
-      <OrderCard
-        key={i}
-        orderNumber={delivery._id.substring(0, 5)}
-        location={delivery.pickupAddress}
-        collector={collector}
-        status={delivery === "DELIVERED"}
-        price={delivery.price}
-        date={delivery.createdAt.split("T")[0]}
-      ></OrderCard>
-    );
-  });
+  const deliveryCards = deliveriesData
+    .sort((a, b) => {
+      return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
+    })
+    .map((delivery, i) => {
+      const collector = delivery.pickerId
+        ? delivery.pickerId.firstName +
+          " " +
+          delivery.pickerId.lastName.charAt(0).toUpperCase() +
+          "."
+        : "Collecteur non trouvé";
+      return (
+        <OrderCard
+          key={i}
+          orderNumber={delivery._id.substring(0, 5)}
+          location={delivery.pickupAddress}
+          collector={collector}
+          status={delivery.status}
+          price={delivery.price}
+          date={delivery.createdAt.split("T")[0]}
+        ></OrderCard>
+      );
+    });
 
   function onSwipeRight() {}
   return (

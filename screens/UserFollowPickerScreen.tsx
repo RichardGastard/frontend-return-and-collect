@@ -4,12 +4,74 @@ import Card from "@/components/Card";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
 
+import CustomModal from "@/components/CustomModal";
+import { LatitudeLongitude } from "@/utils/distance";
+
+import { useAppSelector } from "@/store/hooks";
+
+import { useEffect, useState } from "react";
+
 function UserFollowPickerScreen() {
+  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+
+  const [pickerFirstname, setPickerFirstname] = useState<string>("");
+  const [pickerNumberOfDeliveries, setPickerNumberOfDeliveries] =
+    useState<string>(null);
+  const [pickerNumberOfRating, setPickerNumberOfRating] =
+    useState<number>(null);
+  const [pickerRating, setPickerRating] = useState<number>(null);
+  const [pickerTransportType, setPickerTransportType] = useState<string>("");
+
+  const [dedeliveryPosition, setDedeliveryPosition] =
+    useState<LatitudeLongitude>(null);
+  const [pickerPosition, setPickerPosition] = useState<LatitudeLongitude>(null);
+  const [userSecretCode, setUserSecretCode] = useState<string>("");
+
+  const deliveryData = useAppSelector((state) => state.deliveries.value);
+
+  useEffect(() => {
+    fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL +
+        "/reviews/meanRating/" +
+        deliveryData.pickerId
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setPickerRating(data.meanRating);
+      });
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(
+        process.env.EXPO_PUBLIC_BACKEND_URL +
+          "/deliveries/info/" +
+          deliveryData.deliveryId
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.delivery.pickupPosition && data.delivery.pickerPosition) {
+            setDedeliveryPosition(data.delivery.pickupPosition);
+            setPickerPosition(data.delivery.pickerPosition);
+            setPickerFirstname(data.delivery.pickerId.firstName);
+            setPickerNumberOfDeliveries(
+              data.delivery.pickerId.numberOfDeliveries
+            );
+            setPickerTransportType(data.delivery.pickerId.transportType);
+            setPickerNumberOfDeliveries(data.delivery.pickerId.numberOfRatings);
+            setUserSecretCode(data.delivery.secretCode);
+          }
+        });
+      //TODO : setInterval plus lent pour
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Layout
       title="Suivi du collecteur"
       description="Suivez en temps réel votre délivraison"
-      arrowBack
+      arrowSkip="UserTabNavigator"
       footer
     >
       <ScrollView
@@ -21,19 +83,37 @@ function UserFollowPickerScreen() {
           <Card
             //TODO : Real informations
             image={require("assets/livreur-4.jpg")}
-            name={"Bob"}
-            ratedStars={2.55}
-            numberOfDeliveries={"498 deliveries"}
-            vehicle={"scooter"}
+            name={pickerFirstname}
+            ratedStars={pickerRating}
+            numberOfDeliveries={pickerNumberOfDeliveries}
+            vehicle={pickerTransportType}
           />
         </View>
         <View style={styles.map}>
           <Map
-            pickerPosition={{ latitude: 43.26855, longitude: 5.385144 }}
+            pickerPosition={pickerPosition}
+            dedeliveryPosition={dedeliveryPosition}
           ></Map>
-          <CustomButton onPressFunction={() => console.log("ça continue")}>
+          <CustomButton
+            onPressFunction={() => {
+              setModalIsVisible(!modalIsVisible);
+            }}
+          >
             Secret Code
           </CustomButton>
+          <CustomModal
+            isVisible={modalIsVisible}
+            title="Votre code secret"
+            onClose={() => setModalIsVisible(false)}
+            code={userSecretCode}
+          >
+            <CustomButton
+              onPressFunction={() => setModalIsVisible(false)}
+              width={100}
+            >
+              Fermer
+            </CustomButton>
+          </CustomModal>
         </View>
       </ScrollView>
     </Layout>
