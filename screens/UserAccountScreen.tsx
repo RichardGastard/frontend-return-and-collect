@@ -2,7 +2,7 @@
 import Layout from "@/components/Layout";
 import CustomButton from "@/components/CustomButton";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 
 import { useSwipe } from "hook/useSwipe";

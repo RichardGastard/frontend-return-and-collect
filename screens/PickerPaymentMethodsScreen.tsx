@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,9 +6,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/CustomButton";
-import ArrowBack from "@/components/ArrowBack";
 import Layout from "@/components/Layout";
 
 import Input from "@/components/Input";

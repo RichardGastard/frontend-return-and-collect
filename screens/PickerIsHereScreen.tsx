@@ -1,19 +1,13 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
-  Button,
   Text,
-  TextInput,
   View,
   StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from "react-native";
-import { FontAwesome, FontAwesome5 } from "react-native-vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "react-native-vector-icons";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import ArrowBack from "@/components/ArrowBack";
