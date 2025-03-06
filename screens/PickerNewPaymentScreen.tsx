@@ -86,7 +86,6 @@ function PickerNewPayementScreen({ navigation }) {
             <CustomButton
               onPressFunction={() => {
                 handleRegistercreditMethod();
-                console.log("click")
               }}
             >
               Validez les informations
