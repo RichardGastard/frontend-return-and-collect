@@ -48,6 +48,7 @@ import { enableScreens } from "react-native-screens";
 
 // NEW IMPORT
 import { useFonts } from "expo-font";
+import PickerGoToUnloadScreen from "screens/PickerGoToUnloadScreen";
 
 enableScreens();
 
@@ -177,6 +178,10 @@ export default function App() {
             <Stack.Screen
               name="PickerGoToLocation"
               component={PickerGoToLocationScreen}
+            />
+            <Stack.Screen
+              name="PickerGoToUnload"
+              component={PickerGoToUnloadScreen}
             />
             {/* USER SCREENS */}
             <Stack.Screen name="SignUp" component={SignUpScreen} />
