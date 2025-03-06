@@ -60,7 +60,7 @@ function UserActivityScreen({ navigation }) {
           orderNumber={delivery._id.substring(0, 5)}
           location={delivery.pickupAddress}
           collector={collector}
-          status={delivery === "DELIVERED"}
+          status={delivery.status}
           price={delivery.price}
           date={delivery.createdAt.split("T")[0]}
         ></OrderCard>
