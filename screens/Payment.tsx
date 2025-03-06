@@ -37,7 +37,6 @@ function Payment({ navigation }) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data)
         if (data.result) {
           navigation.navigate("Validation");
         }
