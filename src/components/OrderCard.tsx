@@ -30,6 +30,8 @@ function OrderCard({
           ? styles.containerLookingForPicker
           : status === DeliveryStatus.ASSIGNED
           ? styles.containerAssigned
+          : status === DeliveryStatus.IN_TRANSIT
+          ? styles.containerInTransit
           : styles.containerCanceled
       }
       onPress={() => {
@@ -60,6 +62,8 @@ function OrderCard({
               ? "🔎"
               : status === DeliveryStatus.ASSIGNED
               ? "🙋‍♂️"
+              : status === DeliveryStatus.IN_TRANSIT
+              ? "⏳"
               : "❌"}
           </Text>
           <Text style={styles.cardContent}>📍 {location}</Text>
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#febbba70",
     borderRightColor: "#febbba80",
-    boxShadow: "5px 5px 5px #ff525255",
+    boxShadow: "5px 5px 5px #ff525255", // red
   },
   containerDelivered: {
     height: 160,
@@ -108,7 +112,7 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#08CC0A35",
     borderRightColor: "#08CC0A40",
-    boxShadow: "5px 5px 5px #08CC0A30",
+    boxShadow: "5px 5px 5px #08CC0A30", // green
   },
   containerLookingForPicker: {
     height: 160,
@@ -119,7 +123,18 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#ED7F1020",
     borderRightColor: "#ED7F1030",
-    boxShadow: "5px 5px 5px #ED7F1040",
+    boxShadow: "5px 5px 5px #ED7F1040", // yellow
+  },
+  containerInTransit: {
+    height: 160,
+    width: "99%",
+    borderWidth: 0.5,
+    borderRadius: 30,
+    justifyContent: "center",
+    borderColor: "#52525220",
+    borderBottomColor: "#9370DB40",
+    borderRightColor: "#9370DB30",
+    boxShadow: "5px 5px 5px #9370DB50", // purple
   },
   containerAssigned: {
     height: 160,
@@ -130,7 +145,7 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#FFFF0020",
     borderRightColor: "#FFFF0030",
-    boxShadow: "5px 5px 5px #FFFF0050",
+    boxShadow: "5px 5px 5px #9370DB", // green
   },
   image: {
     width: 140,
