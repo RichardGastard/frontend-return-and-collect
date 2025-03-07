@@ -100,7 +100,7 @@ function UserFollowPickerScreen() {
               setModalIsVisible(!modalIsVisible);
             }}
           >
-            Secret Code
+            Code secret
           </CustomButton>
           <CustomModal
             isVisible={modalIsVisible}
