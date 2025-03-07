@@ -2,6 +2,8 @@ import { DeliveryStatus } from "@/utils/enums";
 import React from "react";
 import { Image, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useAppDispatch } from "@/store/hooks";
+import { setReviewDeliveryId } from "@/reducers/reviews";
 
 type CardProps = {
   orderNumber: string;
@@ -10,6 +12,7 @@ type CardProps = {
   price: number;
   status: string;
   date: string; // DATE ?
+  deliveryId?:string,
 };
 
 function OrderCard({
@@ -19,8 +22,10 @@ function OrderCard({
   price,
   status,
   date,
+  deliveryId,
 }: CardProps) {
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
   return (
     <TouchableOpacity
       style={
@@ -37,6 +42,9 @@ function OrderCard({
       onPress={() => {
         if (status === DeliveryStatus.ASSIGNED) {
           navigation.navigate("UserFollowPicker");
+        } else if (status === DeliveryStatus.DELIVERED) {
+          dispatch(setReviewDeliveryId(deliveryId))
+          navigation.navigate("UserRatePicker");
         }
       }}
     >

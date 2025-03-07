@@ -22,7 +22,6 @@ import ArrowBack from "@/components/ArrowBack";
 import Input from "@/components/Input";
 import CustomButton from "@/components/CustomButton";
 import Logo from "@/components/Logo";
-import { pickerProfile } from "@/reducers/pickers";
 
 function WhatCanYouCarry({ navigation }) {
   const [profileName, setProfileName] = useState("");
@@ -48,13 +47,6 @@ function WhatCanYouCarry({ navigation }) {
   };
 
   const handleValidateSubmit = () => {
-    dispatch(
-      pickerProfile({
-        pickerProfilName: profileName,
-        pickerFromCapacity: selectedFromValue,
-        pickerToCapacity: selectedToValue,
-      })
-    );
     navigation.navigate("PickerPayment");
   };
 

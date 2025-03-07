@@ -17,33 +17,57 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-import ArrowBack from "@/components/ArrowBack";
 import CustomButton from "@/components/CustomButton";
 import Layout from "@/components/Layout";
 import RatingStars from "@/components/RatingStars";
+import { useAppSelector } from "@/store/hooks";
 
 function UserRatePickerScreen() {
-  const [name, setName] = useState<string>("MOMO");
+  const [name, setName] = useState<string>("Bob");
   const [image, setImage] = useState<string>();
   const [rate, setRate] = useState<number>();
   const [time, setTime] = useState<string>();
   const [packageNumber, setPackageNumber] = useState<number>(35);
 
+  const reviewData = useAppSelector((state) => state.reviews.value);
+  const userData = useAppSelector((state) => state.users.value);
+
   useEffect(() => {
-    fetch("http://192.168.1.119:3000/users/pickerInfo/_id")
+    fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL +
+        "/deliveries/info/" +
+        reviewData.deliveryId
+    )
       .then((response) => response.json())
       .then((data) => {
-        setName(data.firstName + data.lastName.charAt(0));
-        setRate(data.rating);
-        setTime("");
-        setPackageNumber(0);
+        setName(data.delivery.pickerId.firstName);
       });
   }, []);
 
+  function handleRatePicker() {
+    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/reviews/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token: userData.token,
+        deliveryId: reviewData.deliveryId,
+        rating: rate,
+        comment: "None",
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log("Success");
+        } else {
+          console.log("No success");
+        }
+      });
+  }
   return (
     <Layout
       title="Evaluation"
-      description="Evaluez le collecteur"
+      description={`Evaluez ${name}`}
       arrowBack
       arrowSkip=""
     >
@@ -58,11 +82,8 @@ function UserRatePickerScreen() {
             keyboardDismissMode="interactive"
             keyboardShouldPersistTaps="handled"
           >
-            <View style={styles.name}>
-              <Text style={styles.prenom}>{name}</Text>
-            </View>
             <Image
-              source={require("assets/chien.png")}
+              source={require("assets/livreur-4.jpg")}
               style={{
                 width: 300,
                 height: 300,
@@ -72,21 +93,11 @@ function UserRatePickerScreen() {
               }}
             />
             <View style={styles.rating}>
-              <RatingStars onPress={() => console.log()} />
+              <RatingStars onPress={(value) => setRate(value)} />
             </View>
-            <View style={styles.pkg}>
-              <Text style={styles.package}>
-                Numero de Paquet: {packageNumber}
-              </Text>
-            </View>
-            <View style={styles.time}>
-              <MaterialCommunityIcons
-                name="timer-outline"
-                size={40}
-                color="#febbba"
-              ></MaterialCommunityIcons>
-            </View>
-            <CustomButton>Rate</CustomButton>
+            <CustomButton onPressFunction={() => handleRatePicker()}>
+              Rate
+            </CustomButton>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -98,7 +109,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fffbf0",
-    padding: 20,
   },
   name: {
     alignItems: "center",
