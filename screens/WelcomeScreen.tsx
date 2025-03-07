@@ -1,49 +1,47 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  ScrollView,
-  Platform,
-} from "react-native";
+import { Text, View, StyleSheet, ScrollView, Platform } from "react-native";
 import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { KeyboardAvoidingView } from "react-native";
 import Loader from "@/components/Loader";
 import { useAppSelector } from "@/store/hooks";
+import { ActivityIndicator } from "react-native-paper";
 
 function WelcomeScreen({ navigation }) {
   const [name, setName] = useState<String>("");
   const [catchySentence, setCatchySentence] = useState<String>("");
-  
+  const userData = useAppSelector((state) => state.users.value);
 
-const userData = useAppSelector((state) => state.users.value)
+  // Ecran temporaire redirige en fonction de qui se connecte : l'utilisateur ou livreur.
 
-// Ecran temporaire redirige en fonction de qui se connecte : l'utilisateur ou livreur.
-
-useEffect(() => {
-  // Mettre à jour les états immédiatement
-  if (userData.userType === "PICKER") {
-    setName(userData.firstName);
-    setCatchySentence("Prêt pour effectuer une livraison ?");
-  } else {
-    setName(userData.firstName);
-    setCatchySentence("Vous avez un colis à retourner ?");
-  }
-
-  // Définir un délai pour la navigation
-  const timer = setTimeout(() => {
+  useEffect(() => {
+    // Mettre à jour les états immédiatement
     if (userData.userType === "PICKER") {
-      navigation.navigate("PickerTabNavigator");
-    } else {
-      navigation.navigate("UserTabNavigator");
-    }
-  }, 5000);
+      setName(userData.firstName);
 
-  return () => clearTimeout(timer);
-}, [userData, navigation]);
+      setCatchySentence("Prêt pour effectuer une livraison ?");
+    } else {
+      setName(userData.firstName);
+      setCatchySentence("Vous avez un colis à retourner ?");
+    }
+
+    // Définir un délai pour la navigation
+    const timer = setTimeout(() => {
+      if (userData.userType === "PICKER") {
+        navigation.navigate("PickerTabNavigator");
+      } else {
+        navigation.navigate("UserTabNavigator");
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [userData, navigation]);
 
   return (
-    <Layout title="Bienvenue" footer>
+    <Layout
+      title={`Bienvenue ${name}`}
+      description={`${catchySentence}`}
+      footer
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -55,29 +53,8 @@ useEffect(() => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.container}>
-            <Text
-              style={{
-                
-                fontSize: 20,
-                color: "#525252",
-                opacity: 0.8,
-                fontFamily: "Poppins-Regular",
-                borderBottomWidth: 0.3
-              }}
-            >
-              {name}
-            </Text>
-            <Loader></Loader>
-            <Text
-              style={{
-                fontSize: 16,
-                color: "#525252",
-                opacity: 0.8,
-                fontFamily: "Poppins-Regular",
-              }}
-            >
-              {catchySentence}
-            </Text>
+            <Loader big={true}></Loader>
+            <ActivityIndicator size="large" color="#febbba" />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -87,11 +64,11 @@ useEffect(() => {
 
 const styles = StyleSheet.create({
   container: {
-    
-    alignItems:"center",
+    alignItems: "center",
     flex: 1,
     backgroundColor: "#fffbf0",
-    padding: 0
+    paddingTop: 30,
+    gap: 30,
   },
   logoView: {
     alignItems: "center",
