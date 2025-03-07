@@ -9,7 +9,8 @@ import { LatitudeLongitude } from "@/utils/distance";
 
 import { useAppSelector } from "@/store/hooks";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 function UserFollowPickerScreen() {
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
@@ -41,32 +42,38 @@ function UserFollowPickerScreen() {
       });
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetch(
-        process.env.EXPO_PUBLIC_BACKEND_URL +
-          "/deliveries/info/" +
-          deliveryData.deliveryId
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.delivery.pickupPosition && data.delivery.pickerPosition) {
-            setDedeliveryPosition(data.delivery.pickupPosition);
-            setPickerPosition(data.delivery.pickerPosition);
-            setPickerFirstname(data.delivery.pickerId.firstName);
-            setPickerNumberOfDeliveries(
-              data.delivery.pickerId.numberOfDeliveries
-            );
-            setPickerTransportType(data.delivery.pickerId.transportType);
-            setPickerNumberOfDeliveries(data.delivery.pickerId.numberOfRatings);
-            setUserSecretCode(data.delivery.secretCode);
-          }
-        });
-      //TODO : setInterval plus lent pour
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
+  useFocusEffect(
+    React.useCallback(() => {
+      const interval = setInterval(() => {
+        fetch(
+          process.env.EXPO_PUBLIC_BACKEND_URL +
+            "/deliveries/info/" +
+            deliveryData.deliveryId
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.delivery.pickupPosition && data.delivery.pickerPosition) {
+              setDedeliveryPosition(data.delivery.pickupPosition);
+              setPickerPosition(data.delivery.pickerPosition);
+              setPickerFirstname(data.delivery.pickerId.firstName);
+              setPickerNumberOfDeliveries(
+                data.delivery.pickerId.numberOfDeliveries
+              );
+              setPickerTransportType(data.delivery.pickerId.transportType);
+              setPickerNumberOfDeliveries(
+                data.delivery.pickerId.numberOfRatings
+              );
+              setUserSecretCode(data.delivery.secretCode);
+            }
+          });
+        //TODO : setInterval plus lent pour
+      }, 3000);
+      return () => {
+        clearInterval(interval);
+      };
+    }, [])
+  );
+  
   return (
     <Layout
       title="Suivi du collecteur"

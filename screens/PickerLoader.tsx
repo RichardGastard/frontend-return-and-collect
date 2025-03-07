@@ -2,12 +2,13 @@
 import Loader from "@/components/Loader";
 import Layout from "@/components/Layout";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loadDelivery, unloadDelivery } from "@/reducers/deliveries";
 import { DeliveryStatus } from "@/utils/enums";
+import { useFocusEffect } from "@react-navigation/native";
 
 function PickerLoader({ navigation }) {
   const [suspension, setSuspension] = useState<string>("");
@@ -94,13 +95,16 @@ function PickerLoader({ navigation }) {
     return data;
   }
 
-  // Fetch many times the data
-  useEffect(() => {
-    const interval = setInterval(() => {
-      lookForPicker();
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [deliveryStoreData]);
+  useFocusEffect(
+    React.useCallback(() => {
+      const interval = setInterval(() => {
+        lookForPicker();
+      }, 3000);
+      return () => {
+        clearInterval(interval)
+      };
+    }, [deliveryStoreData])
+  );
 
   return (
     <Layout
