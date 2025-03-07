@@ -43,9 +43,10 @@
       }
     },
     "owner": "mimickael",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
+    "runtimeVersion": "1.0.0",
+    // {
+    //   "policy": "appVersion"
+    // },
     "updates": {
       "url": "https://u.expo.dev/7c8acf79-2f9d-41bb-8dd8-5a2e5df16a94"
     }

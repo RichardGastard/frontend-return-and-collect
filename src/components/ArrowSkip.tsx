@@ -13,6 +13,7 @@ function ArrowSkip({ skipTo }: ArrowSkipProps) {
   return (
     <TouchableOpacity
       onPress={() => {
+        console.log("arrowskip clicked");
         navigation.navigate(skipTo);
       }}
     >
