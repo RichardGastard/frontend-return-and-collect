@@ -34,7 +34,9 @@ function HomeScreen({ navigation }) {
   const [isLoginSuccessful, setIsLoginSuccessful] = useState<boolean>(true);
 
   const handleLoginSubmit = () => {
-    fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/users/signin", {
+    fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL
+      + "/users/signin", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ email: email, password: password }),
@@ -42,12 +44,20 @@ function HomeScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          dispatch(logIn({ email, token: data.token }));
-          if (data.userType === "PICKER") {
-            navigation.navigate("PickerTabNavigator");
-          } else {
-            navigation.navigate("UserTabNavigator");
-          }
+          dispatch(
+            logIn({
+              email,
+              token: data.token,
+              firstName: data.firstName,
+              userType: data.userType,
+            })
+          );
+          // if (data.userType === "PICKER") {
+          //   navigation.navigate("PickerTabNavigator");
+          // } else {
+          //   navigation.navigate("UserTabNavigator");
+          // }
+          navigation.navigate("WelcomeScreen");
         } else {
           setIsLoginSuccessful(false);
         }
