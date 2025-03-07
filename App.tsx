@@ -37,6 +37,7 @@ import AddressScreen from "screens/AddressScreen";
 import PickerActivityScreen from "screens/PickerActivityScreen";
 import UserNewPaymentScreen from "screens/UserNewPaymentScreen";
 import PickerGoToLocationScreen from "screens/PickerGoToLocationScreen";
+import WelcomeScreen from "screens/WelcomeScreen"
 
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -165,6 +166,7 @@ export default function App() {
           >
             {/* LET'S TRY IF CHANGE */}
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>
 
             {/* PICKER SCREENS */}
             <Stack.Screen name="PickerHome" component={PickerHomeScreen} />
