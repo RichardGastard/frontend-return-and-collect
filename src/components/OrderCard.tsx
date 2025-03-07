@@ -12,7 +12,7 @@ type CardProps = {
   price: number;
   status: string;
   date: string; // DATE ?
-  deliveryId?:string,
+  deliveryId?: string;
 };
 
 function OrderCard({
@@ -43,7 +43,7 @@ function OrderCard({
         if (status === DeliveryStatus.ASSIGNED) {
           navigation.navigate("UserFollowPicker");
         } else if (status === DeliveryStatus.DELIVERED) {
-          dispatch(setReviewDeliveryId(deliveryId))
+          dispatch(setReviewDeliveryId(deliveryId));
           navigation.navigate("UserRatePicker");
         }
       }}
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#9370DB40",
     borderRightColor: "#9370DB30",
-    boxShadow: "5px 5px 5px #9370DB50", // purple
+    boxShadow: "5px 5px 5px #9370DB40", // purple
   },
   containerAssigned: {
     height: 160,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     borderColor: "#52525220",
     borderBottomColor: "#FFFF0020",
     borderRightColor: "#FFFF0030",
-    boxShadow: "5px 5px 5px #9370DB", // green
+    boxShadow: "5px 5px 5px #FFF32060", // yellow
   },
   image: {
     width: 140,
