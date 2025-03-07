@@ -17,7 +17,11 @@ function ArrowSkip({ skipTo }: ArrowSkipProps) {
       }}
     >
       <MaterialCommunityIcons
-        name="arrow-right-drop-circle-outline"
+        name={
+          skipTo === "UserTabNavigator"
+            ? "home-circle-outline"
+            : "arrow-right-drop-circle-outline"
+        }
         size={40}
         color="#525252"
         style={{ opacity: 0.4 }}

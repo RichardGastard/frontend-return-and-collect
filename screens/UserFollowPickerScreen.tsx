@@ -50,6 +50,7 @@ function UserFollowPickerScreen() {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           if (data.delivery.pickupPosition && data.delivery.pickerPosition) {
             setDedeliveryPosition(data.delivery.pickupPosition);
             setPickerPosition(data.delivery.pickerPosition);

@@ -255,7 +255,6 @@ export default function App() {
               name="UserNewPayment"
               component={UserNewPaymentScreen}
             />
-            <Stack.Screen name="PickerIsHere" component={PickerIsHereScreen} />
             <Stack.Screen
               name="UserTabNavigator"
               component={UserTabNavigator}

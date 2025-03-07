@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import {
   Text,
@@ -51,7 +50,7 @@ function PickerIsHereScreen() {
             <View style={styles.code}>
               <CustomButton onPressFunction={() => setModalVisible(true)}>
                 Secret Code
-              </Custom
+              </CustomButton>
             </View>
           </View>
         </ScrollView>
