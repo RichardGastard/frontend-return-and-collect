@@ -2,13 +2,13 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import users from "../reducers/users";
-import pickers from "../reducers/pickers";
 import deliveries from "../reducers/deliveries";
+import reviews from "../reducers/reviews";
 
 const reducers = combineReducers({
   users,
-  pickers,
   deliveries,
+  reviews,
 });
 
 const persistConfig = { key: "applicationName", storage: AsyncStorage };

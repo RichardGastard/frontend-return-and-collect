@@ -57,6 +57,7 @@ function UserActivityScreen({ navigation }) {
       return (
         <OrderCard
           key={i}
+          deliveryId={delivery._id}
           orderNumber={delivery._id.substring(0, 5)}
           location={delivery.pickupAddress}
           collector={collector}
