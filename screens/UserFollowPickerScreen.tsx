@@ -38,7 +38,6 @@ function UserFollowPickerScreen() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setPickerRating(data.meanRating);
       });
   }, []);
