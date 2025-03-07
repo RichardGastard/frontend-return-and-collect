@@ -55,41 +55,48 @@ function UserAccountScreen({ navigation }) {
   return (
     <Layout
       title="Paramètres du compte"
-      description="Vous pouvez modifier les informations"
+      description="Vous pouvez modifier vos informations"
+      footer
     >
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{ height: "70%" }}
+        style={{ height: "70%", alignItems: "center" }}
       >
         <CustomButton
+          width={"90%"}
           onPressFunction={() => {
             navigation.navigate("UserChangePassword");
           }}
         >
-          Votre mot de passe
+          Mot de passe
         </CustomButton>
         <CustomButton
+          width={"90%"}
           onPressFunction={() => {
             navigation.navigate("UserChangeAddress");
           }}
         >
-          Votre adresse
+          Adresse
         </CustomButton>
         <CustomButton
+          width={"90%"}
           onPressFunction={() => {
             navigation.navigate("UserChangePayment");
           }}
         >
-          Votre moyen de paiement
+          Moyen de paiement
         </CustomButton>
 
         <View
           style={{
             marginTop: "20%",
+            width: "100%",
+            alignItems: "center",
           }}
         >
           <CustomButton
+            width={"50%"}
             onPressFunction={handleLogOff}
             backgroundColor="#ff5252"
           >

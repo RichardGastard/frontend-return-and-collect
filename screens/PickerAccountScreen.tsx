@@ -52,40 +52,40 @@ function PickerAccountScreen({ navigation }) {
   return (
     <Layout
       title="Paramètres du compte"
-      description="Vous pouvez modifier les informations"
+      description="Vous pouvez modifier vos informations"
+      footer
     >
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         style={{
           height: "70%",
-          justifyContent: "center",
           alignItems: "center",
         }}
       >
         <CustomButton
-          width={"75%"}
+          width={"90%"}
           onPressFunction={() => {
             navigation.navigate("PickerChangePassword");
           }}
         >
-          Votre mot de passe
+          Mot de passe
         </CustomButton>
         <CustomButton
-          width={"75%"}
+          width={"90%"}
           onPressFunction={() => {
             navigation.navigate("PickerChangeAddress");
           }}
         >
-          Votre adresse
+          Adresse
         </CustomButton>
         <CustomButton
-          width={"75%"}
+          width={"90%"}
           onPressFunction={() => {
             navigation.navigate("PickerChangePayment");
           }}
         >
-          Votre compte bancaire
+          Compte bancaire
         </CustomButton>
 
         <View

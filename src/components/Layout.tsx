@@ -40,7 +40,13 @@ function Layout({
         )}
 
         {arrowSkip && (
-          <View style={styles.arrowSkip}>
+          <View
+            style={
+              arrowSkip === "UserTabNavigator"
+                ? styles.arrowSkipHome
+                : styles.arrowSkip
+            }
+          >
             <ArrowSkip skipTo={arrowSkip as string} />
           </View>
         )}
@@ -92,6 +98,21 @@ const styles = StyleSheet.create({
   },
   arrowSkip: {
     right: 1,
+    position: "absolute",
+    marginTop: "18%",
+    marginRight: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16.0,
+
+    elevation: 24,
+  },
+  arrowSkipHome: {
+    alignSelf: "center",
     position: "absolute",
     marginTop: "18%",
     marginRight: "5%",
