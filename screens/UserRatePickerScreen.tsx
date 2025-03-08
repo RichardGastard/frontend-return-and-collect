@@ -66,10 +66,11 @@ function UserRatePickerScreen() {
   }
   return (
     <Layout
-      title="Evaluation"
-      description={`Evaluez ${name}`}
+      title={`Notez ${name}`}
+      description="Comment s'est passée la délivraison ?"
       arrowBack
       arrowSkip=""
+      footer
     >
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
@@ -85,19 +86,32 @@ function UserRatePickerScreen() {
             <Image
               source={require("assets/livreur-4.jpg")}
               style={{
-                width: 300,
-                height: 300,
+                width: 250,
+                height: 250,
                 borderRadius: 200,
                 alignSelf: "center",
                 marginTop: 25,
+                shadowOffset: {
+                  width: 250,
+                  height: 250,
+                },
+                shadowColor: "#525252",
               }}
             />
             <View style={styles.rating}>
               <RatingStars onPress={(value) => setRate(value)} />
             </View>
-            <CustomButton onPressFunction={() => handleRatePicker()}>
-              Rate
-            </CustomButton>
+            <View style={styles.btn}>
+              <CustomButton onPressFunction={() => handleRatePicker()}>
+                {rate === 5
+                  ? `C'était top, merci ${name} !! 🔥`
+                  : rate === 3 || rate === 4
+                  ? `Merci ${name} 👍`
+                  : rate === 2 || rate === 1
+                  ? `Service à améliorer 💩`
+                  : `Envoyer`}
+              </CustomButton>
+            </View>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -130,6 +144,9 @@ const styles = StyleSheet.create({
   time: {
     alignItems: "center",
     marginTop: 10,
+  },
+  btn: {
+    marginTop: 30,
   },
 });
 

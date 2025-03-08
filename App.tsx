@@ -51,6 +51,7 @@ import { enableScreens } from "react-native-screens";
 // NEW IMPORT
 import { useFonts } from "expo-font";
 import PickerGoToUnloadScreen from "screens/PickerGoToUnloadScreen";
+import { View } from "react-native";
 
 enableScreens();
 
@@ -66,6 +67,27 @@ const PickerTabNavigator = () => {
           let iconName = "";
           if (route.name === "Collect") {
             iconName = "package";
+            return (
+              <View
+                style={{
+                  width: "75",
+                  height: "50",
+                  borderWidth: 0.2,
+                  borderColor: "#52525250",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#fffbf0",
+                  borderRadius: 25,
+                  bottom: 17,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name={iconName}
+                  size={size + 14}
+                  color={color}
+                />
+              </View>
+            );
           } else if (route.name === "Profil") {
             iconName = "account-cog";
           } else if (route.name === "Historique") {
@@ -112,6 +134,27 @@ const UserTabNavigator = () => {
 
           if (route.name === "Return") {
             iconName = "package";
+            return (
+              <View
+                style={{
+                  width: "75",
+                  height: "50",
+                  borderWidth: 0.2,
+                  borderColor: "#52525250",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#fffbf0",
+                  borderRadius: 25,
+                  bottom: 17,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name={iconName}
+                  size={size + 14}
+                  color={color}
+                />
+              </View>
+            );
           } else if (route.name === "Historique") {
             iconName = "history";
           } else if (route.name === "Profil") {

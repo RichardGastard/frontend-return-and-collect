@@ -80,7 +80,7 @@ function UserChangePasswordScreen({ navigation }) {
                 value={newPassword}
               />
               <Input
-                label="Confirmation mot de passe"
+                label="Confirmation"
                 keyboardType="none"
                 onChangeText={(value) => setCopyNewPassword(value)}
                 value={copyNewPassword}
@@ -88,10 +88,7 @@ function UserChangePasswordScreen({ navigation }) {
             </View>
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate(
-                  "UserAccountScreen",
-                  console.log("Votre Mot de passe à bien été changée")
-                );
+                navigation.navigate("UserTabNavigator");
               }}
             >
               Validez
@@ -110,7 +107,7 @@ const styles = StyleSheet.create({
   },
   oldad: {
     marginTop: 30,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.3,
     height: 90,
   },
   newad: {

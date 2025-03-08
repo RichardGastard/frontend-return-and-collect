@@ -30,7 +30,7 @@ function PickerChangePasswordScreen({ navigation }) {
 
   return (
     <Layout
-      title="Changement mot de passe"
+      title="Changement de votre mot de passe"
       description="Remplissez les champs ci-dessous"
       footer
       arrowBack
@@ -74,10 +74,7 @@ function PickerChangePasswordScreen({ navigation }) {
             </View>
             <CustomButton
               onPressFunction={() => {
-                navigation.navigate(
-                  "UserAccountScreen",
-                  console.log("Votre Mot de passe à bien été changée")
-                );
+                navigation.navigate("PickerTabNavigator");
               }}
             >
               Validez
