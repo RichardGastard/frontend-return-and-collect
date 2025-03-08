@@ -70,9 +70,9 @@ function PickerHomeScreen({ navigation }) {
         // Envoie vers la page Account pour l'utilisateur puisse commpléter son profil
         if (data.result) {
           dispatch(updateAvailability());
-          if (!userData.isAvailable) {
-            navigation.navigate("PickerFoundScreen");
-          }
+          // if (!userData.isAvailable) {
+          //   navigation.navigate("PickerFoundScreen");
+          // }
         }
       });
   }

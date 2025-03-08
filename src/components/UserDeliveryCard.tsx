@@ -60,7 +60,7 @@ function UserDeliveryCard({
           }}
         >
           <Text style={styles.title}>
-            N°{orderNumber} {status || isTaken ? "✅" : "⏳"}
+            N°{orderNumber.toUpperCase()} {status || isTaken ? "✅" : "⏳"}
           </Text>
           <Text style={styles.cardContent}>👤 {user}</Text>
           <Text style={styles.cardContent}>📦 {packageSize}</Text>

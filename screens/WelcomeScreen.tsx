@@ -1,10 +1,11 @@
 import { Text, View, StyleSheet, ScrollView, Platform } from "react-native";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { KeyboardAvoidingView } from "react-native";
 import Loader from "@/components/Loader";
 import { useAppSelector } from "@/store/hooks";
 import { ActivityIndicator } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 
 function WelcomeScreen({ navigation }) {
   const [name, setName] = useState<String>("");
@@ -13,28 +14,30 @@ function WelcomeScreen({ navigation }) {
 
   // Ecran temporaire redirige en fonction de qui se connecte : l'utilisateur ou livreur.
 
-  useEffect(() => {
-    // Mettre à jour les états immédiatement
-    if (userData.userType === "PICKER") {
-      setName(userData.firstName);
-
-      setCatchySentence("Prêt pour effectuer une livraison ?");
-    } else {
-      setName(userData.firstName);
-      setCatchySentence("Vous avez un colis à retourner ?");
-    }
-
-    // Définir un délai pour la navigation
-    const timer = setTimeout(() => {
+  useFocusEffect(
+    React.useCallback(() => {
       if (userData.userType === "PICKER") {
-        navigation.navigate("PickerTabNavigator");
+        setName(userData.firstName);
+  
+        setCatchySentence("Prêt pour effectuer une livraison ?");
       } else {
-        navigation.navigate("UserTabNavigator");
+        setName(userData.firstName);
+        setCatchySentence("Vous avez un colis à retourner ?");
       }
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [userData, navigation]);
+  
+      // Définir un délai pour la navigation
+      const timer = setTimeout(() => {
+        if (userData.userType === "PICKER") {
+          navigation.navigate("PickerTabNavigator");
+        } else {
+          navigation.navigate("UserTabNavigator");
+        }
+      }, 5000);
+      return () => {
+        clearTimeout(timer)
+      };
+    }, [userData, navigation])
+  );
 
   return (
     <Layout

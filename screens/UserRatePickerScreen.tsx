@@ -13,6 +13,7 @@ import {
   ScrollView,
   Keyboard,
   KeyboardEvent,
+  Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -22,7 +23,7 @@ import Layout from "@/components/Layout";
 import RatingStars from "@/components/RatingStars";
 import { useAppSelector } from "@/store/hooks";
 
-function UserRatePickerScreen() {
+function UserRatePickerScreen({navigation}) {
   const [name, setName] = useState<string>("Bob");
   const [image, setImage] = useState<string>();
   const [rate, setRate] = useState<number>();
@@ -58,7 +59,18 @@ function UserRatePickerScreen() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log("Success");
+          Alert.alert(
+            "Votre retour a bien été pris en compte",
+            `${name} vous remercie.`,
+            [
+              {
+                text: "Retour à l'accueil",
+                onPress: () => {
+                  navigation.navigate('UserTabNavigator');
+                },
+              },
+            ]
+          );
         } else {
           console.log("No success");
         }
