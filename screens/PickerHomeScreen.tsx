@@ -148,7 +148,7 @@ function PickerHomeScreen({ navigation }) {
                 <View
                   style={{
                     marginTop: "10%",
-                    top: 40,
+
                     width: "80%",
                     justifyContent: "flex-end",
                     alignItems: "center",
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
     shadowRadius: 16.0,
 
     elevation: 24,
+    bottom: 40,
   },
   available: {
     flex: 1,
@@ -206,6 +207,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8.0,
 
     elevation: 24,
+    bottom: 40,
   },
 });
 

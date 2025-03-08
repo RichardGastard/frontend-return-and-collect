@@ -32,19 +32,22 @@ function PickerChangePaymentScreen({ navigation }) {
   const [iban, setIban] = useState<string>("");
   const [bic, setBic] = useState<string>("");
 
-const userData = useAppSelector(state => state.users.value)
-
+  const userData = useAppSelector((state) => state.users.value);
 
   useEffect(() => {
-      fetch(process.env.EXPO_PUBLIC_BACKEND_URL +"/payments/accountInfos/" + userData.token)
-        .then((response) => response.json())
-        .then((data) => {
-          setbankName(data.data.bankName);
-          setName(data.data.name);
-          setIban(data.data.iban);
-          setBic(data.data.bic);
-        });
-    }, []);
+    fetch(
+      process.env.EXPO_PUBLIC_BACKEND_URL +
+        "/payments/accountInfos/" +
+        userData.token
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setbankName(data.data.bankName);
+        setName(data.data.name);
+        setIban(data.data.iban);
+        setBic(data.data.bic);
+      });
+  }, []);
 
   return (
     <Layout
@@ -82,17 +85,15 @@ const userData = useAppSelector(state => state.users.value)
                   navigation.navigate("PickerNewPayment");
                 }}
               >
-                Ajoutez un nouveau compte bancaire
+                Ajouter un nouveau compte bancaire
               </CustomButton>
 
               <CustomButton
                 onPressFunction={() => {
-                  navigation.navigate(
-                    "PickerAccount"
-                  );
+                  navigation.navigate("PickerTabNavigator");
                 }}
               >
-                Validez
+                Valider
               </CustomButton>
             </View>
           </View>

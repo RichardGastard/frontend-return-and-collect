@@ -32,7 +32,7 @@ function PickerChangeAddressScreen({ navigation }) {
 
   return (
     <Layout
-      title="Changement d'Adresse"
+      title="Changement d'adresse"
       description="Remplissez les champs ci-dessous"
       footer
       arrowBack
@@ -55,13 +55,13 @@ function PickerChangeAddressScreen({ navigation }) {
           >
             <View style={styles.newad}>
               <Input
-                label="Nouvelle Adresse"
+                label="Nouvelle adresse"
                 keyboardType="none"
                 onChangeText={(value) => setNewAdress(value)}
                 value={newAdress}
               />
               <Input
-                label="Copiez la Nouvelle Adresse"
+                label="Confirmation"
                 keyboardType="none"
                 onChangeText={(value) => setCopyNewAdress(value)}
                 value={copyNewAdress}

@@ -18,7 +18,7 @@ function ArrowSkip({ skipTo }: ArrowSkipProps) {
     >
       <MaterialCommunityIcons
         name={
-          skipTo === "UserTabNavigator"
+          skipTo === "UserTabNavigator" || skipTo === "PickerTabNavigator"
             ? "home-circle-outline"
             : "arrow-right-drop-circle-outline"
         }
