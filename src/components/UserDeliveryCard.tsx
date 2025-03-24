@@ -45,112 +45,140 @@ function UserDeliveryCard({
         status || isTaken ? styles.containerValid : styles.containerInvalid
       }
     >
-      <View style={{ flexDirection: "row" }}>
-        <Image source={require("../../assets/logo.png")} style={styles.image} />
-        <View
-          style={{
-            flexDirection: "column",
-            flex: 1,
-            marginRight: "5%",
-            height: "80%",
-            alignSelf: "center",
-            borderLeftWidth: 0.3,
-            borderLeftColor: "#52525250",
-            paddingLeft: "5%",
-          }}
-        >
-          <Text style={styles.title}>
-            N°{orderNumber.toUpperCase()} {status || isTaken ? "✅" : "⏳"}
-          </Text>
-          <Text style={styles.cardContent}>👤 {user}</Text>
-          <Text style={styles.cardContent}>📦 {packageSize}</Text>
-          <Text style={styles.cardContent}>📍 {distance}</Text>
-          <Text style={styles.cardContent}>💶 {price}€</Text>
-          <View
-            style={{
-              justifyContent: "flex-end",
-              alignSelf: "flex-end",
-              flex: 1,
-            }}
-          >
-            <Text
-              style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}
-            ></Text>
-          </View>
-        </View>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          flex: 1,
-          height: "20%",
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert(
+            "Êtes vous sûr de vouloir prendre ce colis ?",
+            'En cliquant sur "Accepter" vous vous engagez à aller chercher le colis dans la journée',
+            [
+              {
+                text: "Annuler",
+                style: "destructive",
+                onPress: () => {
+                  console.log(isTaken);
+                },
+              },
+              {
+                text: "Accepter",
+                onPress: () => {
+                  setIsTaken(true);
+                  onAccept();
+                },
+              },
+            ]
+          );
         }}
       >
-        {!isTaken ? (
-          <TouchableOpacity
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            source={require("../../assets/logo.png")}
+            style={styles.image}
+          />
+          <View
             style={{
-              borderTopWidth: 1,
-              borderRightWidth: 1,
-              borderLeftWidth: 1,
-              borderColor: "#52525220",
-              borderRadius: 50,
-              width: "50%",
-              alignItems: "center",
-              paddingTop: 0,
-              backgroundColor: "#fffbf0",
-            }}
-            onPress={() => {
-              Alert.alert(
-                "Êtes vous sûr de vouloir prendre ce colis ?",
-                'En cliquant sur "Accepter" vous vous engagez à aller chercher le colis dans la journée',
-                [
-                  {
-                    text: "Annuler",
-                    style: "destructive",
-                    onPress: () => {
-                      console.log(isTaken);
-                    },
-                  },
-                  {
-                    text: "Accepter",
-                    onPress: () => {
-                      setIsTaken(true);
-                      onAccept();
-                    },
-                  },
-                ]
-              );
+              flexDirection: "column",
+              flex: 1,
+              marginRight: "5%",
+              height: "80%",
+              alignSelf: "center",
+              borderLeftWidth: 0.3,
+              borderLeftColor: "#52525250",
+              paddingLeft: "5%",
             }}
           >
-            <Text
+            <Text style={styles.title}>
+              N°{orderNumber.toUpperCase()} {status || isTaken ? "✅" : "⏳"}
+            </Text>
+            <Text style={styles.cardContent}>👤 {user}</Text>
+            <Text style={styles.cardContent}>📦 {packageSize}</Text>
+            <Text style={styles.cardContent}>📍 {distance}</Text>
+            <Text style={styles.cardContent}>💶 {price}€</Text>
+            <View
               style={{
-                color: "#52525255",
-                alignSelf: "center",
-                fontSize: 15,
-                fontFamily: "Poppins-Regular",
+                justifyContent: "flex-end",
+                alignSelf: "flex-end",
+                flex: 1,
               }}
             >
-              Je prends !
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <View>
-            <Text
-              style={{
-                color: "#52525255",
-                alignSelf: "center",
-                fontSize: 15,
-                fontFamily: "Poppins-Regular",
-              }}
-            >
-              Commande acceptée le : {today}
-            </Text>
+              <Text
+                style={(styles.cardContent, { opacity: 0.2, fontSize: 11 })}
+              ></Text>
+            </View>
           </View>
-        )}
-      </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+            height: "20%",
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {!isTaken ? (
+            <TouchableOpacity
+              style={{
+                borderTopWidth: 1,
+                borderRightWidth: 1,
+                borderLeftWidth: 1,
+                borderColor: "#52525220",
+                borderRadius: 50,
+                width: "50%",
+                alignItems: "center",
+                paddingTop: 0,
+                backgroundColor: "#fffbf0",
+              }}
+              onPress={() => {
+                Alert.alert(
+                  "Êtes vous sûr de vouloir prendre ce colis ?",
+                  'En cliquant sur "Accepter" vous vous engagez à aller chercher le colis dans la journée',
+                  [
+                    {
+                      text: "Annuler",
+                      style: "destructive",
+                      onPress: () => {
+                        console.log(isTaken);
+                      },
+                    },
+                    {
+                      text: "Accepter",
+                      onPress: () => {
+                        setIsTaken(true);
+                        onAccept();
+                      },
+                    },
+                  ]
+                );
+              }}
+            >
+              <Text
+                style={{
+                  color: "#52525255",
+                  alignSelf: "center",
+                  fontSize: 15,
+                  fontFamily: "Poppins-Regular",
+                }}
+              >
+                Je prends !
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View>
+              <Text
+                style={{
+                  color: "#52525255",
+                  alignSelf: "center",
+                  fontSize: 15,
+                  fontFamily: "Poppins-Regular",
+                }}
+              >
+                Commande acceptée le : {today}
+              </Text>
+            </View>
+          )}
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }

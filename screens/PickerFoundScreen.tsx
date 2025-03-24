@@ -1,6 +1,12 @@
 import Layout from "@/components/Layout";
 import { useState, useEffect, useCallback } from "react";
-import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  TouchableOpacity,
+} from "react-native";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import UserDeliveryCard from "@/components/UserDeliveryCard";
@@ -114,6 +120,7 @@ function PickerFoundScreen({ navigation }) {
       }
     }
     return (
+      // <TouchableOpacity onPress={() => console.log("CLICKED")}>
       <UserDeliveryCard
         key={i}
         orderNumber={data._id.substring(0, 5)}
@@ -127,7 +134,12 @@ function PickerFoundScreen({ navigation }) {
     );
   });
   return (
-    <Layout footer title="Livraisons disponibles" arrowBack>
+    <Layout
+      footer
+      title="Livraisons disponibles"
+      description="Cliquez pour accepter une délivraison"
+      arrowBack
+    >
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         refreshControl={
